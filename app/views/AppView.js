@@ -1,42 +1,43 @@
 define([
   'jquery','underscore','backbone', // helper
-  'collections/OceanCollection','collections/ExpeditionCollection','collections/StationCollection', //collections
-  'views/NavView','views/ExpeditionsView','views/MapView','views/AboutView','views/IntroView', 
-  'views/OceansView','views/ExpeditionSingleView',//subviews
+//  'collections/', //collections
+  'views/IntroView','views/TacticsView',//subviews
   'text!templates/appTemplate.html'//templates
 ], function(
   $, _, Backbone,
-  OceanCollection,ExpeditionCollection, StationCollection,
-  NavView, ExpeditionsView, MapView,  AboutView, IntroView,
-  OceansView,ExpeditionSingleView,
+  IntroView, TacticsView,
   template
 ){
 
-  var AppView = Backbone.View.extend({
-    el: $("#application"),
+  var AppView = Backbone.View.extend({    
     initialize : function(options){
       this.options = options || {};
-      this.url = '';
-      this.subviews = {};
-      this.intro = true;
-      this.expeditionIntro = true;
-      this.dataLoaded = false;
-      this.render();   
+      this.model.set('dataLoaded', false);
+      this.render();
+      this.listenTo(this.model, 'change:route', this.routeUpdated);   
+            
+      // bind to window
+      $(window).scroll(_.debounce(_.bind(this.scrolled, this),10));
+    
     },
     events : {
       "updateRouteEvent" : "updateRoute",    
+      "scrollEvent" : "scrollEvent",    
       "click .resetApp" : "resetApp",      
       "resetAppEvent" : "resetApp",
     },      
     render: function(){     
-      $('body').addClass('loading-application');  
       
-      this.$el.html(_.template(template)({url_enc : encodeURIComponent(this.url)})); 
+      this.$el.html(_.template(template)({})); 
       
       // init subviews
+      this.model.addSubview('start',new IntroView({el:this.$('#intro-view')}));
+      this.model.addSubview('tactics',new TacticsView({el:this.$('#tactics-view')}));
+      
       //svg required
-      if (Modernizr.svg) {
-      }  
+      
+      
+      if (Modernizr.svg) {}  
     },
     
     loadData : function(callback) {
@@ -52,21 +53,47 @@ define([
       });
     },            
    
-//    // ROUTE HANDLERS ///////////////////////////////                
-    routeDefault : function(){
-      window._gaq.push(['_trackEvent', 'default', 'default', 'default']);
+    // ROUTE HANDLERS ///////////////////////////////                
+    routeUpdated : function(){
+//      window._gaq.push(['_trackEvent', 'default', 'default', 'default']);
+      console.log('routeUpdated');      
       
-      this.$el.attr('data-view','default');
+      console.log(this.model.get('route'));
+      var route = this.model.get('route').split('/');
+      
+      // scroll to corresponding view section
+      var subview = this.model.subviews[route[0]];
+      
+      if (typeof subview !== 'undefined') {
+        if (typeof subview.isScrollView !== 'undefined' && subview.isScrollView) {
+            subview.scroll(route[1]);
+        } else {
+          $('html,body').animate({
+            scrollTop: subview.$el.offset().top
+          }, 1000);
+        }
+        
+        
+      } else {
+        this.resetApp();
+      }
+      
+      // pass view the subview parameter
+      
+      
       if (Modernizr.svg) {        
+        // make sure data is loaded
         this.waitForData(function(){
         });      
       }
     },      
-    
-            
+       
+    scrolled : function(){
+     // console.log('scrolled');
+    },            
     waitForData : function(callback){
       var that = this;
-      if (this.dataLoaded){
+      if (this.model.get('dataLoaded')){
          callback();
       } else {
         setTimeout(function(){
@@ -77,22 +104,20 @@ define([
     
     // EVENT HANDLERS ////////////////////////////////////////////////////////////////
 
+    scrollEvent : function (event, args) {
+      console.log('scrollEvent');      
+      $('html,body').animate({
+        scrollTop: args.offset
+      }, 1000);
+    },    
+
     updateRoute : function (event, args) {
-//      console.log('updateRoute')
-      // todo check for arguments
-      var route = args.route;
-      
-      if (typeof args.id !== "undefined"){
-        route += '/'+args.id;
-      }
-      
-      this.options.router.navigate(route,{trigger:true});
+      console.log('updateRoute');      
+      this.model.get('router').navigate(args.route,{trigger:true});
     },    
     resetApp : function(){
-      this.intro=true;
-      this.$el.addClass('intro');
-      this.subviews.mapView.fitOcean('ALL');
-      $(this.el).trigger('updateRouteEvent',{route:''});
+      console.log('resetApp');
+      $(this.el).trigger('updateRouteEvent',{route:'start/'});
     },    
     
   });

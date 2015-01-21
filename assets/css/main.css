@@ -31,3 +31,33 @@ a:hover{
 .align-center{
   text-align:center;
 }
+
+
+.subview{
+  height: 3000px;
+}
+
+#intro-view{
+  background:#cccccc;
+}
+#tactics-view{
+  background:#333333;
+}
+
+.el {
+  width: 300px;
+  height: 200px;
+  display: block;
+  margin: 0 auto 50px;
+  
+  background: red;
+  
+  position:absolute;
+}
+
+.el2{
+  background:yellow;
+}
+.el3{
+  background:green;
+}

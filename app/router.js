@@ -2,16 +2,17 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'models/AppModel',
   'views/AppView'
-], function($, _, Backbone, AppView) {
+], function($, _, Backbone, AppModel, AppView) {
   
   var app = {};
   
   var AppRouter = Backbone.Router.extend({
     routes: {      
       // Default
-      '' : 'default',             
-      '/' : 'default',
+      "": "redirect",
+      "*splat": "catchAll"
     }
   });
   
@@ -20,17 +21,20 @@ define([
     app.Router = new AppRouter;
     
     // start app
-    app.AppView = app.AppView || new AppView({router:app.Router});
-    
-    app.Router.on('route:redirect', function () {
-      app.Router.navigate('',{trigger:true, replace: true});
+    app.AppModel = app.AppModel || new AppModel({router:app.Router,route:''});
+    app.AppView = app.AppView || new AppView({
+      el: $("#application"),
+      model:app.AppModel    
     });
-    app.Router.on('route:default', function () {
-      app.AppView.routeDefault();
-    });   
-            
-    
-    
+    app.Router.on('route:redirect', function () {
+      console.log('redirect');
+      app.Router.navigate('start/',{trigger:true});
+    });    
+    app.Router.on('route:catchAll', function (route) {   
+      console.log('catchAll');
+      app.AppModel.set('route',route);      
+    }); 
+
     Backbone.history.start();        
     
   };
