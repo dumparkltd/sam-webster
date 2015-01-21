@@ -1,0 +1,33 @@
+/* general styles ******************************************************************************************/
+
+
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+a:focus {
+  outline: none;
+}
+a:focus,
+a:hover{
+  text-decoration:none;
+}
+
+.list-inline {
+  font-size: 0;
+  list-style: none outside none;
+  margin: 0;
+  padding: 0;
+}
+  .list-inline > li {
+    display: inline-block;
+    font-size: 16px;
+    padding: 0;    
+    margin-left:0;
+  }
+  
+.align-center{
+  text-align:center;
+}

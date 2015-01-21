@@ -1,0 +1,50 @@
+<div id="intro-view" class="panel-full"></div>
+<header class="hideOnIntro">
+  <div class="container-fluid">  
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <a title="Back to Introduction" href="#" class="resetApp text-uppercase">      
+      <h1>Floating Plastic Map</h1>
+      <h2>Sailing the Seas of Plastic</h2>
+    </a>
+  </div>
+</header>
+<div id="map-view"></div>
+<div id="nav-view" class="hideOnIntro"></div>
+<div id="expedition-select" class="hideOnIntro">
+  <a title="Select Expedition Stage" href="#" class="toggleSidePanel" data-view="expeditionSelectView">
+      <div class="expedition-select-arrow icon-arrow-left"></div>  
+      <div class="expedition-select-text hidden-xxs" >Expedition stages</div>
+  </a>
+</div>
+<div id="expeditions-view" class="hidden hideOnIntro"></div> 
+<div id="about-view" class="hidden hideOnIntro"></div> 
+<div id="share-view" class="hidden hideOnIntro"></div> 
+<div id="expedition-single-view" class="panel-bottom panel-dark hidden hideOnIntro"></div>
+<div id="oceans-view" class="panel-bottom panel-dark hidden hideOnIntro"></div>
+<footer class="hideOnIntro panel-dark">
+  <div class="footer-wrapper container-fluid ">
+    <ul id="navbar-about" class="list-inline pull-left">
+      <li>  
+        <a title="Learn more about this map and science" href="#about" class="toggleSidePanel footer-help" data-view="aboutView">Learn more</a>
+      </li>  
+      <li>
+        <a href="#credits" class="toggleSidePanel showCredits style-subtle small" data-view="aboutView" data-subpanel="credits">Credits</a>
+      <li class="hidden-xs">
+        <a href="http://dumpark.com" target="_blank" class="style-subtle small">a data visualisation by dumpark</a>
+      </li>  
+    </ul>  
+    <ul id="navbar-social" class="list-inline pull-right">
+      <li class="hidden-xxs">
+        <a title="Tweet" href="//twitter.com/intent/tweet?hashtags=seasofplastic%2Cdataviz&original_referer=http%3A%2F%2Flocalhost%3A8000%2Fseas-of-plastic-2%2F&related=5gyres&text=Visualising%20268%2C000%2C000kg%20of%20plastic%20floating%20in%20our%20oceans&tw_p=tweetbutton&url=http%3A%2F%2Fapp.dumpark.com%2Fseas-of-plastic-2%2F&via=dumpark"
+           target="_blank" class="shareTweet icon-twitter"></a>
+      </li>  
+      <li class="hidden-xxs">
+        <a title="Share on Facebook" href="//www.facebook.com/sharer/sharer.php?u=<%= url_enc %>" 
+           target="_blank" class="shareFB icon-facebook"></a>    
+      </li>  
+      <li class="nav-share">
+        <a title="Share & Embed" href="#share" class="toggleSidePanel icon-share" data-view="aboutView" data-subpanel="share"></a>
+      </li>  
+    </ul>  
+  </div>  
+</footer>
