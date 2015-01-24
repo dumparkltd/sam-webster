@@ -1,10 +1,10 @@
 define([
   'jquery','underscore','backbone',  
   'views/ScrollView',  
-  'text!templates/introTemplate.html'
+  'text!templates/timelineTemplate.html'
 ], function($, _, Backbone, ScrollView, template){
 
-  var IntroView = ScrollView.extend({
+  var TimelineView = Backbone.View.extend({
     initialize : function(){
       this.render();
     },       
@@ -16,6 +16,6 @@ define([
    },
   });
 
-  return IntroView;
+  return TimelineView;
   
 });

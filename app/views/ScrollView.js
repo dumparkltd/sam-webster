@@ -8,7 +8,8 @@ define([
         frame_offset: 200
       };
 
-      this.options = $.extend(true, this.default_options, options);      
+      this.options = $.extend(true, this.default_options, options);               
+      this.frame = undefined;
       this.scrollElements = [];     
       Backbone.View.apply(this, arguments);   
       // bind to window
@@ -20,18 +21,20 @@ define([
       this.initScroll();
     },
     initScroll : function(){
+      var that = this;
+      // set height of helper div elements      
+      this.$('.frame-helper').css('height',this.options.frame_offset+'px');
+     
       
-      if (this.$('.frames').outerHeight() < $(window).height()) {
-        this.$('.frames').height($(window).height());
-        
-      } 
-      this.frame_height = this.$('.frames').outerHeight(); 
       
-      // allow scroll width
-      this.$el.height(this.frame_height * this.options.frame_offset);      
+      // define update
+      // when helper div hits top of screen show corresponding frame
       
-      // hide all frames but first
+      // activate first frame
+      // remember id of first frame
+      //this.frame = this.$('.frame').data('id');
       
+    
     },
     isScrollView : true,
     scroll : function(route) {
@@ -44,7 +47,7 @@ define([
       }
     },
     scrolled : function(){
-      console.log('scrollView.scrolled');
+     // console.log('scrollView.scrolled');
       
       // if top of section reaches top of window: $('html').scrollTop() > this.$el.offset().top 
       // -> fix frames
@@ -61,7 +64,7 @@ define([
       }
       if ($('html').scrollTop() > this.$el.offset().top ) {
         this.top();
-        console.log(Math.floor(($('html').scrollTop() - this.$el.offset().top) / this.options.frame_offset));
+        //console.log(Math.floor(($('html').scrollTop() - this.$el.offset().top) / this.options.frame_offset));
       }
 //      if ($('html').scrollTop() > this.$el.offset().top + this.$el.height()) {
 //        this.top();

@@ -33,8 +33,27 @@ a:hover{
 }
 
 
-.subview{
-  height: 3000px;
+aside {
+    background: none repeat scroll 0 0 white;
+    bottom: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100px;
+    z-index: 999;
+}
+.main {
+    margin-right: 100px;
+}
+.next-chapter {
+    bottom: 20px;
+    left: 50%;
+    position: fixed;
+    z-index: 999;
+}
+.fill-screen {
+    padding: 50px;
+    width:100%;
 }
 
 #intro-view{
@@ -43,7 +62,10 @@ a:hover{
 #tactics-view{
   background:#333333;
 }
-
+.frame {
+  height:600px;
+  position:absolute;
+}
 .el {
   width: 300px;
   height: 200px;

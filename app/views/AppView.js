@@ -1,11 +1,11 @@
 define([
   'jquery','underscore','backbone', // helper
 //  'collections/', //collections
-  'views/IntroView','views/TacticsView',//subviews
+  'views/IntroView','views/TacticsView','views/TimelineView',//subviews
   'text!templates/appTemplate.html'//templates
 ], function(
   $, _, Backbone,
-  IntroView, TacticsView,
+  IntroView, TacticsView, TimelineView,
   template
 ){
 
@@ -14,7 +14,8 @@ define([
       this.options = options || {};
       this.model.set('dataLoaded', false);
       this.render();
-      this.listenTo(this.model, 'change:route', this.routeUpdated);   
+      this.listenTo(this.model, 'change:routeUpdated', this.routeUpdated);      
+      //this.listenTo(this.model, 'change:slide', this.viewUpdated);      
             
       // bind to window
       $(window).scroll(_.debounce(_.bind(this.scrolled, this),10));
@@ -24,6 +25,7 @@ define([
       "updateRouteEvent" : "updateRoute",    
       "scrollEvent" : "scrollEvent",    
       "click .resetApp" : "resetApp",      
+      "click .next-chapter a" : "nextChapter",      
       "resetAppEvent" : "resetApp",
     },      
     render: function(){     
@@ -31,13 +33,19 @@ define([
       this.$el.html(_.template(template)({})); 
       
       // init subviews
-      this.model.addSubview('start',new IntroView({el:this.$('#intro-view')}));
-      this.model.addSubview('tactics',new TacticsView({el:this.$('#tactics-view')}));
+      this.model.addChapter(this.$('#intro-view').data('id'),new IntroView({el:this.$('#intro-view')}));
+      this.model.addChapter(this.$('#timeline-view').data('id'),new TimelineView({el:this.$('#timeline-view')}));
+      this.model.addChapter(this.$('#tactics-view').data('id'),new TacticsView({el:this.$('#tactics-view')}));
       
       //svg required
       
       
       if (Modernizr.svg) {}  
+      
+      this.$('.fill-screen').each(function(){
+        $(this).css('min-height',$(window).height());
+      });
+
     },
     
     loadData : function(callback) {
@@ -53,43 +61,69 @@ define([
       });
     },            
    
-    // ROUTE HANDLERS ///////////////////////////////                
+    // NAV HANDLERS ///////////////////////////////                
     routeUpdated : function(){
 //      window._gaq.push(['_trackEvent', 'default', 'default', 'default']);
       console.log('routeUpdated');      
       
-      console.log(this.model.get('route'));
-      var route = this.model.get('route').split('/');
-      
-      // scroll to corresponding view section
-      var subview = this.model.subviews[route[0]];
-      
-      if (typeof subview !== 'undefined') {
-        if (typeof subview.isScrollView !== 'undefined' && subview.isScrollView) {
-            subview.scroll(route[1]);
-        } else {
+      console.log(this.model.get('chapter-id'));
+        var chapter = this.model.getChapter();
+
+        if (typeof chapter !== 'undefined') {
+          // scroll to chapter
+          var that = this;
+          this.model.set('userScrolling', false);
           $('html,body').animate({
-            scrollTop: subview.$el.offset().top
-          }, 1000);
-        }
-        
-        
-      } else {
-        this.resetApp();
-      }
+            scrollTop: chapter.view.$el.offset().top
+          }, 
+          1000, 
+          function(){            
+            // then inside chapter scroll to slide
+            if (typeof chapter.view.isScrollView !== 'undefined' 
+                && chapter.view.isScrollView 
+                && that.model.get('slide-id') !== '') {
+          
+              chapter.view.scroll(this.model.get('slide-id'), function(){
+                // callback
+                that.model.set('userScrolling', true);
+              });
+            } else {
+              that.model.set('userScrolling', true);
+            }
+          });
+                          
+        } else {
+          this.resetApp();
+        }      
       
-      // pass view the subview parameter
-      
-      
-      if (Modernizr.svg) {        
-        // make sure data is loaded
-        this.waitForData(function(){
-        });      
-      }
+//      if (Modernizr.svg) {        
+//        // make sure data is loaded
+//        this.waitForData(function(){
+//        });      
+//      }
     },      
-       
+    nextChapter : function(e){
+      e.preventDefault();
+      $(this.el).trigger('updateRouteEvent',{route:this.model.getNextChapterID()});     
+    },   
     scrolled : function(){
-     // console.log('scrolled');
+      // only when the user is scrolling, not when animated by app          
+      if (this.model.get('userScrolling')) {
+        var chapterID = this.model.get('chapter-id');
+        this.$('section.chapter').each(function(index){
+          if ($('html').scrollTop() >= $(this).offset().top) {
+            // chapter is in view  
+            chapterID = $(this).data('id');
+          }
+        });
+        if (chapterID !== this.model.get('chapter-id')){
+           console.log('scrolled: ' + chapterID);
+
+           // remember current chapter    
+           this.model.set('chapter-id',chapterID);
+           this.model.get('router').navigate(chapterID,{trigger:false}); 
+         }
+      }
     },            
     waitForData : function(callback){
       var that = this;
@@ -103,14 +137,16 @@ define([
     },
     
     // EVENT HANDLERS ////////////////////////////////////////////////////////////////
-
+    chapterEvent : function (event, args){
+      console.log('chapterEvent'); 
+     
+    },
     scrollEvent : function (event, args) {
       console.log('scrollEvent');      
       $('html,body').animate({
         scrollTop: args.offset
       }, 1000);
     },    
-
     updateRoute : function (event, args) {
       console.log('updateRoute');      
       this.model.get('router').navigate(args.route,{trigger:true});

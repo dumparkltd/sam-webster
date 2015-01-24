@@ -21,7 +21,7 @@ define([
     app.Router = new AppRouter;
     
     // start app
-    app.AppModel = app.AppModel || new AppModel({router:app.Router,route:''});
+    app.AppModel = app.AppModel || new AppModel({router:app.Router,chapter:''});
     app.AppView = app.AppView || new AppView({
       el: $("#application"),
       model:app.AppModel    
@@ -32,7 +32,14 @@ define([
     });    
     app.Router.on('route:catchAll', function (route) {   
       console.log('catchAll');
-      app.AppModel.set('route',route);      
+      var route = route.split('/')
+      app.AppModel.set('chapter-id',route[0]);  
+      if (route.length>1){
+        app.AppModel.set('slide-id',route[1]);
+      } else {
+        app.AppModel.set('slide-id','');
+      }
+      app.AppModel.set('routeUpdated',new Date().getTime());
     }); 
 
     Backbone.history.start();        
