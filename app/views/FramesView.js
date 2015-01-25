@@ -15,7 +15,7 @@ define([
       this.frames = {};     
       
       // init scroll position
-      this.lastScrollTop = $('html').scrollTop();
+      this.lastScrollTop = $(document).scrollTop();;
       
       // bind scroll event
       $(window).scroll(_.debounce(_.bind(this.scrolled, this),1));  
@@ -56,7 +56,7 @@ define([
       this.$('.frames').addClass('active'); 
       var that = this;
       
-      var scrollTop = $('html').scrollTop();
+      var scrollTop = $(document).scrollTop();;
       var scrollDown = (scrollTop > that.lastScrollTop) ? true : false;
       // adjust view-height 
       if ( scrollTop >= this.$el.offset().top
