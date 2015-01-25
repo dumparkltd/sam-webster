@@ -15,7 +15,6 @@ define([
       this.model.set('dataLoaded', false);
       this.render();
       this.listenTo(this.model, 'change:routeUpdated', this.routeUpdated);      
-      //this.listenTo(this.model, 'change:slide', this.viewUpdated);      
             
       // bind to window
       $(window).scroll(_.debounce(_.bind(this.scrolled, this),10));
@@ -31,20 +30,24 @@ define([
     render: function(){     
       
       this.$el.html(_.template(template)({})); 
-      
-      // init subviews
-      this.model.addChapter(this.$('#intro-view').data('id'),new IntroView({el:this.$('#intro-view')}));
-      this.model.addChapter(this.$('#timeline-view').data('id'),new TimelineView({el:this.$('#timeline-view')}));
-      this.model.addChapter(this.$('#tactics-view').data('id'),new TacticsView({el:this.$('#tactics-view')}));
-      
-      //svg required
-      
-      
-      if (Modernizr.svg) {}  
-      
       this.$('.fill-screen').each(function(){
         $(this).css('min-height',$(window).height());
-      });
+      });      
+      // init subviews
+      this.model.addChapter(this.$('#intro-view').data('id'),new IntroView({
+        el:this.$('#intro-view')
+      }));
+      this.model.addChapter(this.$('#timeline-view').data('id'),new TimelineView({
+        el:this.$('#timeline-view')
+      }));
+      this.model.addChapter(this.$('#tactics-view').data('id'),new TacticsView({
+        el:this.$('#tactics-view')
+      }));
+      
+      //svg required
+
+      
+      if (Modernizr.svg) {}  
 
     },
     
@@ -73,24 +76,26 @@ define([
           // scroll to chapter
           var that = this;
           this.model.set('userScrolling', false);
-          $('html,body').animate({
-            scrollTop: chapter.view.$el.offset().top
-          }, 
-          1000, 
-          function(){            
-            // then inside chapter scroll to slide
-            if (typeof chapter.view.isScrollView !== 'undefined' 
-                && chapter.view.isScrollView 
-                && that.model.get('slide-id') !== '') {
           
-              chapter.view.scroll(this.model.get('slide-id'), function(){
-                // callback
-                that.model.set('userScrolling', true);
-              });
-            } else {
-              that.model.set('userScrolling', true);
-            }
-          });
+          if (typeof chapter.view.hasFramesView !== 'undefined' 
+                && chapter.view.hasFramesView 
+                && that.model.get('frame-id') !== '') {
+              chapter.view.goToFrame(that.model.get('frame-id'),
+              1000,
+              function(){            
+                // then inside chapter scroll to frame             
+                that.model.set('userScrolling', true);            
+              });                      
+          } else {
+            $('html,body').animate({
+              scrollTop: chapter.view.$el.offset().top
+            }, 
+            1000, 
+            function(){            
+              // then inside chapter scroll to frame             
+              that.model.set('userScrolling', true);            
+            });
+          }            
                           
         } else {
           this.resetApp();
@@ -142,10 +147,16 @@ define([
      
     },
     scrollEvent : function (event, args) {
-      console.log('scrollEvent');      
+      var default_options = {
+        duration : 1000
+      };
+      var options = $.extend(true, default_options, args);       
       $('html,body').animate({
-        scrollTop: args.offset
-      }, 1000);
+        scrollTop: options.offset
+      }, 
+      options.duration,
+      options.callback
+    );
     },    
     updateRoute : function (event, args) {
       console.log('updateRoute');      

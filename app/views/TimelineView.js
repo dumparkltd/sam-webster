@@ -1,8 +1,8 @@
 define([
   'jquery','underscore','backbone',  
-  'views/ScrollView',  
+//  'views/ScrollView',  
   'text!templates/timelineTemplate.html'
-], function($, _, Backbone, ScrollView, template){
+], function($, _, Backbone, template){
 
   var TimelineView = Backbone.View.extend({
     initialize : function(){

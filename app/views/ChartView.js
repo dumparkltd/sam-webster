@@ -51,6 +51,7 @@ define([
           this.formatPercent = d3.format("%");
         }
         Backbone.View.apply(this, arguments);
+        
       },
       initialize: function(options) {
         // Wrap chart

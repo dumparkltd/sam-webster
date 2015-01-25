@@ -35,9 +35,9 @@ define([
       var route = route.split('/')
       app.AppModel.set('chapter-id',route[0]);  
       if (route.length>1){
-        app.AppModel.set('slide-id',route[1]);
+        app.AppModel.set('frame-id',route[1]);
       } else {
-        app.AppModel.set('slide-id','');
+        app.AppModel.set('frame-id','');
       }
       app.AppModel.set('routeUpdated',new Date().getTime());
     }); 
