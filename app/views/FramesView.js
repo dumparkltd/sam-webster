@@ -18,7 +18,7 @@ define([
       this.lastScrollTop = $(document).scrollTop();;
       
       // bind scroll event
-      $(window).scroll(_.debounce(_.bind(this.scrolled, this),1));  
+      $(window).scroll(_.debounce(_.bind(this.scrolled, this),10));  
             
       // Call the original constructor
       Backbone.View.apply(this, arguments);         
