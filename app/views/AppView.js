@@ -18,6 +18,7 @@ define([
             
       // bind to window
       $(window).scroll(_.debounce(_.bind(this.scrolled, this),10));
+      $(window).resize(_.debounce(_.bind(this.resized, this),10));
     
     },
     events : {
@@ -129,7 +130,12 @@ define([
            this.model.get('router').navigate(chapterID,{trigger:false}); 
          }
       }
-    },            
+    },
+    resized : function(){
+      this.$('.fill-screen').each(function(){
+        $(this).css('min-height',$(window).height());
+      }); 
+    },
     waitForData : function(callback){
       var that = this;
       if (this.model.get('dataLoaded')){
