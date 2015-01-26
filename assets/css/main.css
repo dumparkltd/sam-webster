@@ -109,12 +109,13 @@ aside {
   visibility:hidden;
   display:none;
 }
-.frames-wrapper.init.scrolling .frame{
-  visibility:hidden;
+.frames-wrapper.init .frame.visible{
+  visibility:visible !important;
   display:block;
 }
-.frames-wrapper.init .frame.visible{
-  visibility:visible;
+/* when scrolling enabled */
+.frames-wrapper.init.scrolling .frame{
+  visibility:hidden;
   display:block;
 }
 .frames-wrapper.init.scrolling .frames-context-above-inner,
@@ -123,9 +124,9 @@ aside {
   top:0;
   left:0;  
 }
-.frames-wrapper.init.scrolling.active .frames-context-above-inner,
-.frames-wrapper.init.scrolling.active .frames-context-below-inner,
-.frames-wrapper.init.scrolling.active .frame{
+.frames-wrapper.init.scrolling.inside .frames-context-above-inner,
+.frames-wrapper.init.scrolling.inside .frames-context-below-inner,
+.frames-wrapper.init.scrolling.inside .frame{
   position:fixed;
   top:0;
   left:0;
@@ -142,30 +143,12 @@ aside {
     padding: 30px 0;
 }
 
-
-
 .frame {
   width: 100%;
   min-height: 400px;
   display: block;  
-  /*margin: 0 auto 50px;*/
 }
 
-.frame0 {
-  background: red;
-}
-
-.frame1{
-  background: yellow;
-}
-.frame2{
-  background: green;
-}
-
-
-.frame-nav {
-    top: 20px;
-    left: 0;
-    position: fixed;
-    z-index: 999;
+.frame-nav .frame-link.active{
+  font-weight:bold;
 }

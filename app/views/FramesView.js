@@ -4,7 +4,9 @@ define([
   var FramesView = Backbone.View.extend({
     isFramesView : true,    
     events : {
-      "click .frame-nav a" : "goToFrameEvent"
+      "click a.frame-link" : "goToFrameEvent",
+      "click a.frame-next" : "goToNextFrameEvent",
+      "click a.frame-prev" : "goToPreviousFrameEvent"
     },    
     constructor: function(options) {   
       // options
@@ -22,6 +24,7 @@ define([
       }
       
       // frames
+      this.currentFrame = 0;
       this.frames = [];     
       
       // init scroll position
@@ -31,6 +34,8 @@ define([
         // bind scroll event
         $(window).scroll(_.debounce(_.bind(this.scrolled, this),1));  
       }      
+      $(window).resize(_.debounce(_.bind(this.render, this),10));
+      
       // Call the original constructor
       Backbone.View.apply(this, arguments);         
     },        
@@ -49,20 +54,20 @@ define([
         // calculate offsets
         this.options.frames_offset_top = this.options.frames_offset_top +
                   this.$('.frames-context-above').outerHeight();
-        this.options.frames_offset_bottom = this.options.frames_offset_bottom +
-                  this.$('.frames-context-above').outerHeight();
+        this.options.frames_offset_bottom = this.options.frames_offset_bottom 
+                + this.$('.frames-context-below').outerHeight();
                   
         // set up frames
         var that = this;
+        var max_frame_height = 0;
         this.$('.frames .frame').each(function(index){
           //var frame_top = index*that.options.scroll_distance;
           that.frames[index] = {
             $frame  : $(this),          
-            //top     : frame_top, // relative offset to frames           
-            active  : false,
             height  : $(this).outerHeight()
           };
           $(this).css('top',that.options.frames_offset_top);        
+          max_frame_height = Math.max(max_frame_height,$(this).outerHeight());
         });
         this.$('.frames-wrapper').addClass('scrolling');
         
@@ -70,112 +75,122 @@ define([
         // height is height of frames section (incl scroll_distance) plus 
         var frames_height =
             (this.$('.frames .frame').length)*this.options.scroll_distance
-          + this.frames[this.frames.length-1].height;
+          + max_frame_height;
   
         this.$('.frames').height(frames_height);
                 
         this.$('.frames-context-above ').height(this.options.frames_offset_top);
         this.$('.frames-context-below ').height(this.options.frames_offset_bottom);
-        this.$('.frames-context-below-inner ').css('top',this.options.frames_offset_top + this.frames[0].height);
+        this.$('.frames-context-below-inner ').css('top',this.options.frames_offset_top + max_frame_height);
         
         // set wrapper height
-        var wrapper_height = frames_height 
+        this.$('.frames-wrapper').height(frames_height 
+                + this.options.frames_offset_top      
+                + this.options.frames_offset_bottom);      
+        
+        this.apparentHeight = max_frame_height
                 + this.options.frames_offset_top      
                 + this.options.frames_offset_bottom;
-        this.$('.frames-wrapper').height(wrapper_height);      
         
-        this.apparentHeight = this.frames[this.frames.length-1].height 
-                + this.options.frames_offset_top      
-                + this.options.frames_offset_bottom;
-        
-        console.log('wrapper_height '+ wrapper_height);
+        // call scrolled once to setup classes        
+        this.scrolled();
               
       // if not scrolling  
       } else {
         
         // set up frames     
         var that = this;
+        var max_frame_height = 0;        
         this.$('.frames .frame').each(function(index){
           that.frames[index] = {
-            $frame : $(this),          
-            top_above : 0,
-            top_below : 0
+            $frame    : $(this)            
           };
-        });        
+          max_frame_height = Math.max(max_frame_height,$(this).outerHeight());
+        });   
+        
+        this.$('.frames').height(max_frame_height);
+        
       }
-      this.frames[0].$frame.addClass('visible');
-      
+      this.showFrame(this.currentFrame);        
       
       this.$('.frames-wrapper').addClass('init');
     },
     scrolled : function(){
       if (this.options.enable_scrolling){
-
+        
+        // scroll position relative to scroll
         var scrollTopRelative = $(document).scrollTop() - this.$el.offset().top;
-        //var scrollDown = (scrollTopRelative > that.lastScrollTop) ? true : false;
-               
-        // when inside section 
-        if ( scrollTopRelative > 0
-          && scrollTopRelative <= this.apparentHeight + this.options.frames_offset_top
-        ) {
-          console.log('inside');
-          if (!this.$('.frames-wrapper').hasClass('active')) {
-            this.$('.frames-wrapper').addClass('active'); 
+        
+        // if above
+        if (scrollTopRelative < 0) {
+            this.$('.frames-wrapper').removeClass('inside'); 
+            this.$('.frames-wrapper').addClass('above'); 
+            this.showFrame(0);                  
+            this.$('.frames-context-above-inner').css('top',0);            
+        // if below
+        } else if (scrollTopRelative > this.apparentHeight + this.options.frames_offset_top) {
+            this.$('.frames-wrapper').removeClass('inside'); 
+            this.$('.frames-wrapper').addClass('below');                                  
+            this.showFrame(this.frames.length-1);      
+            this.$('.frames-context-above-inner').css('top',this.frames.length * this.options.scroll_distance);            
+        // if inside
+        } else {                               
+          if (!this.$('.frames-wrapper').hasClass('inside')) {            
             this.$('.frames-wrapper').removeClass('below'); 
             this.$('.frames-wrapper').removeClass('above'); 
+            this.$('.frames-wrapper').addClass('inside'); 
           }
-          // calculate frame number 
-          var index = 
-            Math.max(
-              Math.min(
-                Math.floor((scrollTopRelative) / this.options.scroll_distance),
-                this.frames.length-1),
-              0);
           // show frame
-          this.$('.frames .frame').removeClass('visible');
-          this.frames[index].$frame.addClass('visible');
-        // when outside section  
-        } else {
-          // show first when above
-          if ( scrollTopRelative < 0) {
-            console.log('above');
-            this.$('.frames-wrapper').addClass('above'); 
-            this.$('.frames .frame').removeClass('visible');
-            this.frames[0].$frame.addClass('visible');                      
-          }
-          // show last when below
-          if (scrollTopRelative >= this.apparentHeight + this.options.frames_offset_top) {
-            console.log('below');
-            this.$('.frames-wrapper').addClass('below');                                  
-            this.$('.frames .frame').removeClass('visible');
-            this.frames[this.frames.length-1].$frame.addClass('visible');          
-          }          
-          if (this.$('.frames-wrapper').hasClass('active')) {
-            this.$('.frames-wrapper').removeClass('active');
-          }
+          this.showFrame(Math.floor(scrollTopRelative / this.options.scroll_distance));                  
+          this.$('.frames-context-above-inner').css('top',0);
         }       
-       
-        this.lastScrollTop = scrollTopRelative; 
       }
+    },
+    showFrame : function(index){      
+      // validate index
+      index = Math.max(Math.min(index,this.frames.length-1),0);      
+      // show frame
+      this.$('.frames .frame').removeClass('visible');
+      this.frames[index].$frame.addClass('visible');
+      // activate navs
+      this.$('.frame-nav .frame-link').removeClass('active');
+      this.$('.frame-nav .frame-link-'+index).addClass('active');   
+      
+      this.currentFrame = index;
+      
     },
     goToFrameEvent : function(e){
       e.preventDefault();      
       this.goToFrame($(e.currentTarget).data('target'));
     },
+    goToNextFrameEvent : function(e){
+      e.preventDefault();
+      this.goToFrame((this.currentFrame + 1) % (this.frames.length));
+    }, 
+    goToPreviousFrameEvent : function(e){
+      e.preventDefault();
+      this.goToFrame((this.currentFrame - 1) >= 0 ? (this.currentFrame - 1) : this.frames.length-1);
+    }, 
     goToFrame : function(frameIndex, duration, callback) {
       if (this.options.enable_scrolling){
+        
         if (typeof this.frames[frameIndex] !== 'undefined') {
           $(this.el).trigger('scrollEvent',{
-            offset:this.offset_top + this.frames[frameIndex].top_above ,
+            offset:   this.$el.offset().top 
+                    + this.options.frames_offset_top 
+                    + (this.options.scroll_distance * frameIndex),
             duration: typeof duration !== 'undefined' ? duration : 0,
             callback: callback
           });
         }
       } else {
         if (typeof this.frames[frameIndex] !== 'undefined') {
-          this.frames[frameIndex].active = true;
+          // show/hide frames
           this.$('.frames .frame').removeClass('visible');          
-          this.frames[frameIndex].$frame.addClass('visible');            
+          this.frames[frameIndex].$frame.addClass('visible');       
+          // activate navs
+          this.$('.frame-nav .frame-link').removeClass('active');
+          this.$('.frame-nav .frame-link-'+frameIndex).addClass('active');
         }        
       }
     },            
