@@ -8,18 +8,29 @@ define([
     },    
     constructor: function(options) {   
       // options
-      this.default_options = {frame_offset: 300};
+      this.default_options = {
+        enable_scrolling: false, // turn scrolling on and off
+        scroll_distance: 300, // the distance between frame updates, if scrolling enabled
+        frames_offset_top:0, // the distance of the frames section to the top
+        frames_offset_bottom:0 // the distance of the frames section to the bottom
+      };
       this.options = $.extend(true, this.default_options, options);               
       
+      // make sure scrolling offset makes sense
+      if (this.options.enable_scrolling) {
+        this.options.enable_scrolling = (this.options.scroll_distance < 10 ) ? false : true;
+      }
+      
       // frames
-      this.frames = {};     
+      this.frames = [];     
       
       // init scroll position
-      this.lastScrollTop = $(document).scrollTop();;
+      if (this.options.enable_scrolling){
+        this.lastScrollTop = $(document).scrollTop();;
       
-      // bind scroll event
-      $(window).scroll(_.debounce(_.bind(this.scrolled, this),10));  
-            
+        // bind scroll event
+        $(window).scroll(_.debounce(_.bind(this.scrolled, this),1));  
+      }      
       // Call the original constructor
       Backbone.View.apply(this, arguments);         
     },        
@@ -32,100 +43,140 @@ define([
         $(this).css('min-height',$(window).height());
       });          
       
-      // set up frames
-      var that = this;
-      this.$('.frames .frame').each(function(index){
-        that.frames[index] = {
-          $frame : $(this),          
-          top_initial : index*that.options.frame_offset,
-          top_after : (index+1)*that.options.frame_offset,
-          active: false
-        };
-        $(this).css('top',index*that.options.frame_offset);
-      });
-      this.$('.frames .frame').first().addClass('visible');
       
-      // set up frames container
-      this.$('.frames').height(
-          (this.$('.frames .frame').length)*this.options.frame_offset
-        + this.$('.frames .frame').last().height()
-      );
-      this.$('.frames').addClass('init');
+      // if scrolling
+      if (this.options.enable_scrolling){
+        // calculate offsets
+        this.options.frames_offset_top = this.options.frames_offset_top +
+                  this.$('.frames-context-above').outerHeight();
+        this.options.frames_offset_bottom = this.options.frames_offset_bottom +
+                  this.$('.frames-context-above').outerHeight();
+                  
+        // set up frames
+        var that = this;
+        this.$('.frames .frame').each(function(index){
+          //var frame_top = index*that.options.scroll_distance;
+          that.frames[index] = {
+            $frame  : $(this),          
+            //top     : frame_top, // relative offset to frames           
+            active  : false,
+            height  : $(this).outerHeight()
+          };
+          $(this).css('top',that.options.frames_offset_top);        
+        });
+        this.$('.frames-wrapper').addClass('scrolling');
+        
+        // set element heights
+        // height is height of frames section (incl scroll_distance) plus 
+        var frames_height =
+            (this.$('.frames .frame').length)*this.options.scroll_distance
+          + this.frames[this.frames.length-1].height;
+  
+        this.$('.frames').height(frames_height);
+                
+        this.$('.frames-context-above ').height(this.options.frames_offset_top);
+        this.$('.frames-context-below ').height(this.options.frames_offset_bottom);
+        this.$('.frames-context-below-inner ').css('top',this.options.frames_offset_top + this.frames[0].height);
+        
+        // set wrapper height
+        var wrapper_height = frames_height 
+                + this.options.frames_offset_top      
+                + this.options.frames_offset_bottom;
+        this.$('.frames-wrapper').height(wrapper_height);      
+        
+        this.apparentHeight = this.frames[this.frames.length-1].height 
+                + this.options.frames_offset_top      
+                + this.options.frames_offset_bottom;
+        
+        console.log('wrapper_height '+ wrapper_height);
+              
+      // if not scrolling  
+      } else {
+        
+        // set up frames     
+        var that = this;
+        this.$('.frames .frame').each(function(index){
+          that.frames[index] = {
+            $frame : $(this),          
+            top_above : 0,
+            top_below : 0
+          };
+        });        
+      }
+      this.frames[0].$frame.addClass('visible');
+      
+      
+      this.$('.frames-wrapper').addClass('init');
     },
     scrolled : function(){
-      this.$('.frames').addClass('active'); 
-      var that = this;
-      
-      var scrollTop = $(document).scrollTop();;
-      var scrollDown = (scrollTop > that.lastScrollTop) ? true : false;
-      // adjust view-height 
-      if ( scrollTop >= this.$el.offset().top
-        && scrollTop < this.$el.offset().top + this.$el.height()
-      ) {
-        //this.$el.height(this.$el.height() + scrollTop - this.lastScrollTop); 
-      }       
-      
-      // adjust frames
-      _.each(this.frames,function(frame){
-        // if inside frame 
-        if ( !frame.active 
-          &&    (scrollDown // down
-                  && scrollTop >= frame.top_initial + that.$el.offset().top
-                  && scrollTop <  frame.top_initial + that.$el.offset().top + that.options.frame_offset)  
-            ||  (!scrollDown // up
-                  && scrollTop >= frame.top_after + that.$el.offset().top - that.options.frame_offset
-                  && scrollTop <  frame.top_after + that.$el.offset().top )  
-        ) {      
-          console.log('entering frame ' + frame.$frame.attr('class'));
-          frame.active = true;
-          
-          frame.$frame.css('top',frame.$frame.parent().offset().top - that.$el.offset().top + 'px');          
-          // fix frame
-          frame.$frame.addClass('fixed');
+      if (this.options.enable_scrolling){
+
+        var scrollTopRelative = $(document).scrollTop() - this.$el.offset().top;
+        //var scrollDown = (scrollTopRelative > that.lastScrollTop) ? true : false;
+               
+        // when inside section 
+        if ( scrollTopRelative > 0
+          && scrollTopRelative <= this.apparentHeight + this.options.frames_offset_top
+        ) {
+          console.log('inside');
+          if (!this.$('.frames-wrapper').hasClass('active')) {
+            this.$('.frames-wrapper').addClass('active'); 
+            this.$('.frames-wrapper').removeClass('below'); 
+            this.$('.frames-wrapper').removeClass('above'); 
+          }
+          // calculate frame number 
+          var index = 
+            Math.max(
+              Math.min(
+                Math.floor((scrollTopRelative) / this.options.scroll_distance),
+                this.frames.length-1),
+              0);
           // show frame
-          that.$('.frames .frame').removeClass('visible');
-          frame.$frame.addClass('visible');  
-        }
-
-
-        // if leaving frame scrolling down
-        if (frame.active && scrollDown ){
-          if ( scrollTop >= frame.top_initial + that.$el.offset().top + that.options.frame_offset) {
-            console.log('leaving frame scrolling down ' + frame.$frame.attr('class'));
-            frame.active = false;
-            // 1. unfix frame
-            frame.$frame.removeClass('fixed');
-            // 2. assign initial position + frame_offset
-            frame.$frame.css('top',frame.top_after);
-
+          this.$('.frames .frame').removeClass('visible');
+          this.frames[index].$frame.addClass('visible');
+        // when outside section  
+        } else {
+          // show first when above
+          if ( scrollTopRelative < 0) {
+            console.log('above');
+            this.$('.frames-wrapper').addClass('above'); 
+            this.$('.frames .frame').removeClass('visible');
+            this.frames[0].$frame.addClass('visible');                      
           }
-        // if leaving frame scrolling up
-        } else if (frame.active && !scrollDown ){
-          if (scrollTop < frame.top_after + that.$el.offset().top - that.options.frame_offset) {
-            console.log('leaving frame scrolling up ' + frame.$frame.attr('class'));
-            
-            frame.active = false;
-            // 1. unfix frame
-            frame.$frame.removeClass('fixed');
-            // 2. assign initial position + frame_offset
-            frame.$frame.css('top',frame.top_initial);            
+          // show last when below
+          if (scrollTopRelative >= this.apparentHeight + this.options.frames_offset_top) {
+            console.log('below');
+            this.$('.frames-wrapper').addClass('below');                                  
+            this.$('.frames .frame').removeClass('visible');
+            this.frames[this.frames.length-1].$frame.addClass('visible');          
+          }          
+          if (this.$('.frames-wrapper').hasClass('active')) {
+            this.$('.frames-wrapper').removeClass('active');
           }
-        }
-      });
-      this.lastScrollTop = scrollTop;        
-  
+        }       
+       
+        this.lastScrollTop = scrollTopRelative; 
+      }
     },
     goToFrameEvent : function(e){
       e.preventDefault();      
-      this.goToFrame($(e.currentTarget).data('target'))
+      this.goToFrame($(e.currentTarget).data('target'));
     },
     goToFrame : function(frameIndex, duration, callback) {
-      if (typeof this.frames[frameIndex] !== 'undefined') {
-        $(this.el).trigger('scrollEvent',{
-          offset:this.$el.offset().top + this.frames[frameIndex].top_initial,
-          duration: typeof duration !== 'undefined' ? duration : 0,
-          callback: callback
-        });
+      if (this.options.enable_scrolling){
+        if (typeof this.frames[frameIndex] !== 'undefined') {
+          $(this.el).trigger('scrollEvent',{
+            offset:this.offset_top + this.frames[frameIndex].top_above ,
+            duration: typeof duration !== 'undefined' ? duration : 0,
+            callback: callback
+          });
+        }
+      } else {
+        if (typeof this.frames[frameIndex] !== 'undefined') {
+          this.frames[frameIndex].active = true;
+          this.$('.frames .frame').removeClass('visible');          
+          this.frames[frameIndex].$frame.addClass('visible');            
+        }        
       }
     },            
     

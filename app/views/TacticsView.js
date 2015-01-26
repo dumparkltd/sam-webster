@@ -15,8 +15,8 @@ define([
       this.$el.html(_.template(template)({}));
       this.framesView = new TacticsFramesView({
         el:this.$('.frames-view'),
-        frame_offset:300,
-        offset:this.$('.frames-view').offset().top - this.$el.offset().top
+        enable_scrolling:true,
+        scroll_distance:300
       });            
       return this;      
     },
