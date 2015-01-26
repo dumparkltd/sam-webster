@@ -83,20 +83,59 @@ aside {
 }
 
 
-.frames {
+.frames-wrapper {
   position:relative;
   width:100%;
 }
-.frames.init .frame{
+.frames-wrapper .frames {
+  position:relative;
+}
+.frames-wrapper .frame{  
+  position:absolute;
+  top:0;
+} 
+.frames-wrapper.above .frame{    
+  top: 0!important;  
+}
+
+.frames-wrapper.init .frame{
   visibility:hidden;
-  position:absolute;    
+  display:none;
 }
-.frames.init.active .frame.fixed{
-  position:fixed;
+.frames-wrapper.init.scrolling .frame{
+  visibility:hidden;
+  display:block;
 }
-.frames.init .frame.visible{
+.frames-wrapper.init .frame.visible{
   visibility:visible;
+  display:block;
 }
+.frames-wrapper.init.scrolling .frames-context-above-inner,
+.frames-wrapper.init.scrolling .frames-context-below-inner{
+  position:absolute;
+  top:0;
+  left:0;  
+}
+.frames-wrapper.init.scrolling.active .frames-context-above-inner,
+.frames-wrapper.init.scrolling.active .frames-context-below-inner,
+.frames-wrapper.init.scrolling.active .frame{
+  position:fixed;
+  top:0;
+  left:0;
+}
+.frames-wrapper.init.scrolling.below .frames-context-below-inner,
+.frames-wrapper.init.scrolling.below .frame{
+  top: initial!important;  
+  bottom: 0!important;
+}
+
+
+.frames-context-above-inner,
+.frames-context-below-inner {
+    padding: 30px 0;
+}
+
+
 
 .frame {
   width: 100%;
@@ -105,14 +144,14 @@ aside {
   /*margin: 0 auto 50px;*/
 }
 
-.frame0.visible {
+.frame0 {
   background: red;
 }
 
-.frame1.visible{
+.frame1{
   background: yellow;
 }
-.frame2.visible{
+.frame2{
   background: green;
 }
 
@@ -122,5 +161,4 @@ aside {
     left: 0;
     position: fixed;
     z-index: 999;
-    display:none;
 }
