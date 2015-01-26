@@ -1,11 +1,11 @@
 define([
   'jquery','underscore','backbone', // helper
 //  'collections/', //collections
-  'views/IntroView','views/TacticsView','views/TimelineView',//subviews
+  'views/IntroView','views/TacticsView','views/TimelineView','views/PrepView',//subviews
   'text!templates/appTemplate.html'//templates
 ], function(
   $, _, Backbone,
-  IntroView, TacticsView, TimelineView,
+  IntroView, TacticsView, TimelineView, PrepView,
   template
 ){
 
@@ -19,6 +19,10 @@ define([
       // bind to window
       $(window).scroll(_.debounce(_.bind(this.scrolled, this),10));
       $(window).resize(_.debounce(_.bind(this.resized, this),10));
+      
+      //function onYouTubeIframeAPIReady(){
+      //  this.model.getChapterByID('prep').view.initPlayers();
+      //}
     
     },
     events : {
@@ -43,6 +47,9 @@ define([
       }));
       this.model.addChapter(this.$('#tactics-view').data('id'),new TacticsView({
         el:this.$('#tactics-view')
+      }));
+      this.model.addChapter(this.$('#prep-view').data('id'),new PrepView({
+        el:this.$('#prep-view')
       }));
       
       //svg required
