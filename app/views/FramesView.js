@@ -172,25 +172,23 @@ define([
       this.goToFrame((this.currentFrame - 1) >= 0 ? (this.currentFrame - 1) : this.frames.length-1);
     }, 
     goToFrame : function(frameIndex, duration, callback) {
-      if (this.options.enable_scrolling){
-        
+      if (this.options.enable_scrolling){        
         if (typeof this.frames[frameIndex] !== 'undefined') {
           $(this.el).trigger('scrollEvent',{
             offset:   this.$el.offset().top 
                     + this.options.frames_offset_top 
                     + (this.options.scroll_distance * frameIndex),
-            duration: typeof duration !== 'undefined' ? duration : 0,
+            duration: typeof duration !== 'undefined' 
+                    ? duration 
+                    : (this.$('.frames-wrapper').hasClass('inside') 
+                       ? 0 : 1000),
             callback: callback
           });
         }
       } else {
         if (typeof this.frames[frameIndex] !== 'undefined') {
           // show/hide frames
-          this.$('.frames .frame').removeClass('visible');          
-          this.frames[frameIndex].$frame.addClass('visible');       
-          // activate navs
-          this.$('.frame-nav .frame-link').removeClass('active');
-          this.$('.frame-nav .frame-link-'+frameIndex).addClass('active');
+          this.showFrame(frameIndex);
         }        
       }
     },            
