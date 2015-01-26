@@ -61,13 +61,6 @@ aside {
 #intro-view{
   padding: 50px 0;
 
-  /*background-image: url("../img/sam_hero.jpg");
-  background-position: center fixed;
-  background-size: cover;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;*/
-  
   background: url("../img/sam_hero.jpg") no-repeat center top; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
