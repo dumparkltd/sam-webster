@@ -1,11 +1,11 @@
 define([
   'jquery','underscore','backbone', // helper
 //  'collections/', //collections
-  'views/IntroView','views/TacticsView','views/TimelineView','views/PrepView',//subviews
+  'views/IntroView','views/TacticsView','views/TimelineView','views/PrepView','views/AdviceView',//subviews
   'text!templates/appTemplate.html'//templates
 ], function(
   $, _, Backbone,
-  IntroView, TacticsView, TimelineView, PrepView,
+  IntroView, TacticsView, TimelineView, PrepView, AdviceView,
   template
 ){
 
@@ -46,6 +46,9 @@ define([
       }));
       this.model.addChapter(this.$('#prep-view').data('id'),new PrepView({
         el:this.$('#prep-view')
+      }));
+      this.model.addChapter(this.$('#advice-view').data('id'),new AdviceView({
+        el:this.$('#advice-view')
       }));
       
       //initPlayers: function() {
