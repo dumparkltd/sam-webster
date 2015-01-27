@@ -14,6 +14,10 @@ a:focus,
 a:hover{
   text-decoration:none;
 }
+h1 {
+  text-transform:uppercase;
+  font-weight: bold;
+}
 
 .list-inline {
   font-size: 0;
@@ -32,16 +36,6 @@ a:hover{
   text-align:center;
 }
 
-
-aside {
-    background: none repeat scroll 0 0 white;
-    bottom: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
-    width: 100px;
-    z-index: 999;
-}
 .main {
     margin-right: 100px;
 }
@@ -56,94 +50,4 @@ aside {
 }
 .fill-screen {
     width:100%;
-}
-
-#intro-view{
-  padding: 50px 0;
-
-  background: url("../img/sam_hero.jpg") no-repeat center top; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-
-
-
-#tactics-view{
-  background:#aaa;
-}
-
-.tactics-video{
-  height:300px;
-  background:black;
-  width:100%;
-  display:block;
-}
-
-
-.frames-wrapper {
-  position:relative;
-  width:100%;
-}
-.frames-wrapper .frames {
-  position:relative;
-}
-.frames-wrapper .frame{  
-  position:absolute;
-  top:0;
-} 
-.frames-wrapper.above .frame{    
-  top: 0!important;  
-}
-
-.frames-wrapper.init .frame{
-  visibility:hidden;
-  display:none;
-}
-.frames-wrapper.init .frame.visible{
-  visibility:visible !important;
-  display:block;
-}
-/* when scrolling enabled */
-.frames-wrapper.init.scrolling .frame{
-  visibility:hidden;
-  display:block;
-}
-.frames-wrapper.init.scrolling .frames-context-above-inner,
-.frames-wrapper.init.scrolling .frames-context-below-inner{
-  position:absolute;
-  top:0;
-  left:0;  
-}
-.frames-wrapper.init.scrolling.inside .frames-context-above-inner,
-.frames-wrapper.init.scrolling.inside .frames-context-below-inner,
-.frames-wrapper.init.scrolling.inside .frame{
-  position:fixed;
-  top:0;
-  left:0;
-  padding-right: 100px;
-}
-.frames-wrapper.init.scrolling.below .frames-context-below-inner,
-.frames-wrapper.init.scrolling.below .frame{
-  top: initial!important;  
-  bottom: 0!important;
-}
-
-
-.frames-context-above-inner,
-.frames-context-below-inner {
-    padding: 30px 0;
-    z-index:999;
-}
-
-.frame {
-  width: 100%;
-  min-height: 400px;
-  display: block;  
-}
-
-.frame-nav .frame-link.active{
-  font-weight:bold;
 }

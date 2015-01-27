@@ -1,0 +1,8 @@
+/*!
+ * Bootstrap v3.3.2 (http://getbootstrap.com)
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ *//*!
+ * Generated using the Bootstrap Customizer (http://getbootstrap.com/customize/?id=6c044373190af47b42bc)
+ * Config saved to config.json and https://gist.github.com/6c044373190af47b42bc
+ */.list-group{border-radius:0;-webkit-box-shadow:0 1px 2px rgba(0,0,0,0.075);box-shadow:0 1px 2px rgba(0,0,0,0.075)}.list-group-item.active,.list-group-item.active:hover,.list-group-item.active:focus{text-shadow:0 -1px 0 #286090;background-image:-webkit-linear-gradient(top,#337ab7 0,#2b669a 100%);background-image:-o-linear-gradient(top,#337ab7 0,#2b669a 100%);background-image:-webkit-gradient(linear,left top,left bottom,from(#337ab7),to(#2b669a));background-image:linear-gradient(to bottom,#337ab7 0,#2b669a 100%);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7',endColorstr='#ff2b669a',GradientType=0);border-color:#2b669a}.list-group-item.active .badge,.list-group-item.active:hover .badge,.list-group-item.active:focus .badge{text-shadow:none}

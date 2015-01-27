@@ -1,0 +1,28 @@
+/* 
+    Document   : tactics
+    Created on : 28/01/2015, 8:59:16 AM
+    Author     : timo
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* Tactics specific */
+
+.tactics-video{
+  height:300px;
+  background:black;
+  width:100%;
+  display:block;
+}
+
+.tactics-svg-container{
+  position:relative;
+}
+.tactics-svg-img{
+  position:relative;
+}
+.tactics-svg-txt{
+  position:absolute;
+  top:30%;
+  left:20%
+}

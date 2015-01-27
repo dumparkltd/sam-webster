@@ -23,7 +23,7 @@
     "@font-size-base": "14px",
     "@font-size-large": "ceil((@font-size-base * 1.25))",
     "@font-size-small": "ceil((@font-size-base * 0.85))",
-    "@font-size-h1": "floor((@font-size-base * 2.6))",
+    "@font-size-h1": "floor((@font-size-base * 3))",
     "@font-size-h2": "floor((@font-size-base * 2.15))",
     "@font-size-h3": "ceil((@font-size-base * 1.7))",
     "@font-size-h4": "ceil((@font-size-base * 1.25))",
@@ -46,7 +46,7 @@
     "@padding-small-horizontal": "10px",
     "@padding-xs-vertical": "1px",
     "@padding-xs-horizontal": "5px",
-    "@line-height-large": "1.33",
+    "@line-height-large": "1.3333333",
     "@line-height-small": "1.5",
     "@border-radius-base": "0",
     "@border-radius-large": "0",
@@ -134,7 +134,7 @@
     "@container-sm": "@container-tablet",
     "@container-desktop": "(940px + @grid-gutter-width)",
     "@container-md": "@container-desktop",
-    "@container-large-desktop": "(1140px + @grid-gutter-width)",
+    "@container-large-desktop": "(940px + @grid-gutter-width)",
     "@container-lg": "@container-large-desktop",
     "@navbar-height": "50px",
     "@navbar-margin-bottom": "@line-height-computed",
@@ -378,28 +378,12 @@
   "css": [
     "type.less",
     "grid.less",
-    "forms.less",
-    "buttons.less",
     "responsive-utilities.less",
-    "navs.less",
-    "navbar.less",
-    "media.less",
-    "responsive-embed.less",
-    "close.less",
-    "component-animations.less",
-    "dropdowns.less",
-    "tooltip.less",
-    "popovers.less"
+    "pagination.less",
+    "jumbotron.less",
+    "list-group.less",
+    "responsive-embed.less"
   ],
-  "js": [
-    "dropdown.js",
-    "modal.js",
-    "tooltip.js",
-    "popover.js",
-    "tab.js",
-    "affix.js",
-    "collapse.js",
-    "transition.js"
-  ],
-  "customizerUrl": "http://getbootstrap.com/customize/?id=68133ed252042e2d5a16"
+  "js": [],
+  "customizerUrl": "http://getbootstrap.com/customize/?id=6c044373190af47b42bc"
 }

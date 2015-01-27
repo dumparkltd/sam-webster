@@ -1,0 +1,66 @@
+
+.frames-wrapper {
+  position:relative;
+  width:100%;
+}
+.frames-wrapper .frames {
+  position:relative;
+}
+.frames-wrapper .frame{  
+  position:absolute;
+  top:0;
+} 
+.frames-wrapper.above .frame{    
+  top: 0!important;  
+}
+
+.frames-wrapper.init .frame{
+  visibility:hidden;
+  display:none;
+}
+.frames-wrapper.init .frame.visible{
+  visibility:visible !important;
+  display:block;
+}
+/* when scrolling enabled */
+.frames-wrapper.init.scrolling .frame{
+  visibility:hidden;
+  display:block;
+}
+.frames-wrapper.init.scrolling .frames-context-above-inner,
+.frames-wrapper.init.scrolling .frames-context-below-inner{
+  position:absolute;
+  top:0;
+  left:0;  
+  width:100%;
+}
+.frames-wrapper.init.scrolling.inside .frames-context-above-inner,
+.frames-wrapper.init.scrolling.inside .frames-context-below-inner,
+.frames-wrapper.init.scrolling.inside .frame{
+  position:fixed;
+  top:0;
+  left:0;
+  padding-right: 100px
+}
+.frames-wrapper.init.scrolling.below .frames-context-below-inner,
+.frames-wrapper.init.scrolling.below .frame{
+  top: initial!important;  
+  bottom: 0!important;
+}
+
+
+.frames-context-above-inner,
+.frames-context-below-inner {
+    padding: 30px 0;
+    z-index:999;
+}
+
+.frame {
+  width: 100%;
+  min-height: 400px;
+  display: block;  
+}
+
+.frame-nav .frame-link.active{
+  font-weight:bold;
+}
