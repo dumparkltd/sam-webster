@@ -1,17 +1,23 @@
 define([
   'jquery','underscore','backbone',  
+  'views/PrepNutritionFramesView',//subviews
   'text!templates/prepTemplate.html'
-], function($, _, Backbone, template){
+], function($, _, Backbone, PrepNutritionFramesView, template){
 
   var PrepView = Backbone.View.extend({
     initialize : function(){
       this.render();
+      this.hasFramesView = true;
     },       
-    events : {
+    events : function(){
     },    
     render: function(){         
       this.$el.html(_.template(template)({}));
-      
+      this.framesView = new PrepNutritionFramesView({
+        el:this.$('.frames-view'),
+        enable_scrolling:true,
+        scroll_distance:300
+      });  
       this.initPlayers();
 
       return this;

@@ -30,3 +30,43 @@
 .prep-video {
   padding: 40px;
 }
+
+.prep-nutrition-chart{
+  /*margin-right: 100px;*/
+  font-size: 0px;
+}
+
+.prep-nutrition-chart-div{
+  display: inline-block;
+  font-size: 14px;
+}
+
+.prep-nutrition-chart-block-protein{
+  height:80px;
+  width:100%;
+  background-color:#0589d1;
+}
+.prep-nutrition-chart-label-protein{
+  text-align: center;
+  color:#0589d1;
+}
+
+.prep-nutrition-chart-block-carbs{
+  height:80px;
+  width:100%;
+  background-color:#f16601;
+}
+.prep-nutrition-chart-label-carbs{
+  text-align: center;
+  color:#f16601;
+}
+
+.prep-nutrition-chart-block-fat{
+  height:80px;
+  width:100%;
+  background-color:#b55002;
+}
+.prep-nutrition-chart-label-fat{
+  text-align: center;
+  color:#b55002;
+}
