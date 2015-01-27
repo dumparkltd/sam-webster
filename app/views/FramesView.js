@@ -52,14 +52,16 @@ define([
       // if scrolling
       if (this.options.enable_scrolling){
         // calculate offsets
-        this.options._frames_offset_top = this.options.frames_offset_top +
-                  this.$('.frames-context-above').outerHeight();
-        this.options._frames_offset_bottom = this.options.frames_offset_bottom 
-                + this.$('.frames-context-below').outerHeight();
+        this.options._frames_offset_top = this.options.frames_offset_top;
+        if (this.$('.frames-context-above').length > 0) 
+          this.options._frames_offset_top += this.$('.frames-context-above').outerHeight();
+        this.options._frames_offset_bottom = this.options.frames_offset_bottom;
+        if (this.$('.frames-context-below').length > 0) 
+          this.options._frames_offset_bottom += this.$('.frames-context-below').outerHeight();
                   
         // set up frames
         var that = this;
-        var max_frame_height = 0;
+        this.max_frame_height = 0;
         this.$('.frames .frame').each(function(index){
           //var frame_top = index*that.options.scroll_distance;
           that.frames[index] = {
@@ -67,7 +69,7 @@ define([
             height  : $(this).outerHeight()
           };
           $(this).css('top',that.options._frames_offset_top);        
-          max_frame_height = Math.max(max_frame_height,$(this).outerHeight());
+          that.max_frame_height = Math.max(that.max_frame_height,$(this).outerHeight());
         });
         this.$('.frames-wrapper').addClass('scrolling');
         
@@ -75,20 +77,20 @@ define([
         // height is height of frames section (incl scroll_distance) plus 
         var frames_height =
             (this.$('.frames .frame').length)*this.options.scroll_distance
-          + max_frame_height;
+          + this.max_frame_height;
   
         this.$('.frames').height(frames_height);
                 
         this.$('.frames-context-above ').height(this.options._frames_offset_top);
         this.$('.frames-context-below ').height(this.options._frames_offset_bottom);
-        this.$('.frames-context-below-inner ').css('top',this.options._frames_offset_top + max_frame_height);
+        this.$('.frames-context-below-inner ').css('top',this.options._frames_offset_top + this.max_frame_height);
         
         // set wrapper height
         this.$('.frames-wrapper').height(frames_height 
                 + this.options._frames_offset_top      
                 + this.options._frames_offset_bottom);      
         
-        this.apparentHeight = max_frame_height
+        this.apparentHeight = this.max_frame_height
                 + this.options._frames_offset_top      
                 + this.options._frames_offset_bottom;
         
@@ -100,15 +102,15 @@ define([
         
         // set up frames     
         var that = this;
-        var max_frame_height = 0;        
+        this.max_frame_height = 0;        
         this.$('.frames .frame').each(function(index){
           that.frames[index] = {
             $frame    : $(this)            
           };
-          max_frame_height = Math.max(max_frame_height,$(this).outerHeight());
+          this.max_frame_height = Math.max(this.max_frame_height,$(this).outerHeight());
         });   
         
-        this.$('.frames').height(max_frame_height);
+        this.$('.frames').height(this.max_frame_height);
         
       }
       this.showFrame(this.currentFrame);        
@@ -128,7 +130,7 @@ define([
             this.showFrame(0);                  
             this.$('.frames-context-above-inner').css('top',0);            
         // if below
-        } else if (scrollTopRelative > this.apparentHeight + this.options._frames_offset_top) {
+        } else if (scrollTopRelative > this.frames.length * this.options.scroll_distance) {
             this.$('.frames-wrapper').removeClass('inside'); 
             this.$('.frames-wrapper').addClass('below');                                  
             this.showFrame(this.frames.length-1);      
