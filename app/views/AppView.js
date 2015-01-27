@@ -20,17 +20,13 @@ define([
       $(window).scroll(_.debounce(_.bind(this.scrolled, this),10));
       $(window).resize(_.debounce(_.bind(this.resized, this),10));
       
-      //function onYouTubeIframeAPIReady(){
-      //  this.model.getChapterByID('prep').view.initPlayers();
-      //}
-    
     },
     events : {
       "updateRouteEvent" : "updateRoute",    
       "scrollEvent" : "scrollEvent",    
       "click .resetApp" : "resetApp",      
       "click .next-chapter a" : "nextChapter",      
-      "resetAppEvent" : "resetApp",
+      "resetAppEvent" : "resetApp"
     },      
     render: function(){     
       
@@ -52,37 +48,13 @@ define([
         el:this.$('#prep-view')
       }));
       
-      //svg required
-
-      
-      if (Modernizr.svg) {}  
-      
       //initPlayers: function() {
       if (typeof YT === 'undefined') {
-        $('head').append('<script src="//www.youtube.com/iframe_api" type="text/javascript"></script>');
-//      //This code loads the IFrame Player API code asynchronously.
-//        var tag = document.createElement('script');
-//        tag.src = "https://www.youtube.com/iframe_api";
-//        var firstScriptTag = document.getElementsByTagName('script')[0];
-//        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);        
+        $('head').append('<script src="//www.youtube.com/iframe_api" type="text/javascript"></script>');    
       }
-      //this.model.getChapterByID('prep').view.setupPlayers();
        
     },
     
-    loadData : function(callback) {
-      var that = this;
-      $.when(
-//        $.getJSON('app/data/Oceans.geojson'), 
-        
-      ).done(function (data) {
-        that.data = {
-          data:data
-        };
-        callback();
-      });
-    },            
-   
     // NAV HANDLERS ///////////////////////////////                
     routeUpdated : function(){
 //      window._gaq.push(['_trackEvent', 'default', 'default', 'default']);
@@ -119,13 +91,7 @@ define([
                           
         } else {
           this.resetApp();
-        }      
-      
-//      if (Modernizr.svg) {        
-//        // make sure data is loaded
-//        this.waitForData(function(){
-//        });      
-//      }
+        }           
     },      
     nextChapter : function(e){
       e.preventDefault();
@@ -142,8 +108,6 @@ define([
           }
         });
         if (chapterID !== this.model.get('chapter-id')){
-           console.log('scrolled: ' + chapterID);
-
            // remember current chapter    
            this.model.set('chapter-id',chapterID);
            this.model.get('router').navigate(chapterID,{trigger:false}); 
@@ -155,22 +119,9 @@ define([
         $(this).css('min-height',$(window).height());
       }); 
     },
-    waitForData : function(callback){
-      var that = this;
-      if (this.model.get('dataLoaded')){
-         callback();
-      } else {
-        setTimeout(function(){
-          that.waitForData(callback);
-        },250);
-      }                
-    },
+  
     
     // EVENT HANDLERS ////////////////////////////////////////////////////////////////
-    chapterEvent : function (event, args){
-      console.log('chapterEvent'); 
-     
-    },
     scrollEvent : function (event, args) {
       var default_options = {
         duration : 1000
