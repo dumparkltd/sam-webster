@@ -66,7 +66,7 @@ define([
 //        var firstScriptTag = document.getElementsByTagName('script')[0];
 //        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);        
       }
-      this.model.getChapterByID('prep').view.setupPlayers();
+      //this.model.getChapterByID('prep').view.setupPlayers();
        
     },
     
@@ -99,6 +99,7 @@ define([
           if (typeof chapter.view.hasFramesView !== 'undefined' 
                 && chapter.view.hasFramesView 
                 && that.model.get('frame-id') !== '') {
+              
               chapter.view.goToFrame(that.model.get('frame-id'),
               1000,
               function(){            
