@@ -21,6 +21,21 @@
 }
 
 
+/* Tactics specific */
+
+.tactics-svg-container{
+  position:relative;
+}
+.tactics-svg-img{
+  position:relative;
+}
+.tactics-svg-txt{
+  position:absolute;
+  top:30%;
+  left:20%
+}
+
+
 
 
 
