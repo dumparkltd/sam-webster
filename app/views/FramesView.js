@@ -52,9 +52,9 @@ define([
       // if scrolling
       if (this.options.enable_scrolling){
         // calculate offsets
-        this.options.frames_offset_top = this.options.frames_offset_top +
+        this.options._frames_offset_top = this.options.frames_offset_top +
                   this.$('.frames-context-above').outerHeight();
-        this.options.frames_offset_bottom = this.options.frames_offset_bottom 
+        this.options._frames_offset_bottom = this.options.frames_offset_bottom 
                 + this.$('.frames-context-below').outerHeight();
                   
         // set up frames
@@ -66,7 +66,7 @@ define([
             $frame  : $(this),          
             height  : $(this).outerHeight()
           };
-          $(this).css('top',that.options.frames_offset_top);        
+          $(this).css('top',that.options._frames_offset_top);        
           max_frame_height = Math.max(max_frame_height,$(this).outerHeight());
         });
         this.$('.frames-wrapper').addClass('scrolling');
@@ -79,18 +79,18 @@ define([
   
         this.$('.frames').height(frames_height);
                 
-        this.$('.frames-context-above ').height(this.options.frames_offset_top);
-        this.$('.frames-context-below ').height(this.options.frames_offset_bottom);
-        this.$('.frames-context-below-inner ').css('top',this.options.frames_offset_top + max_frame_height);
+        this.$('.frames-context-above ').height(this.options._frames_offset_top);
+        this.$('.frames-context-below ').height(this.options._frames_offset_bottom);
+        this.$('.frames-context-below-inner ').css('top',this.options._frames_offset_top + max_frame_height);
         
         // set wrapper height
         this.$('.frames-wrapper').height(frames_height 
-                + this.options.frames_offset_top      
-                + this.options.frames_offset_bottom);      
+                + this.options._frames_offset_top      
+                + this.options._frames_offset_bottom);      
         
         this.apparentHeight = max_frame_height
-                + this.options.frames_offset_top      
-                + this.options.frames_offset_bottom;
+                + this.options._frames_offset_top      
+                + this.options._frames_offset_bottom;
         
         // call scrolled once to setup classes        
         this.scrolled();
@@ -128,7 +128,7 @@ define([
             this.showFrame(0);                  
             this.$('.frames-context-above-inner').css('top',0);            
         // if below
-        } else if (scrollTopRelative > this.apparentHeight + this.options.frames_offset_top) {
+        } else if (scrollTopRelative > this.apparentHeight + this.options._frames_offset_top) {
             this.$('.frames-wrapper').removeClass('inside'); 
             this.$('.frames-wrapper').addClass('below');                                  
             this.showFrame(this.frames.length-1);      
@@ -176,7 +176,7 @@ define([
         if (typeof this.frames[frameIndex] !== 'undefined') {
           $(this.el).trigger('scrollEvent',{
             offset:   this.$el.offset().top 
-                    + this.options.frames_offset_top 
+                    + this.options._frames_offset_top 
                     + (this.options.scroll_distance * frameIndex),
             duration: typeof duration !== 'undefined' 
                     ? duration 
