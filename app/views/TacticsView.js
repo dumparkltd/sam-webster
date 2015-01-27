@@ -16,7 +16,7 @@ define([
       this.framesView = new TacticsFramesView({
         el:this.$('.frames-view'),
         enable_scrolling:true,
-        scroll_distance:300
+        scroll_distance:200
       });            
       return this;      
     },
