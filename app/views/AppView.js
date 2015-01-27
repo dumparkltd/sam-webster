@@ -56,7 +56,18 @@ define([
 
       
       if (Modernizr.svg) {}  
-
+      
+      //initPlayers: function() {
+      if (typeof YT === 'undefined') {
+        $('head').append('<script src="//www.youtube.com/iframe_api" type="text/javascript"></script>');
+//      //This code loads the IFrame Player API code asynchronously.
+//        var tag = document.createElement('script');
+//        tag.src = "https://www.youtube.com/iframe_api";
+//        var firstScriptTag = document.getElementsByTagName('script')[0];
+//        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);        
+      }
+      this.model.getChapterByID('prep').view.setupPlayers();
+       
     },
     
     loadData : function(callback) {
