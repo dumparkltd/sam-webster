@@ -34,21 +34,10 @@ define([
     },    
     render: function(){         
       this.$el.html(_.template(template)({}));      
-      
-      this.setupPlayers();
-      
+            
       return this;
     },
-    setupPlayers: function() {      
-      var that = this;
-      if (typeof YT !== 'undefined') {
-        this.initPlayers();
-      } else {
-        window.onYouTubeIframeAPIReady = function() {
-          that.initPlayers();
-        };
-      }        
-    },
+
     initPlayers:function(){
       
       var that = this;      
@@ -59,7 +48,7 @@ define([
           frameborder:0,
           videoId: player.player_id,
           events: {
-            'onReady': that.onPlayerReady,
+            'onReady': _.bind(that.onPlayerReady,that),
             'onPlaybackQualityChange': _.bind(that.onPlayerPlaybackQualityChange,that),
             'onStateChange': _.bind(that.onPlayerStateChange,that),
             'onError': _.bind(that.onPlayerError,that)

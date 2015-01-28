@@ -58,6 +58,17 @@ define([
       if (typeof YT === 'undefined') {
         $('head').append('<script src="//www.youtube.com/iframe_api" type="text/javascript"></script>');    
       }
+      
+      var that = this;
+      if (typeof YT !== 'undefined') {
+          that.model.getChapterByID('prep').view.initPlayers();
+          that.model.getChapterByID('tactics').view.initPlayers();  
+      } else {      
+        window.onYouTubeIframeAPIReady = function() {
+          that.model.getChapterByID('prep').view.initPlayers();
+          that.model.getChapterByID('tactics').view.initPlayers();          
+        };
+      }          
        
     },
     
