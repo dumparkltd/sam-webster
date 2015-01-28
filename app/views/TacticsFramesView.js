@@ -16,8 +16,8 @@ define([
     },    
     render: function(){         
       this.$el.html(_.template(template)({}));   
-      this.setupFrames();
       this.initTactics();
+      this.setupFrames();      
       return this;      
     },
     initTactics: function(){

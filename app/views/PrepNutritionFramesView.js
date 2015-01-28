@@ -16,8 +16,8 @@ define([
     },    
     render: function(){         
       this.$el.html(_.template(template)({}));   
+      this.initCharts();      
       this.setupFrames();
-      this.initCharts();
       return this;      
     },
     initCharts: function(){
