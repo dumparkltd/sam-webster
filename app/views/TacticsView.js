@@ -84,8 +84,8 @@ define([
           this.player.pauseVideo();          
         }
       } else {
-        if ((!this.playing) && typeof this.player !== 'undefined') {
-          this.player.playVideo();          
+        if ((!this.playing) && typeof this.player !== 'undefined' && typeof YT !== 'undefined') {
+          //this.player.playVideo();          
         }
       }     
     },

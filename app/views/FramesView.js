@@ -26,7 +26,8 @@ define([
       // frames
       this.currentFrame = 0;
       this.frames = [];     
-      
+      this.img_loaded = false;
+      this.totalImg = 0;
       // init scroll position
       if (this.options.enable_scrolling){
         this.lastScrollTop = $(document).scrollTop();;
@@ -35,14 +36,16 @@ define([
         $(window).scroll(_.debounce(_.bind(this.scrolled, this),1));  
       }      
       $(window).resize(_.debounce(_.bind(this.render, this),10));
+     
       
       // Call the original constructor
       Backbone.View.apply(this, arguments);         
     },        
     render : function(){
-      this.setupFrame();
+      this.setupFrames();
     },
     setupFrames : function(){
+      
       // set height for full-height frames
       this.$('.frame.fill-screen').each(function(){
         $(this).css('min-height',$(window).height());
@@ -63,7 +66,6 @@ define([
         var that = this;
         this.max_frame_height = 0;
         this.$('.frames .frame').each(function(index){
-          //var frame_top = index*that.options.scroll_distance;
           that.frames[index] = {
             $frame  : $(this),          
             height  : $(this).outerHeight()
@@ -96,6 +98,20 @@ define([
         
         // call scrolled once to setup classes        
         this.scrolled();
+        
+        // re-run this once all images have been loaded
+        var $img = this.$('.frames img');
+        this.totalImg = $img.length;
+        $img.each(function() {
+
+            $(this)
+                .load(that.waitImgDone)
+                .error(that.waitImgDone);
+        });        
+         
+
+
+        
               
       // if not scrolling  
       } else {
@@ -116,6 +132,13 @@ define([
       this.showFrame(this.currentFrame);        
       
       this.$('.frames-wrapper').addClass('init');
+    },
+    waitImgDone : function() {
+        this.totalImg--;
+        if ((this.totalImg===0) && (!this.img_loaded)) {
+          this.img_loaded = true;
+          this.setupFrames();              
+        }
     },
     scrolled : function(){
       if (this.options.enable_scrolling){
