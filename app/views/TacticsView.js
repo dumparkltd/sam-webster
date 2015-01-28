@@ -34,8 +34,8 @@ define([
     initPlayers:function(){
       console.log('initPlayers tactics');
       this.player = new YT.Player(this.player_config.player_el, {
-        height: '100%',
-        width: '100%',
+        height: '1280',
+        width: '720',
         frameborder:0,
         videoId: this.player_config.player_id,
         events: {
@@ -77,9 +77,9 @@ define([
         
       // scroll position relative to scroll
       var scrollTopRelative = $(document).scrollTop() - this.$el.offset().top;
-
+      var play_tolerance = 400;
       // if above or below
-      if (scrollTopRelative < 0 || scrollTopRelative > this.$el.outerHeight()) {
+      if (scrollTopRelative < -play_tolerance || scrollTopRelative > this.$el.outerHeight()) {
         if (this.playing) {
           this.player.pauseVideo();          
         }
