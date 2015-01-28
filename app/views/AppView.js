@@ -76,7 +76,7 @@ define([
                 && that.model.get('frame-id') !== '') {
               
               chapter.view.goToFrame(that.model.get('frame-id'),
-              1000,
+              0,
               function(){            
                 // then inside chapter scroll to frame             
                 that.model.set('userScrolling', true);            
@@ -85,7 +85,7 @@ define([
             $('html,body').animate({
               scrollTop: chapter.view.$el.offset().top
             }, 
-            1000, 
+            0, 
             function(){            
               // then inside chapter scroll to frame             
               that.model.set('userScrolling', true);            
