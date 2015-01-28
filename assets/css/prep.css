@@ -10,14 +10,17 @@
 
 /* Preparation specific */
 
-.prep-video {
+@media (min-width: 768px) {
+  .prep-video {
+    padding:30px;
+  }
 }
-
 .prep-nutrition-chart{
-  /*margin-right: 100px;*/
   font-size: 0px;
 }
-
+.nutrition-chart {
+    margin-bottom: 50px;
+}
 .prep-nutrition-chart-div{
   display: inline-block;
   font-size: 14px;

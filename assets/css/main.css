@@ -19,6 +19,18 @@ h1 {
   font-weight: bold;
 }
 
+.chapter h1.title{  
+  margin-top:30px;
+  border-top:2px solid;
+  display:inline-block;
+  padding-top:15px;
+  
+}
+p img{
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
 .list-inline {
   font-size: 0;
   list-style: none outside none;
@@ -50,4 +62,10 @@ h1 {
 }
 .fill-screen {
     width:100%;
+}
+#win-view {
+    background: none repeat scroll 0 0 #0589d1;
+    color: white;
+    min-height: 400px;
+    padding-top: 50px;
 }
