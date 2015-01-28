@@ -1,11 +1,11 @@
 define([
   'jquery','underscore','backbone', // helper
 //  'collections/', //collections
-  'views/IntroView','views/TacticsView','views/TimelineView','views/PrepView','views/AdviceView',//subviews
+  'views/IntroView','views/TacticsView','views/TimelineView','views/PrepView','views/AdviceView','views/WinView',//subviews
   'text!templates/appTemplate.html'//templates
 ], function(
   $, _, Backbone,
-  IntroView, TacticsView, TimelineView, PrepView, AdviceView,
+  IntroView, TacticsView, TimelineView, PrepView, AdviceView, WinView,
   template
 ){
 
@@ -50,11 +50,25 @@ define([
       this.model.addChapter(this.$('#advice-view').data('id'),new AdviceView({
         el:this.$('#advice-view')
       }));
+      this.model.addChapter(this.$('#win-view').data('id'),new WinView({
+        el:this.$('#win-view')
+      }));
       
       //initPlayers: function() {
       if (typeof YT === 'undefined') {
         $('head').append('<script src="//www.youtube.com/iframe_api" type="text/javascript"></script>');    
       }
+      
+      var that = this;
+      if (typeof YT !== 'undefined') {
+          that.model.getChapterByID('prep').view.initPlayers();
+          that.model.getChapterByID('tactics').view.initPlayers();  
+      } else {      
+        window.onYouTubeIframeAPIReady = function() {
+          that.model.getChapterByID('prep').view.initPlayers();
+          that.model.getChapterByID('tactics').view.initPlayers();          
+        };
+      }          
        
     },
     

@@ -28,6 +28,9 @@ define([
     goToFrame : function(frameIndex, duration, callback){
       this.framesView.goToFrame(frameIndex, duration, callback);
     },
+    initPlayers : function(){
+      this.videoView.initPlayers();
+    }
   });
 
   return PrepView;
