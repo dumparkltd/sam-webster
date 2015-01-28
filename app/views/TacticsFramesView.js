@@ -23,12 +23,12 @@ define([
     initTactics: function(){
     
       var speed=[0,15,16,20,26,33,51,60,68,71],
-          power=[0,320,31,73,154,334,1195,1378,1876,1467,1221],
+          power=[0,15,30,76,217,282,1394,1889,1798,1467],
           title=["Race starts","Lap 1","Lap 1","Lap 1","Lap 2","Lap 2","Lap 2","Lap 3","Lap 3","Lap 3"],
-          narrative=[ "Sam Webster and Jason Kenny on the starting line",
+          narrative=[ "Sam and Jason on the starting line",
                       "not allow Jason to carry speed",
                       "go high to counter attack",
-                      "move up and down the track to have hime follow",
+                      "move up & down the track to have him follow",
                       "start to put some power down",
                       "go high to match Jason's track height",
                       "holding back just a little bit",

@@ -3,19 +3,28 @@
     <div class="col-sm-3"> 
     <h2><%= title %></h2>
     <p> Average speed in section </p>
-    <p> <%= speed %> km/h</p>
+    <h3> <%= speed %> km/h</h3>
     <p> Average power in section </p>
-    <p> <%= power %> Watt</p>
+    <h3> <%= power %> Watt</h3>
     </div>
     <div class="col-sm-6"> 
       <div class="tactics-svg-container">
-        <img class="tactic-svg-img" src="assets/img/tactics-<%= index %>.svg" alt="">
+        <img class="tactic-svg-img img-responsive" src="assets/img/tactics-<%= index %>.svg" alt="">
         <div class="tactics-svg-txt"><%= narrative %></div>
       </div>
     </div>
     <div class="col-sm-3"> 
-    <p> Sam Webster </p>
-    <p> Jason Kenny </p>
+    <p class="tactic-sam"> <span></span> Sam Webster </p>
+    <p class="tactic-jason"> <span></span>  Jason Kenny </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-1"> 
+    </div>
+    <div class="col-sm-10"> 
+        <img class="tactic-power-svg-img img-responsive" src="assets/img/power-<%= index %>.svg" alt="">
+    </div>
+    <div class="col-sm-1"> 
     </div>
   </div>
 </div>
