@@ -29,7 +29,7 @@ define([
 
       
       for (i = 0; i < 3; i++) { 
-        this.$('.frame'+i).html(_.template(chartTemplate)({protein : nutritionData.protein[i], 
+        this.$('.frame'+i+' .nutrition-chart').html(_.template(chartTemplate)({protein : nutritionData.protein[i], 
                                                              carbs   : nutritionData.carbs[i] , 
                                                              fat     : nutritionData.fat[i] }));
       } 
