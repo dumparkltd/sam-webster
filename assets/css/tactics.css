@@ -12,16 +12,9 @@
   display:block;
 }
 
-.tactic-svg-container{
-  position:relative;
-}
 .tactic-svg-img{
-  position:relative;
 }
 .tactic-svg-txt{
-  position:absolute;
-  top:30%;
-  left:20%
 }
 
 .tactic-sam{
@@ -56,13 +49,10 @@
     background-color: #b44f00;
 }
 
-.tactic-power-svg-container{
-  position:relative;
-}
+
 
 .tactic-power-svg-img {
-  margin-top: 50px;
-  position:relative;
+  margin-top: 10px;
 }
 
 .tactic-power-hotspots {
@@ -82,14 +72,14 @@ height: 100%;
 cursor: pointer;
 }
 
-.tactic-power-hotspots .frame-link.frame-link-0 {left: 11%; width: 8%;}
-.tactic-power-hotspots .frame-link.frame-link-1 {left: 19%; width: 9%;}
-.tactic-power-hotspots .frame-link.frame-link-2 {left: 28%; width: 12%;}
-.tactic-power-hotspots .frame-link.frame-link-3 {left: 40%; width: 14%;}
-.tactic-power-hotspots .frame-link.frame-link-4 {left: 54%; width: 8.5%;}
-.tactic-power-hotspots .frame-link.frame-link-5 {left: 62.5%; width: 5.5%;}
-.tactic-power-hotspots .frame-link.frame-link-6 {left: 68%; width: 5.5%;}
-.tactic-power-hotspots .frame-link.frame-link-7 {left: 73.5%; width: 4%;}
-.tactic-power-hotspots .frame-link.frame-link-8 {left: 77.5%; width: 4%;}
-.tactic-power-hotspots .frame-link.frame-link-9 {left: 81.5%; width: 5%;}
+.tactic-power-hotspots .frame-link.frame-link-0 {left: 15%; width: 6.5%;}
+.tactic-power-hotspots .frame-link.frame-link-1 {left: 21.5%; width: 9%;}
+.tactic-power-hotspots .frame-link.frame-link-2 {left: 30.5%; width: 14.5%;}
+.tactic-power-hotspots .frame-link.frame-link-3 {left: 45%; width: 11%;}
+.tactic-power-hotspots .frame-link.frame-link-4 {left: 56%; width: 5.5%;}
+.tactic-power-hotspots .frame-link.frame-link-5 {left: 61.5%; width: 5.5%;}
+.tactic-power-hotspots .frame-link.frame-link-6 {left: 67%; width: 5%;}
+.tactic-power-hotspots .frame-link.frame-link-7 {left: 72%; width: 3.5%;}
+.tactic-power-hotspots .frame-link.frame-link-8 {left: 75.5%; width: 3.5%;}
+.tactic-power-hotspots .frame-link.frame-link-9 {left: 79%; width: 4%;}
 
