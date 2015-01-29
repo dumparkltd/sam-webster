@@ -2,6 +2,16 @@
 
 body {
   color:#051721;
+  font-family: 'FFDINWeb', Arial, sans-serif;
+}
+strong, b, .strong{
+  font-family: 'FFDINWebBold', Arial, sans-serif;
+  font-weight: normal; 
+  font-style: normal;  
+}
+.lead {
+  font-size:1.8em;
+  font-weight: normal; 
 }
 .browsehappy {
     margin: 0.2em 0;
@@ -20,11 +30,13 @@ a:hover{
 h1,h2{
   text-transform:uppercase;
 }
-h1,h2,h3,h4,h5 {  
-  font-weight:bold;
+h2,h3,h4,h5 {    
+  font-family: 'FFDINWebBold', Arial, sans-serif;
+  font-weight: normal; 
+  font-style: normal;    
 }
 h1 {
-  font-family: 'Tungsten A', 'Tungsten B'; 
+  font-family: 'Tungsten A', 'Tungsten B', Arial, sans-serif; 
   font-weight: 700; 
   font-style: normal;
 }
