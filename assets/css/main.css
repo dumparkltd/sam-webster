@@ -1,6 +1,8 @@
 /* general styles ******************************************************************************************/
 
-
+body {
+  color:#051721;
+}
 .browsehappy {
     margin: 0.2em 0;
     background: #ccc;
@@ -14,17 +16,25 @@ a:focus,
 a:hover{
   text-decoration:none;
 }
-h1 {
+
+h1,h2{
   text-transform:uppercase;
-  font-weight: bold;
+}
+h1,h2,h3,h4,h5 {  
+  font-weight:bold;
+}
+h1 {
+  font-family: 'Tungsten A', 'Tungsten B'; 
+  font-weight: 700; 
+  font-style: normal;
 }
 
 .chapter h1.title{  
   margin-top:30px;
-  border-top:2px solid;
+  border-top:1px solid #051721;
   display:inline-block;
-  padding-top:15px;
-  
+  padding-top:0px;
+  font-size:60px;
 }
 p img{
     display: block;
