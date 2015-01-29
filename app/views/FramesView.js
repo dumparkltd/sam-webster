@@ -14,6 +14,7 @@ define([
       // options
       this.default_options = {
         enable_scrolling: false, // turn scrolling on and off
+        fill_screen: true, // turn scrolling on and off
         scroll_distance: 300, // the distance between frame updates, if scrolling enabled
         frames_offset_top:0, // the distance of the frames section to the top
         frames_offset_bottom:0 // the distance of the frames section to the bottom
@@ -30,6 +31,8 @@ define([
       this.frames = [];     
       this.img_loaded = false;
       this.totalImg = 0;
+      this.scrollLength = 0;
+      
       // init scroll position
       if (this.options.enable_scrolling){
         this.lastScrollTop = $(document).scrollTop();;
@@ -47,11 +50,9 @@ define([
       this.setupFrames();
     },
     setupFrames : function(){
+
+      var that = this;
       
-      // set height for full-height frames
-      this.$('.fill-screen').each(function(){
-        $(this).css('min-height',$(window).height());
-      });          
       
       
       // if scrolling
@@ -65,7 +66,6 @@ define([
           this.options._frames_offset_bottom += this.$('.frames-context-below').outerHeight();
                   
         // set up frames
-        var that = this;
         this.max_frame_height = 0;
         this.$('.frames .frame').each(function(index){
           that.frames[index] = {
@@ -79,9 +79,19 @@ define([
         
         // set element heights
         // height is height of frames section (incl scroll_distance) plus 
-        var frames_height =
-            (this.$('.frames .frame').length)*this.options.scroll_distance
-          + this.max_frame_height;
+        if (this.options.fill_screen && ($(window).height() > this.max_frame_height)){
+          this.scrollLength = this.frames.length * this.options.scroll_distance + ($(window).height()-this.max_frame_height);
+          var frames_height =
+                this.scrollLength
+              + this.max_frame_height;              
+        } else {        
+          this.scrollLength = this.frames.length * this.options.scroll_distance;
+          var frames_height =
+                this.scrollLength
+              + this.max_frame_height;                  
+        }        
+        
+        
   
         this.$('.frames').height(frames_height);
                 
@@ -90,31 +100,14 @@ define([
         this.$('.frames-context-below-inner ').css('top',this.options._frames_offset_top + this.max_frame_height);
         
         // set wrapper height
+
         this.$('.frames-wrapper').height(frames_height 
-                + this.options._frames_offset_top      
-                + this.options._frames_offset_bottom);      
-        
-        this.apparentHeight = this.max_frame_height
-                + this.options._frames_offset_top      
-                + this.options._frames_offset_bottom;
-        
+              + this.options._frames_offset_top      
+              + this.options._frames_offset_bottom); 
+                
         // call scrolled once to setup classes        
         this.scrolled();
         
-        // re-run this once all images have been loaded
-        var $img = this.$('.frames img');
-        this.totalImg = $img.length;
-        $img.each(function() {
-
-            $(this)
-                .load(that.waitImgDone)
-                .error(that.waitImgDone);
-        });        
-         
-
-
-        
-              
       // if not scrolling  
       } else {
         
@@ -131,6 +124,16 @@ define([
         this.$('.frames').height(this.max_frame_height);
         
       }
+      // re-run this once all images have been loaded
+      var $img = this.$('.frames img');
+      this.totalImg = $img.length;
+      $img.each(function() {
+
+          $(this)
+              .load(_.bind(that.waitImgDone,that))
+              .error(_.bind(that.waitImgDone,that));
+      });       
+      
       this.showFrame(this.currentFrame);        
       
       this.$('.frames-wrapper').addClass('init');
@@ -155,11 +158,11 @@ define([
             this.showFrame(0);                  
             this.$('.frames-context-above-inner').css('top',0);            
         // if below
-        } else if (scrollTopRelative > this.frames.length * this.options.scroll_distance) {
+        } else if (scrollTopRelative > this.scrollLength) {
             this.$('.frames-wrapper').removeClass('inside'); 
             this.$('.frames-wrapper').addClass('below');                                  
             this.showFrame(this.frames.length-1);      
-            this.$('.frames-context-above-inner').css('top',this.frames.length * this.options.scroll_distance);            
+            this.$('.frames-context-above-inner').css('top',this.scrollLength);            
         // if inside
         } else {                               
           if (!this.$('.frames-wrapper').hasClass('inside')) {            
