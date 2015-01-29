@@ -5,6 +5,8 @@ define([
     isFramesView : true,    
     events : {
       "click a.frame-link" : "goToFrameEvent",
+      //"click .frames-wrapper.inside .onMouseOver .frame-link" : "goToFrameEvent",
+      "click  .frame-link" : "goToFrameEvent",
       "click a.frame-next" : "goToNextFrameEvent",
       "click a.frame-prev" : "goToPreviousFrameEvent"
     },    
