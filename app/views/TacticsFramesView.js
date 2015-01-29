@@ -41,13 +41,13 @@ define([
         narrative : [     
     "Sam and Jason line up for the third and last race of the final, knowing that it would require the right tactic to win",
     "Sam's game plan was to not allow Jason to carry to much speed at the start and to be vigilant to avoid being attacked from behind",
-    "Sam would go high on the straights, thus gaining potential energy to counter any potential attack, ",
+    "Sam would go high on the straights, thus gaining potential energy to counter any attack",
     "Sam continues to dictate the race by moving up and down the track, making sure Jason follows him closely",
     "While keeping the speed low at the start of lap 2, Sam starts to 'put some power down' coming out of the first turn",
     "When Jason climbs the track, Sam makes sure to match his opponent's track height while continuing to look back frequently",
-    "Getting out of his seat in turn 2, Sam goes close to his limit, and only holds back just a little bit when entering the final lap",
+    "Getting out of his seat in turn 2, Sam goes close to his limit, and only holds back a little bit when entering the final lap",
     "With little over 200m to go, Sam takes one last look around and executes the attack by dropping down into the back straight",
-    "Sam puts his head down and drives for home, knowing that his opponent behind will use the slip stream to overtake him on the final meters",
+    "Sam puts his head down and drives for home, knowing that his opponent behind will try to use the slip stream to overtake him on the final meters",
     "With less than a bike's length ahead of his opponent Sam crosses the finish line and win's his first Commonwealth individual gold"
         ]
       };
