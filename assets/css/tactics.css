@@ -83,3 +83,6 @@ cursor: pointer;
 .tactic-power-hotspots .frame-link.frame-link-8 {left: 75.5%; width: 3.5%;}
 .tactic-power-hotspots .frame-link.frame-link-9 {left: 79%; width: 4%;}
 
+.tactic-overview-container{
+  text-align: center;
+}
