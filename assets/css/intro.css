@@ -8,12 +8,12 @@
   background-size: cover;
 }
 
-#intro-view h1{
-  margin-top:33%;
-  border-top:2px solid;
-  font-size:4em;
-  display: inline-block;
-  padding-top:15px;
+#intro-view h1 {
+    border-top: 2px solid;
+    display: inline-block;
+    font-size: 6em;
+    margin-top: 33%;
+    padding-top: 0;
 }
 #intro-view p.content {
   font-size:1.8em;

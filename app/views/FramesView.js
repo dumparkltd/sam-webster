@@ -49,7 +49,7 @@ define([
     setupFrames : function(){
       
       // set height for full-height frames
-      this.$('.frame.fill-screen').each(function(){
+      this.$('.fill-screen').each(function(){
         $(this).css('min-height',$(window).height());
       });          
       

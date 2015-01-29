@@ -1,21 +1,29 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-3"> 
-    <h2><%= title %></h2>
+    <h2><%= data.lap[index] %></h2>
     <p> Average speed in section </p>
-    <h3> <%= speed %> km/h</h3>
+    <h3> <%= data.speed[index] %> km/h</h3>
     <p> Average power in section </p>
-    <h3> <%= power %> Watt</h3>
+    <h3> <%= data.power[index] %> Watt</h3>
     </div>
     <div class="col-sm-6"> 
       <div class="tactic-svg-container">
         <img class="tactic-svg-img img-responsive" src="assets/img/tactics-<%= index %>.svg" alt="" width="420" height="277">
-        <div class="tactic-svg-txt"><%= narrative %></div>
+        <div class="tactic-svg-txt">
+          <h5>
+            <%= data.title[index] %>                      
+          </h5>
+          <p>
+            <%= data.narrative[index] %>                    
+          </p>
+        </div>
+
       </div>
     </div>
     <div class="col-sm-3"> 
     <p class="tactic-sam"> <span></span> Sam Webster </p>
-    <p class="tactic-jason"> <span></span>  Jason Kenny </p>
+    <p class="tactic-jason"> <span></span> Jason Kenny </p>
     </div>
   </div>
   <div class="row">
