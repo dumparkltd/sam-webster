@@ -39,25 +39,27 @@ aside {
   aside li {
     display:block;
   }
-  aside li a,       
-  aside li a:focus{       
+  aside a,       
+  aside a:focus{       
     color:#787878;
     border-top:1px solid #787878;
   }
- aside li a{
-    text-transform:uppercase;
-    display:block;
-    width:100%;
-    padding:0 0 40px;
-    
-  }
-  aside li.active a,
-  aside li a:hover{
+  aside a{
+     text-transform:uppercase;
+     display:block;
+  } 
+  aside li a{ 
+     width:100%;
+     padding:0 0 40px;    
+   }
+  aside .active a,
+  aside .share a:hover,
+  aside a:hover{
     border-top:1px solid #fff;
     color:#fff;    
   }
   aside li#nav-win {
-      bottom: 100px;
+      bottom: 140px;
       position: fixed;
       right: 0;
   }
@@ -71,10 +73,20 @@ aside {
   aside li#nav-win.active a,
   aside li#nav-win a:hover{
     border-top:0;   
+    width: 130px;
   }
-
-
-
+  aside .share{
+      bottom: 40px;
+      right: 0;            
+      position: fixed;
+      width:100px;        
+      padding: 8px;
+  }
+  aside .share a{      
+      color:#787878;
+      border-top:1px solid #787878;      
+      display:block;
+  }
 
 
 

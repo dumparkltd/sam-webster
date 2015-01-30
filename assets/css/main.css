@@ -9,6 +9,13 @@ strong, b, .strong{
   font-weight: normal; 
   font-style: normal;  
 }
+.highlight{
+    font-family: 'Tungsten A', 'Tungsten B', Arial, sans-serif; 
+    font-weight: normal; 
+    font-style: normal;  
+    font-size:1.3em;
+    letter-spacing:1px;
+}
 .lead {
   font-size:1.8em;
   font-weight: normal; 
@@ -40,6 +47,7 @@ h1 {
   font-family: 'Tungsten A', 'Tungsten B', Arial, sans-serif; 
   font-weight: 700; 
   font-style: normal;
+  letter-spacing:1px;  
 }
 
 .chapter h1.title{  
@@ -114,6 +122,11 @@ p img{
 #intro-view .next-chapter a {
   color: #fff;
 }
-.next-chapter a .icon-arrow-down{
-  font-size:30px;
+footer {
+  color:white;
+  background: none repeat scroll 0 0 #051721;
+  padding: 60px 0;
+}
+footer a{
+  color:white;
 }
