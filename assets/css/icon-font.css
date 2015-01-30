@@ -17,6 +17,8 @@
 	font-variant: normal;
 	text-transform: none;
 	line-height: 1;
+  font-size: 30px;
+
 
 	/* Better Font Rendering =========== */
 	-webkit-font-smoothing: antialiased;
@@ -31,7 +33,11 @@
 .icon-HPSNZ-icon1:before {content: "\e605";}
 .icon-HPSNZ-icon2:before {content: "\e606";}
 
+
 .icon-cyclist-1, .icon-cyclist-2 {
-font-size: 34px;
+  font-size: 34px;
 }
 
+.icon-HPSNZ-icon1 {
+  font-size:300px;
+}
