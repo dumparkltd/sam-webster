@@ -26,6 +26,7 @@ define([
       "scrollEvent" : "scrollEvent",    
       "click .resetApp" : "resetApp",      
       "click .next-chapter a" : "nextChapter",      
+      "click .nav a" : "goToChapter",      
       "resetAppEvent" : "resetApp"
     },      
     render: function(){     
@@ -53,12 +54,12 @@ define([
       this.model.addChapter(this.$('#win-view').data('id'),new WinView({
         el:this.$('#win-view')
       }));
+      this.activateChapter(this.getChapterByPosition());
       
       //initPlayers: function() {
       if (typeof YT === 'undefined') {
         $('head').append('<script src="//www.youtube.com/iframe_api" type="text/javascript"></script>');    
-      }
-      
+      }      
       var that = this;
       if (typeof YT !== 'undefined') {
           that.model.getChapterByID('prep').view.initPlayers();
@@ -69,6 +70,7 @@ define([
           that.model.getChapterByID('tactics').view.initPlayers();          
         };
       }          
+
        
     },
     
@@ -113,29 +115,29 @@ define([
       $(this.el).trigger('updateRouteEvent',{route:this.model.getNextChapterID()});     
     },   
     scrolled : function(){
-      // only when the user is scrolling, not when animated by app          
+      this.activateChapter(this.getChapterByPosition());
+    },
+    activateChapter:function(chapterID){
+      this.$('.nav li').removeClass('active');
+      this.$('.nav li#nav-'+chapterID).addClass('active');      
+      if (this.model.get('userScrolling')) {        
+         // remember current chapter    
+         this.model.set('chapter-id',chapterID);
+         this.model.get('router').navigate(chapterID,{trigger:false}); 
+      }
+    },
+    getChapterByPosition : function(){           
       var chapterID = this.model.get('chapter-id');
-        var that = this;
-      
       this.$('section.chapter').each(function(index){
-        var scrollTolerance = 20;
+        var scrollTolerance = $(window).height()/2;
         if ($('html').scrollTop() >= $(this).offset().top - scrollTolerance) {
           // chapter is in view  
           chapterID = $(this).data('id');
-          that.$('.nav li').removeClass('active');
-          that.$('.nav li#nav-'+chapterID).addClass('active');
         }
-      });
-      if (this.model.get('userScrolling')) {
-        
-          if (chapterID !== this.model.get('chapter-id')){
-             // remember current chapter    
-             this.model.set('chapter-id',chapterID);
-             this.model.get('router').navigate(chapterID,{trigger:false}); 
-           }
-      }
-      
+      });      
+      return chapterID;
     },
+    
     resized : function(){
       this.$('.fill-screen').each(function(){
         $(this).css('min-height',$(window).height());
@@ -144,6 +146,14 @@ define([
   
     
     // EVENT HANDLERS ////////////////////////////////////////////////////////////////
+    goToChapter : function (e){
+      if ($(e.originalEvent.target).attr('href').split('#')[1] === this.model.get('chapter-id')) {
+        e.preventDefault();
+        $(this.el).trigger('scrollEvent',{
+          offset: this.model.getChapter().view.$el.offset().top
+        });                
+      }
+    },
     scrollEvent : function (event, args) {
       var default_options = {
         duration : 0
@@ -157,7 +167,6 @@ define([
     );
     },    
     updateRoute : function (event, args) {
-      console.log('updateRoute');      
       this.model.get('router').navigate(args.route,{trigger:true});
     },    
     resetApp : function(){
