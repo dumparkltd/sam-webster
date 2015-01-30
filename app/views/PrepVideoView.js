@@ -7,19 +7,19 @@ define([
     initialize : function(){
       this.players = [
         {
-          player_id:'GWCQFTgl5js',
+          player_id:'jX4F1RB9NXQ',
           player_el:'prep-player-1'
         },       
         {
-          player_id:'GWCQFTgl5js',
+          player_id:'A1PVxgXERfE',
           player_el:'prep-player-2'
         },       
         {
-          player_id:'GWCQFTgl5js',
+          player_id:'aIDdSFrCMko',
           player_el:'prep-player-3'
         },       
         {
-          player_id:'GWCQFTgl5js',
+          player_id:'CI_pX58xf7w',
           player_el:'prep-player-4'
         },       
       ];
