@@ -20,6 +20,52 @@ aside {
       right: 0;
       top: 0;
       width: 100px;
+      height:100%;
       z-index: 999;
+      padding:8px;
+      color:#787878;
+      font-family: 'Tungsten A', 'Tungsten B', Arial, sans-serif; 
+      font-weight: normal; 
+      font-style: normal;      
+      font-size:22px;
+      line-height:30px;      
   }
+  aside a {
+    color:#787878;
+  }
+  aside a:hover {
+    color:#fff;
+  }
+  aside .logo {
+    width:100%;
+    height:80px;
+  }
+  aside li {
+    display:block;
+  }
+  aside li a{
+        
+    border-top:1px solid #787878;
+    text-transform:uppercase;
+    display:block;
+    width:100%;
+    padding:0 0 40px;
+    
+  }
+  aside li a:hover{
+    border-top:1px solid #fff;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

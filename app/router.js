@@ -11,7 +11,7 @@ define([
   var AppRouter = Backbone.Router.extend({
     routes: {      
       // Default
-      "": "redirect",
+      "": "start",
       "*splat": "catchAll"
     }
   });
@@ -26,9 +26,10 @@ define([
       el: $("#application"),
       model:app.AppModel    
     });
-    app.Router.on('route:redirect', function () {
+    app.Router.on('route:start', function () {
       console.log('redirect');
-      app.Router.navigate('start/',{trigger:true});
+      app.AppModel.set('chapter-id','start');       
+      app.AppModel.set('routeUpdated',new Date().getTime());      
     });    
     app.Router.on('route:catchAll', function (route) {   
       console.log('catchAll');

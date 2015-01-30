@@ -207,10 +207,7 @@ define([
           $(this.el).trigger('scrollEvent',{
             offset:   this.$el.offset().top 
                     + (this.options.scroll_distance * (frameIndex + 0.5)),
-            duration: typeof duration !== 'undefined' 
-                    ? duration 
-                    : (this.$('.frames-wrapper').hasClass('inside') 
-                       ? 0 : 1000),
+            duration: typeof duration !== 'undefined' ? duration : 0,
             callback: callback
           });
         }
