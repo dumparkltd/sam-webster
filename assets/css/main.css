@@ -76,12 +76,7 @@ p img{
 .chapter {
   position:relative;
 }
-.next-chapter {
-    bottom: 20px;
-    left: 50%;
-    position: fixed;
-    z-index: 999;
-}
+
 .fill-screen {
     width:100%;
 }
@@ -90,4 +85,35 @@ p img{
     color: white;
     min-height: 400px;
     padding-top: 50px;
+}
+
+.next-chapter {
+    font-family: 'Tungsten A', 'Tungsten B', Arial, sans-serif;   
+    font-weight: normal; 
+    font-style: normal;     
+    text-transform:uppercase;
+    bottom: 20px;
+    left: 50%;
+    position: absolute;
+    z-index: 999;
+    font-size:18px;    
+}
+.next-chapter-upper{
+  font-size:22px;
+}
+.next-chapter-lower{
+  margin-bottom:6px;
+}
+.next-chapter a {
+    color: #051721;
+    display: block;
+    left: -50%;
+    position: relative;
+    text-align: center;
+}
+#intro-view .next-chapter a {
+  color: #fff;
+}
+.next-chapter a .icon-arrow-down{
+  font-size:30px;
 }

@@ -124,6 +124,10 @@ define([
          // remember current chapter    
          this.model.set('chapter-id',chapterID);
          this.model.get('router').navigate(chapterID,{trigger:false}); 
+         this.$el.removeClass (function (index, css) {
+          return (css.match (/(^|\s)chapter-\S+/g) || []).join(' ');
+        });
+        this.$el.addClass('chapter-'+chapterID);
       }
     },
     getChapterByPosition : function(){           
