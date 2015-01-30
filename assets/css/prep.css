@@ -10,11 +10,21 @@
 
 /* Preparation specific */
 
+#prep-view {
+  margin-top:100px;
+}
+
 @media (min-width: 768px) {
   .prep-video {
     padding:30px;
   }
 }
+
+.prep-video p{
+ text-align:center;
+ font-size: 18px;
+}
+
 .prep-nutrition-chart{
   font-size: 0px;
 }
