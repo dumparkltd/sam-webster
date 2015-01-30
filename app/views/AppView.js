@@ -115,11 +115,15 @@ define([
     scrolled : function(){
       // only when the user is scrolling, not when animated by app          
       var chapterID = this.model.get('chapter-id');
+        var that = this;
+      
       this.$('section.chapter').each(function(index){
         var scrollTolerance = 20;
         if ($('html').scrollTop() >= $(this).offset().top - scrollTolerance) {
           // chapter is in view  
           chapterID = $(this).data('id');
+          that.$('.nav li').removeClass('active');
+          that.$('.nav li#nav-'+chapterID).addClass('active');
         }
       });
       if (this.model.get('userScrolling')) {
