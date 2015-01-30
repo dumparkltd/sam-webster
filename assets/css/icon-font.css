@@ -1,0 +1,37 @@
+@font-face {
+	font-family: 'bikefont';
+	src:url('../fonts/bikefont.eot?-p49xow');
+	src:url('../fonts/bikefont.eot?#iefix-p49xow') format('embedded-opentype'),
+		url('../fonts/bikefont.woff?-p49xow') format('woff'),
+		url('../fonts/bikefont.ttf?-p49xow') format('truetype'),
+		url('../fonts/bikefont.svg?-p49xow#bikefont') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'bikefont';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-arrow-down:before {content: "\e600";}
+.icon-arrow-left:before {content: "\e601";}
+.icon-arrow-right:before {content: "\e602";}
+.icon-cyclist-1:before {content: "\e603";}
+.icon-cyclist-2:before {content: "\e604";}
+.icon-HPSNZ-icon1:before {content: "\e605";}
+.icon-HPSNZ-icon2:before {content: "\e606";}
+
+.icon-cyclist-1, .icon-cyclist-2 {
+font-size: 30px;
+}
+
