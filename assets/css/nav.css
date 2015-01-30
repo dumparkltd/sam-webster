@@ -27,8 +27,9 @@ aside {
       font-family: 'Tungsten A', 'Tungsten B', Arial, sans-serif; 
       font-weight: normal; 
       font-style: normal;      
-      font-size:22px;
+      font-size:18px;
       line-height:30px;      
+      letter-spacing:1px;
   }
   aside a {
     color:#787878;
@@ -57,7 +58,22 @@ aside {
     border-top:1px solid #fff;
     color:#fff;    
   }
-
+aside li#nav-win {
+    bottom: 100px;
+    position: fixed;
+    right: 0;
+}
+aside li#nav-win > a {
+    background: none repeat scroll 0 0 #0589d1;
+    color: #fff;
+    padding: 8px;
+    width: 120px;
+    border-top:0;       
+}
+  aside li#nav-win.active a,
+  aside li#nav-win a:hover{
+    border-top:0;   
+  }
 
 
 

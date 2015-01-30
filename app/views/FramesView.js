@@ -14,7 +14,7 @@ define([
       // options
       this.default_options = {
         enable_scrolling: false, // turn scrolling on and off
-        fill_screen: false, // turn scrolling on and off
+        fill_screen: true, // turn scrolling on and off
         scroll_distance: 300, // the distance between frame updates, if scrolling enabled
         frames_offset_top:0, // the distance of the frames section to the top
         frames_offset_bottom:0 // the distance of the frames section to the bottom
