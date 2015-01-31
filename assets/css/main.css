@@ -50,6 +50,10 @@ h1 {
   letter-spacing:1px;  
 }
 
+h2{
+margin-bottom: 30px;
+}
+
 h3 {
   text-align:center;
 }
@@ -134,3 +138,6 @@ footer {
 footer a{
   color:white;
 }
+
+
+
