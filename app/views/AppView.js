@@ -13,6 +13,8 @@ define([
     initialize : function(options){
       this.options = options || {};      
       
+      this.scrollDuration = 200;
+      
       this.render();  
      
       this.listenTo(this.model, 'change:routeUpdated', this.routeUpdated);         
@@ -90,7 +92,7 @@ define([
                 && that.model.get('frame-id') !== '') {
               
               chapter.view.goToFrame(that.model.get('frame-id'),
-              100, //duration
+              that.scrollDuration, //duration
               function(){            
                 // then inside chapter scroll to frame             
                 that.model.set('userScrolling', true);            
@@ -99,7 +101,7 @@ define([
             $('html,body').animate({
               scrollTop: chapter.view.$el.offset().top
             }, 
-            100, //duration
+            that.scrollDuration, //duration
             function(){            
               // then inside chapter scroll to frame             
               that.model.set('userScrolling', true);            
