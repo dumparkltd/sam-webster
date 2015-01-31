@@ -27,12 +27,10 @@ define([
       model:app.AppModel    
     });
     app.Router.on('route:start', function () {
-      console.log('redirect');
       app.AppModel.set('chapter-id','start');       
       app.AppModel.set('routeUpdated',new Date().getTime());      
     });    
     app.Router.on('route:catchAll', function (route) {   
-      console.log('catchAll');
       var route = route.split('/')
       app.AppModel.set('chapter-id',route[0]);  
       if (route.length>1){

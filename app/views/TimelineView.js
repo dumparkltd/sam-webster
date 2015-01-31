@@ -12,7 +12,7 @@ define([
     events : {
     },    
     render: function(){         
-      this.$el.html(_.template(template)({}));
+      this.$el.html(template);
       this.framesView = new TimelineFramesView({
         el:this.$('.frames-view'),
         enable_scrolling:true,

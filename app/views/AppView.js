@@ -11,11 +11,12 @@ define([
 
   var AppView = Backbone.View.extend({    
     initialize : function(options){
-      this.options = options || {};
-      this.model.set('dataLoaded', false);
-      this.render();
-      this.listenTo(this.model, 'change:routeUpdated', this.routeUpdated);      
-            
+      this.options = options || {};      
+      
+      this.render();  
+     
+      this.listenTo(this.model, 'change:routeUpdated', this.routeUpdated);         
+      
       // bind to window
       $(window).scroll(_.debounce(_.bind(this.scrolled, this),10));
       $(window).resize(_.debounce(_.bind(this.resized, this),10));
@@ -31,7 +32,8 @@ define([
     },      
     render: function(){     
       
-      this.$el.html(_.template(template)({})); 
+      this.$el.html(template);      
+      
       this.$('.fill-screen').each(function(){
         $(this).css('min-height',$(window).height());
       });      
@@ -43,7 +45,8 @@ define([
         el:this.$('#timeline-view')
       }));
       this.model.addChapter(this.$('#tactics-view').data('id'),new TacticsView({
-        el:this.$('#tactics-view')
+        el:this.$('#tactics-view'),
+        auto_play:true
       }));
       this.model.addChapter(this.$('#prep-view').data('id'),new PrepView({
         el:this.$('#prep-view')
@@ -55,7 +58,7 @@ define([
         el:this.$('#win-view')
       }));
       this.activateChapter(this.getChapterByPosition());
-      
+
       //initPlayers: function() {
       if (typeof YT === 'undefined') {
         $('head').append('<script src="//www.youtube.com/iframe_api" type="text/javascript"></script>');    
@@ -70,14 +73,11 @@ define([
           that.model.getChapterByID('tactics').view.initPlayers();          
         };
       }          
-
-       
     },
     
     // NAV HANDLERS ///////////////////////////////                
     routeUpdated : function(){
 //      window._gaq.push(['_trackEvent', 'default', 'default', 'default']);
-      console.log('routeUpdated: ' + this.model.get('chapter-id'));
         var chapter = this.model.getChapter();
 
         if (typeof chapter !== 'undefined') {
@@ -158,7 +158,7 @@ define([
         });                
       }
     },
-    scrollEvent : function (event, args) {
+    scrollEvent : function (e, args) {
       var default_options = {
         duration : 0
       };
@@ -170,11 +170,10 @@ define([
       options.callback
     );
     },    
-    updateRoute : function (event, args) {
+    updateRoute : function (e, args) {
       this.model.get('router').navigate(args.route,{trigger:true});
     },    
     resetApp : function(){
-      console.log('resetApp');
       $(this.el).trigger('updateRouteEvent',{route:'start'});
     },    
     

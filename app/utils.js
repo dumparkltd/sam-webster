@@ -45,3 +45,7 @@ if (!Array.prototype.filter) {
       return res;
   };
 }
+
+function waitFor(condition,callback){
+  condition ? callback() : setTimeout(function(){waitFor(callback);},250);                
+}

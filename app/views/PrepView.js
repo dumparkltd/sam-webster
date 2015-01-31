@@ -12,7 +12,7 @@ define([
     events : function(){
     },    
     render: function(){         
-      this.$el.html(_.template(template)({}));
+      this.$el.html(template);
       
       this.videoView = new PrepVideoView({
         el:this.$('.video-view')

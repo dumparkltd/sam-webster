@@ -6,11 +6,9 @@ define([
   var IntroView = Backbone.View.extend({
     initialize : function(){
       this.render();
-    },       
-    events : {
-    },    
+    }, 
     render: function(){         
-      this.$el.html(_.template(template)({}));
+      this.$el.html(template);
       return this;
    },
   });
