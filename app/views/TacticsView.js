@@ -12,8 +12,8 @@ define([
         {
           player_id:'GWCQFTgl5js',
           player_el:'tactics-player-1',
-          height: '1280',
-          width: '720',          
+          height: '720',
+          width: '1280'          
         }
       ];
       this.hasFramesView = true;

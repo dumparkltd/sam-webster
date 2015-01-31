@@ -19,6 +19,7 @@ define([
       this.players = [];
       
       this.playing = false;
+      
       this.auto_played = false; // only allow autoplay once
                        
       $(window).scroll(_.debounce(_.bind(this.scrolled, this),100));  
@@ -96,7 +97,6 @@ define([
       {
         if (this.playing) {
           this.playing.player.pauseVideo();          
-          this.playing = '';
         }
       } else {
         if (this.options.auto_play && !this.auto_played && typeof this.players[0].player !== 'undefined'){
