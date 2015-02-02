@@ -1,0 +1,23 @@
+
+
+#win-view {
+    background: none repeat scroll 0 0 #0589d1;
+    color: white;
+    min-height: 400px;
+}
+
+#win-view h1.title{
+  border-top: 1px solid white;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+#win-view .btn {
+border: solid 1px white;
+padding: 10px 20px;
+color: white;
+margin-top: 20px;
+margin-bottom: 120px;
+font-size: 23px;
+display: inline-block;
+}

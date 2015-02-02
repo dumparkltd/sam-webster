@@ -98,12 +98,7 @@ p img{
 .fill-screen {
     width:100%;
 }
-#win-view {
-    background: none repeat scroll 0 0 #0589d1;
-    color: white;
-    min-height: 400px;
-    padding-top: 50px;
-}
+
 
 .next-chapter {
     font-family: 'Tungsten A', 'Tungsten B', Arial, sans-serif;   

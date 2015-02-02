@@ -14,7 +14,7 @@
 .timeline-list{
   border-bottom: solid 1px #041720;
   height: 5px;
-  margin: 60px 10% 60px;
+  margin: 90px 10% 60px;
 }
 
 .timeline-list li{
@@ -115,7 +115,6 @@ text-align: center;
     
 
 .timeline-legend{
-  width:100%;
   text-align:right;
   padding-right: 4%;
 }
