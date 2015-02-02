@@ -5,7 +5,7 @@ require.config({
     'jquery.utils': 'libs/jquery-utils',
     'underscore': 'libs/underscore',
     'backbone': 'libs/backbone',
-    'd3': 'libs/d3.min',
+    'skrollr': 'libs/skrollr.min',    
     'templates': 'templates'
   },
   shim: {  

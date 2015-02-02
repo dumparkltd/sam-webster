@@ -6,7 +6,8 @@ define([
 ], function($, _, Backbone, VideoView, TacticsFramesView, template){
 
   var TacticsView = VideoView.extend({
-    initialize : function(){
+    initialize : function(options){
+      this.options = options;
 
       this.players = [
         {
@@ -28,15 +29,20 @@ define([
             
       this.framesView = new TacticsFramesView({
         el:this.$('.frames-view'),
-        enable_scrolling:true,
-        scroll_distance:200
-      });            
+        scrolling:'skrollr',
+        scroll_distance:200,
+        offset_top: this.options.offset_top + this.$('.frames-view').position().top
+      });        
       
       return this;
     },                  
     goToFrame : function(frameIndex, duration, callback){
       this.framesView.goToFrame(frameIndex, duration, callback);
-    }
+    },
+    getHeight : function(){
+      return this.$el.outerHeight() - this.framesView.$el.outerHeight() + this.framesView.getHeight();
+    },              
+            
 
   });
 

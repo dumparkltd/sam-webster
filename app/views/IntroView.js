@@ -10,7 +10,10 @@ define([
     render: function(){         
       this.$el.html(template);
       return this;
-   },
+    },
+    getHeight : function(){
+      return this.$el.outerHeight();
+    },             
   });
 
   return IntroView;

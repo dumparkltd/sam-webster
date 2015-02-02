@@ -5,7 +5,8 @@ define([
 ], function($, _, Backbone, PrepNutritionFramesView, PrepVideoView, template){
 
   var PrepView = Backbone.View.extend({
-    initialize : function(){
+    initialize : function(options){
+      this.options = options;
       this.render();                  
       this.hasFramesView = true;
     },       
@@ -19,9 +20,12 @@ define([
       });  
       this.framesView = new PrepNutritionFramesView({
         el:this.$('.frames-view'),
-        enable_scrolling:true,
-        scroll_distance:300
+        scrolling:'skrollr',
+        scroll_distance:200,
+        offset_top: this.options.offset_top + this.$('.frames-view').position().top
       });  
+      
+      
             
       return this;
     },
@@ -30,7 +34,10 @@ define([
     },
     initPlayers : function(){
       this.videoView.initPlayers();
-    }
+    },
+    getHeight : function(){
+      return this.$el.outerHeight() - this.framesView.$el.outerHeight() + this.framesView.getHeight();
+    },            
   });
 
   return PrepView;

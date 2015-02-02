@@ -1,10 +1,12 @@
 define([
   'jquery','underscore','backbone', // helper
+  'skrollr',
 //  'collections/', //collections
   'views/IntroView','views/TacticsView','views/TimelineView','views/PrepView','views/AdviceView','views/WinView',//subviews
   'text!templates/appTemplate.html'//templates
 ], function(
   $, _, Backbone,
+  skrollr,
   IntroView, TacticsView, TimelineView, PrepView, AdviceView, WinView,
   template
 ){
@@ -39,23 +41,69 @@ define([
       this.$('.fill-screen').each(function(){
         $(this).css('min-height',$(window).height());
       });      
+      var offset_top = 0;
+      var offset = 0;
+      var view;
       // init subviews
       this.model.addChapter(this.$('#intro-view').data('id'),new IntroView({
-        el:this.$('#intro-view')
-      }));
+        el:this.$('#intro-view'),
+        offset_top: offset_top
+      }));         
+      view = this.model.getChapterByID('start').view;
+      offset = view.getHeight();      
+      view.$el.attr('data-0','top:'+ offset_top +'px');
+      view.$el.attr('data-'+offset_top,'top:0px;');
+      offset_top += offset;        
+      view.$el.attr('data-'+offset_top,'top:-'+offset+'px;');          
+
+
       this.model.addChapter(this.$('#timeline-view').data('id'),new TimelineView({
-        el:this.$('#timeline-view')
-      }));
+        el:this.$('#timeline-view'),
+        auto_play:false,
+        offset_top: offset_top
+      }));      
+      view = this.model.getChapterByID('timeline').view;
+      offset = view.getHeight();      
+      view.$el.attr('data-0','top:'+ offset_top +'px');
+      view.$el.attr('data-'+offset_top,'top:0px;');
+      offset_top += offset;  
+      view.$el.attr('data-'+offset_top,'top:-'+offset+'px');            
+
       this.model.addChapter(this.$('#tactics-view').data('id'),new TacticsView({
         el:this.$('#tactics-view'),
-        auto_play:true
+        offset_top: offset_top
       }));
+      view = this.model.getChapterByID('tactics').view;
+      offset = view.getHeight();      
+      view.$el.attr('data-0','top:'+ offset_top +'px');
+      view.$el.attr('data-'+offset_top,'top:0px;');
+      offset_top += offset;  
+      view.$el.attr('data-'+offset_top,'top:-'+offset+'px');   
+
+
       this.model.addChapter(this.$('#prep-view').data('id'),new PrepView({
-        el:this.$('#prep-view')
+        el:this.$('#prep-view'),
+        offset_top: offset_top
       }));
+      view = this.model.getChapterByID('prep').view;
+      offset = view.getHeight();      
+      view.$el.attr('data-0','top:'+ offset_top +'px');
+      view.$el.attr('data-'+offset_top,'top:0px;');
+      offset_top += offset;  
+      view.$el.attr('data-'+offset_top,'top:-'+offset+'px');          
+  
       this.model.addChapter(this.$('#advice-view').data('id'),new AdviceView({
-        el:this.$('#advice-view')
+        el:this.$('#advice-view'),
+        offset_top: offset_top        
       }));
+      view = this.model.getChapterByID('advice').view;
+      offset = view.getHeight();      
+      view.$el.attr('data-0','top:'+ offset_top +'px');
+      view.$el.attr('data-'+offset_top,'top:0px;');
+      offset_top += offset;    
+      view.$el.attr('data-'+offset_top,'top:-'+offset+'px');          
+ 
+      
       this.model.addChapter(this.$('#win-view').data('id'),new WinView({
         el:this.$('#win-view')
       }));
@@ -74,7 +122,8 @@ define([
           that.model.getChapterByID('prep').view.initPlayers();
           that.model.getChapterByID('tactics').view.initPlayers();          
         };
-      }          
+      }
+      var s = skrollr.init();
     },
     
     // NAV HANDLERS ///////////////////////////////                

@@ -5,7 +5,8 @@ define([
 ], function($, _, Backbone, TimelineFramesView, template){
 
   var TimelineView = Backbone.View.extend({
-    initialize : function(){
+    initialize : function(options){
+      this.options = options;
       this.render();
       this.hasFramesView = true;      
     },       
@@ -15,14 +16,18 @@ define([
       this.$el.html(template);
       this.framesView = new TimelineFramesView({
         el:this.$('.frames-view'),
-        enable_scrolling:true,
-        scroll_distance:300
+        scrolling:'skrollr',
+        scroll_distance:200,
+        offset_top: this.options.offset_top
       });            
       return this;   
     },
     goToFrame : function(frameIndex, duration, callback){
       this.framesView.goToFrame(frameIndex, duration, callback);
-    }           
+    },
+    getHeight : function(){
+      return this.framesView.getHeight();
+    },            
   });
 
   return TimelineView;
