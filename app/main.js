@@ -2,7 +2,6 @@
 require.config({
   paths: {
     'jquery': 'libs/jquery',
-    'jquery.utils': 'libs/jquery-utils',
     'underscore': 'libs/underscore',
     'backbone': 'libs/backbone',
     'skrollr': 'libs/skrollr.min',    
@@ -21,9 +20,6 @@ require([
   'utils'
 ], function(App,analytics,utils){
   //analytics.track('');
-  // The "app" dependency is passed in as "App"
-  // Again, the other dependencies passed in are not "AMD" therefore don't pass a parameter to this function
-  if (!$('html').hasClass('oldie')) {
-    App.initialize();
-  }
+  App.initialize();
+
 });
