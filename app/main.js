@@ -21,5 +21,4 @@ require([
 ], function(App,analytics,utils){
   //analytics.track('');
   App.initialize();
-
 });
