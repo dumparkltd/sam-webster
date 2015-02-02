@@ -123,7 +123,7 @@ define([
           that.model.getChapterByID('tactics').view.initPlayers();          
         };
       }
-//      var s = skrollr.init();
+      var s = skrollr.init();
     },
     
     // NAV HANDLERS ///////////////////////////////                
