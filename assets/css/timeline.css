@@ -140,12 +140,13 @@ text-align: center;
 .timeline-race-type{
   position: absolute;
   right: 7px;
-  bottom: 7px;
+  bottom: 10px;
   color: #041720;
   opacity: 0.2;
 }
 
 .timeline-race-type .icon-cyclist-1, .timeline-race-type .icon-cyclist-2{
+  font-size:28px;
 }
 
 .timeline-event-separator{

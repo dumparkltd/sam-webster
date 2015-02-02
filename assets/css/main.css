@@ -18,7 +18,7 @@ strong, b, .strong{
     letter-spacing:1px;
 }
 .lead {
-  font-size:1.8em;
+  font-size:18px;
   font-weight: normal; 
 }
 .browsehappy {

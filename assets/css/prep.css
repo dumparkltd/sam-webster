@@ -23,9 +23,13 @@
   }
 }
 
-.prep-video p{
+.prep-video {
  text-align:center;
- font-size: 18px;
+ font-size: 14px;
+}
+
+.prep-video p{
+ font-size: 20px;
 }
 
 .prep-nutrition-chart{

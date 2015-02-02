@@ -17,8 +17,6 @@
 
 
 .tactic-txt{
-  position:relative;
-  height: 278px;
 }
 .tactic-txt h5{
   font-size: 16px;
@@ -32,6 +30,12 @@
  position: absolute;
  bottom:0;
 }
+
+
+.tactic-dashboard{
+  position:relative;
+  height:240px;
+  }
 
 .tactic-dashboard h5{
   font-size: 25px;
@@ -48,6 +52,7 @@
 
 .tactic-sam{
   color:#0488d0;
+  padding-bottom: 8px;
 }
 
 .tactic-jason{

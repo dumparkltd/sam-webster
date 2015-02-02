@@ -30,25 +30,25 @@ define([
     "Lining up",
     "Starting slow",
     "Going high",
-    "Having Jason follow",
-    "Increasing the pace",
+    "Keeping Jason behind",
+    "More speed",
     "Matching Jason's track height",
     "Holding back a little",
-    "Executing the attack",
-    "Driving for home",
+    "The attack",
+    "Bringing it home",
     "Winning Gold"
         ],
         narrative : [     
-    "Sam and Jason line up for the third and last race of the final, knowing that it would require the right tactic to win",
-    "Sam's game plan was to not allow Jason to carry to much speed at the start and to be vigilant to avoid being attacked from behind",
-    "Sam would go high on the straights, thus gaining potential energy to counter any attack",
-    "Sam continues to dictate the race by moving up and down the track, making sure Jason follows him closely",
-    "While keeping the speed low at the start of lap 2, Sam starts to 'put some power down' coming out of the first turn",
-    "When Jason climbs the track, Sam makes sure to match his opponent's track height while continuing to look back frequently",
-    "Getting out of his seat in turn 2, Sam goes close to his limit, and only holds back a little bit when entering the final lap",
-    "With little over 200m to go, Sam takes one last look around and executes the attack by dropping down into the back straight",
-    "Sam puts his head down and drives for home, knowing that his opponent behind will try to use the slip stream to overtake him on the final meters",
-    "With less than a bike's length ahead of his opponent Sam crosses the finish line and win's his first Commonwealth individual gold"
+    "Sam and Jason line up for the third and last race of the final.",
+    "Sam avoids letting Jason gain too much speed at the start. He’s careful to avoid being attacked from behind.",
+    "Sam goes high on the straights, gaining potential energy to counter the coming attack.",
+    "Sam continues to dictate the race, moving up and down the track, making sure Jason follows him closely.",
+    "While keeping the speed low at the start of lap 2, Sam puts some power down coming out of the first turn.",
+    "Jason climbs and so does Sam, who looks back frequently.",
+    "Getting out of his seat in turn 2, Sam rides close to his limit, holding back only a little entering the final lap.",
+    "With just over 200m to go, Sam takes one last look back then attacks, dropping into the back straight.",
+    "Head down and driving for home, Sam knows his opponent will try to use his slipstream to slingshot past him in the final metres.",
+    "Sam finishes less than a bike's length ahead of Jason."
         ]
       };
       
