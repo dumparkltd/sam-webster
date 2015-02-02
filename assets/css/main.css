@@ -3,6 +3,7 @@
 body {
   color:#041720;
   font-family: 'FFDINWeb', Arial, sans-serif;
+  font-size:16px;
 }
 strong, b, .strong{
   font-family: 'FFDINWebBold', Arial, sans-serif;
@@ -57,6 +58,7 @@ margin-bottom: 30px;
 h3 {
   text-align:center;
 }
+
 
 .chapter h1.title{  
   margin-top:30px;
@@ -139,5 +141,9 @@ footer a{
   color:white;
 }
 
+.instruction{
+  font-size:12px;
+  opacity:0.4;
+}
 
 

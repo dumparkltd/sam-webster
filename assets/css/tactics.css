@@ -8,6 +8,9 @@
 
 /* Tactics specific */
 
+
+
+
 .tactics-video{
   display:block;
 }
@@ -23,9 +26,7 @@
   font-family: 'FFDINWebBold';
   margin-bottom: 5px;
 }
-.tactic-txt p{
-  font-size: 16px;
-}
+
 
 .tactic-lgnd{
  position: absolute;
