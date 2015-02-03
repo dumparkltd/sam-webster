@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-3 tactic-txt"> 
+    <div class="col-lg-3 tactic-txt"> 
         <h5>
           <%= data.title[index] %>                      
         </h5>
@@ -8,16 +8,16 @@
           <%= data.narrative[index] %>                    
         </p>
     </div>
-    <div class="col-sm-6"> 
-      <img class="tactic-svg-img img-responsive" src="assets/img/tactics-<%= index %>.svg" alt="" width="420" height="278">
+    <div class="col-lg-6"> 
+      <img class="tactic-svg-img img-responsive" src="assets/img/tactics-<%= index %>.svg" alt="">
     </div>
-    <div class="col-sm-3 tactic-dashboard"> 
+    <div class="col-lg-3 tactic-dashboard"> 
       <div class="row">
-        <div class="col-xs-6 col-sm-12"> 
+        <div class="col-xs-6 col-sm-6 col-lg-12"> 
           <h5> <%= data.speed[index] %> km/h</h5>
           <p> Average speed</p>
         </div>
-        <div class="col-xs-6 col-sm-12"> 
+        <div class="col-xs-6 col-sm-6 col-lg-12"> 
           <h5> <%= data.power[index] %> Watt</h5>
           <p> Average power</p>
         </div>
@@ -29,11 +29,11 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-1"></div>
-    <div class="col-sm-10">
+
+    <div class="col-lg-offset-1 col-lg-10 ">
         <div class="tactic-power-svg-container">
-          <img class="tactic-power-svg-img img-responsive" src="assets/img/power-<%= index %>.svg" alt="" width="740" height="218" usemap="#tactic-power-img-map">
-          <div class="tactic-power-hotspots">
+          <img class="tactic-power-svg-img img-responsive hidden-xs" src="assets/img/power-<%= index %>.svg" alt="" usemap="#tactic-power-img-map">
+          <div class="tactic-power-hotspots hidden-xs">
             <div data-target="0" class="frame-link frame-link-0"></div>
             <div data-target="1" class="frame-link frame-link-1"></div>
             <div data-target="2" class="frame-link frame-link-2"></div>

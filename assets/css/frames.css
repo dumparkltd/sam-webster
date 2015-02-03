@@ -1,9 +1,13 @@
 .skrollable{
-  padding-right: 100px;
   position: fixed !important;
   width: 100%;
 }
 
+@media (min-width: 768px) {
+  .skrollable{
+    padding-right: 100px;
+  }
+}
 
 .frames-wrapper {
   position:relative;
