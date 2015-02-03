@@ -62,8 +62,7 @@ define([
       }));
       this.model.addChapter(this.$('#win-view').data('id'),new WinView({
         el:this.$('#win-view')  
-      }));
-      
+      }));  
       
       this.initSkrollr();
       this.skrollr = skrollr.init(); 
@@ -80,7 +79,7 @@ define([
       
       this.activateChapter(this.getChapterByPosition());
 
-      //initPlayers: function() {
+      
       if (typeof YT === 'undefined') {
         $('head').append('<script src="//www.youtube.com/iframe_api" type="text/javascript"></script>');    
       }      
@@ -94,7 +93,7 @@ define([
           that.model.getChapterByID('tactics').view.initPlayers();          
         };
       }
-// 
+ 
     },
     waitImgDone : function() {
         this.totalImg--;
