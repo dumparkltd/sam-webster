@@ -65,7 +65,9 @@ define([
       }));  
       
       this.initSkrollr();
-      this.skrollr = skrollr.init(); 
+      this.skrollr = skrollr.init({
+        forceHeight : false
+      }); 
       
       // re-run this once all images have been loaded
       var $img = this.$('.frames img');      
@@ -98,24 +100,27 @@ define([
     waitImgDone : function() {
         this.totalImg--;
         if ((this.totalImg===0) && (!this.img_loaded)) {
-          console.log('waitimg done');
+
           this.img_loaded = true;
           this.initSkrollr(); 
           this.skrollr.refresh();           
         }
     },            
     initSkrollr: function(){     
-      console.log('initSkrollr');
+
       this.$('.fill-screen').each(function(){
         $(this).css('min-height',$(window).height());
       });        
+      
       var offset_top = 0;
       _.each(this.model.getChapters(), function(chapter){
         offset_top = chapter.view.offsetSkroll(offset_top);
       });    
 
       // offset footer
-      offset_top = this.offsetSkroll(this.$('footer'),this.$('footer').outerHeight(),offset_top);      
+      offset_top = this.offsetSkroll(this.$('footer'),this.$('footer').outerHeight(),offset_top);    
+      
+      $('body').css('height',offset_top);
  
     },
     offsetSkroll: function($item,offset,offset_top){

@@ -4,71 +4,10 @@
   width: 100%;
 }
 
-
 .frames-wrapper {
   position:relative;
   width:100%;
   margin: 30px 0;
-}
-.frames-wrapper .frames {
-  /*position:relative;*/
-}
-.frames-wrapper .frame{  
-
-} 
-.frames-wrapper.above .frame{    
-  top: 0!important;  
-}
-
-.frames-wrapper.init .frame{
-/*  visibility:hidden;*/
-  /*display:none;*/
-}
-.frames-wrapper.init .frame.visible{
-  visibility:visible !important;
-  display:block;
-}
-/* when scrolling enabled */
-.frames-wrapper.init.scrolling .frame{
-  visibility:hidden;
-  display:block;
-  position:absolute;
-  top:0;
-}
-.frames-wrapper.init.scrolling .frames-context-above-inner,
-.frames-wrapper.init.scrolling .frames-context-below-inner{
-  position:absolute;
-  top:0;
-  left:0;  
-  width:100%;
-}
-.frames-wrapper.init.scrolling.inside .frames-context-above-inner,
-.frames-wrapper.init.scrolling.inside .frames-context-below-inner,
-.frames-wrapper.init.scrolling.inside .frame{
-  position:fixed;
-  top:0;
-  left:0;
-}
-
-@media (min-width: 768px) {
-  .frames-wrapper.init.scrolling.inside .frames-context-above-inner,
-  .frames-wrapper.init.scrolling.inside .frames-context-below-inner,
-  .frames-wrapper.init.scrolling.inside .frame{
-    padding-right: 100px
-  }
-}
-
-
-.frames-wrapper.init.scrolling.below .frames-context-below-inner,
-.frames-wrapper.init.scrolling.below .frame{
-  top: initial!important;  
-  bottom: 0!important;
-}
-
-
-.frames-context-above-inner,
-.frames-context-below-inner {
-    z-index:999;
 }
 
 @media (min-width: 768px) {
