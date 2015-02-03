@@ -5,7 +5,6 @@ define([
     isFramesView : true,    
     events : {
       "click a.frame-link" : "goToFrameEvent",
-      //"click .frames-wrapper.inside .onMouseOver .frame-link" : "goToFrameEvent",
       "click  .frame-link" : "goToFrameEvent",
       "click a.frame-next" : "goToNextFrameEvent",
       "click a.frame-prev" : "goToPreviousFrameEvent"
@@ -24,7 +23,9 @@ define([
               
       this.scrollLength = 0;
       this.skroll_data_above = [];            
-      this.skroll_data_below = [];                      
+      this.skroll_data_below = []; 
+      
+      $(window).scroll(_.debounce(_.bind(this.scrolled, this),10));  
        
       // Call the original constructor
       Backbone.View.apply(this, arguments);          
@@ -122,21 +123,6 @@ define([
       this.$('.frames-wrapper').addClass('init');
     },     
     removeSkrollData : function(){
-//      console.log('this.$(.skrollable).length'+this.$('.skrollable').length);
-//      this.$('.skrollable').each( function() {
-//        var $skroll = $(this);
-//        console.log(this.attributes);
-//        $.each(this.attributes, function() {
-//          if (this.name.indexOf('data') === 0) {
-//            console.log(this.name + 'starts with data');
-//            $skroll.removeAttr(this.name);            
-//            $skroll.removeData(this.name);
-//          } else {
-//            console.log(this.name + 'does not starts with data');
-//          }
-//        });
-//        console.log(this.attributes);
-//      });
       var that = this;
       _.each(this.skroll_data_above,function(sd){
         that.$('.frames-context-above').removeAttr(sd);
@@ -159,13 +145,26 @@ define([
       });
       
     },
+    scrolled : function(){
+        
+      // scroll position relative to scroll
+      var scrollTopRelative = $(document).scrollTop() - this.$el.offset().top;
 
+      // if above
+      if (scrollTopRelative < 0) {
+          this.showFrame(0);                  
+      // if below
+      } else if (scrollTopRelative > this.scrollLength) {                               
+          this.showFrame(this.frames.length-1);      
+      // if inside
+      } else {                               
+        // show frame
+        this.showFrame(Math.floor(scrollTopRelative / this.options.scroll_distance));                  
+      }       
+    },
     showFrame : function(index){      
       // validate index
       index = Math.max(Math.min(index,this.frames.length-1),0);      
-      // show frame
-      this.$('.frames .frame').removeClass('visible');
-      this.frames[index].$frame.addClass('visible');
       // activate navs
       this.$('.frame-nav .frame-link').removeClass('active');
       this.$('.frame-nav .frame-link-'+index).addClass('active');   
@@ -186,21 +185,14 @@ define([
       this.goToFrame((this.currentFrame - 1) >= 0 ? (this.currentFrame - 1) : this.frames.length-1);
     }, 
     goToFrame : function(frameIndex, duration, callback) {
-      if (this.options.enable_scrolling){        
-        if (typeof this.frames[frameIndex] !== 'undefined') {
-          $(this.el).trigger('scrollEvent',{
-            offset:   this.$el.offset().top 
-                    + (this.options.scroll_distance * (frameIndex + 0.5)),
-            duration: typeof duration !== 'undefined' ? duration : 200,
-            callback: callback
-          });
-        }
-      } else {
-        if (typeof this.frames[frameIndex] !== 'undefined') {
-          // show/hide frames
-          this.showFrame(frameIndex);
-        }        
-      }
+      if (typeof this.frames[frameIndex] !== 'undefined') {
+        $(this.el).trigger('scrollEvent',{
+          offset:   this.$el.offset().top 
+                  + (this.options.scroll_distance * (frameIndex + 0.5)),
+          duration: typeof duration !== 'undefined' ? duration : 0,
+          callback: callback
+        });
+      } 
     },            
     
   });

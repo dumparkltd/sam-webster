@@ -85,8 +85,8 @@ define([
       }      
       var that = this;
       if (typeof YT !== 'undefined') {
-          that.model.getChapterByID('prep').view.initPlayers();
-          that.model.getChapterByID('tactics').view.initPlayers();  
+        that.model.getChapterByID('prep').view.initPlayers();
+        that.model.getChapterByID('tactics').view.initPlayers();  
       } else {      
         window.onYouTubeIframeAPIReady = function() {
           that.model.getChapterByID('prep').view.initPlayers();
@@ -139,44 +139,43 @@ define([
     // NAV HANDLERS ///////////////////////////////                
     routeUpdated : function(){
 //      window._gaq.push(['_trackEvent', 'default', 'default', 'default']);
-        var chapter = this.model.getChapter();
+      var chapter = this.model.getChapter();
 
-        if (typeof chapter !== 'undefined') {
-          // scroll to chapter
-          var that = this;
-          this.model.set('userScrolling', false);
-          
-          if (typeof chapter.view.hasFramesView !== 'undefined' 
-                && chapter.view.hasFramesView 
-                && that.model.get('frame-id') !== '') {
-              
-              chapter.view.goToFrame(that.model.get('frame-id'),
-              that.scrollDuration, //duration
-              function(){            
-                // then inside chapter scroll to frame             
-                that.model.set('userScrolling', true);            
-              });                      
-          } else {
-            $('html,body').animate({
-              scrollTop: chapter.view.$el.offset().top
-            }, 
+      if (typeof chapter !== 'undefined') {
+        // scroll to chapter
+        var that = this;
+        this.model.set('userScrolling', false);
+
+        if (typeof chapter.view.hasFramesView !== 'undefined' 
+              && chapter.view.hasFramesView 
+              && that.model.get('frame-id') !== '') {
+
+            chapter.view.goToFrame(that.model.get('frame-id'),
             that.scrollDuration, //duration
             function(){            
               // then inside chapter scroll to frame             
               that.model.set('userScrolling', true);            
-            });
-          }            
-                          
+            });                      
         } else {
-          this.resetApp();
-        }           
+          $('html,body').animate({
+            scrollTop: chapter.view.$el.offset().top
+          }, 
+          that.scrollDuration, //duration
+          function(){            
+            // then inside chapter scroll to frame             
+            that.model.set('userScrolling', true);            
+          });
+        }            
+
+      } else {
+        this.resetApp();
+      }           
     },   
     nextChapter : function(e){
       e.preventDefault();
       $(this.el).trigger('updateRouteEvent',{route:this.model.getNextChapterID()});     
     },   
     scrolled : function(){
-//      console.log('scrolled: '+$(document).scrollTop());
       this.activateChapter(this.getChapterByPosition());
     },
     activateChapter:function(chapterID){
