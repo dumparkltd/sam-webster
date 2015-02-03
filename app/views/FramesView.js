@@ -13,169 +13,153 @@ define([
     constructor: function(options) {   
       // options
       this.default_options = {
-        enable_scrolling: false, // turn scrolling on and off
-        fill_screen: true, // turn scrolling on and off
+        fill_screen: false, //         
         scroll_distance: 300, // the distance between frame updates, if scrolling enabled
-        frames_offset_top:0, // the distance of the frames section to the top
-        frames_offset_bottom:0 // the distance of the frames section to the bottom
+        offset_top:0
       };
       this.options = $.extend(true, this.default_options, options);               
       
-      // make sure scrolling offset makes sense
-      if (this.options.enable_scrolling) {
-        this.options.enable_scrolling = (this.options.scroll_distance < 10 ) ? false : true;
-      }
-      
       // frames
       this.currentFrame = 0;
-      this.frames = [];     
-      this.img_loaded = false;
-      this.totalImg = 0;
+              
       this.scrollLength = 0;
-      
-      // init scroll position
-      if (this.options.enable_scrolling){
-        this.lastScrollTop = $(document).scrollTop();;
-      
-        // bind scroll event
-        $(window).scroll(_.debounce(_.bind(this.scrolled, this),1));  
-      }      
-      $(window).resize(_.debounce(_.bind(this.render, this),10));
-     
-      
+      this.skroll_data_above = [];            
+      this.skroll_data_below = [];                      
+       
       // Call the original constructor
-      Backbone.View.apply(this, arguments);         
-    },        
-    render : function(){
-      this.setupFrames();
+      Backbone.View.apply(this, arguments);          
+    },  
+    getHeight : function(){
+      return this.scrollLength  
+              + this.max_frame_height 
+              + this.$('.frames-context-above').outerHeight()  
+              + this.$('.frames-context-below').outerHeight();
     },
-    setupFrames : function(){
-
+    setupFrames : function(offset_top){      
+      offset_top = typeof offset_top !== 'undefined' ? offset_top :this.options.offset_top;  
+      
+      // setup skroll data
+      this.removeSkrollData();
+      
+      // set up frames
       var that = this;
+      this.frames = [];   
+      this.max_frame_height = 0;
+      this.$('.frames .frame').each(function(index){
+        that.frames[index] = {
+          $frame  : $(this),
+          skroll_data : []
+        };
+        that.max_frame_height = Math.max(that.max_frame_height,$(this).outerHeight());
+      });
+      // the total length of this frame
+      this.scrollLength = this.frames.length * this.options.scroll_distance; 
       
+      var above_height = this.$('.frames-context-above').outerHeight();
+      var below_height = this.$('.frames-context-below').outerHeight();
+      var el_height = above_height + below_height + this.max_frame_height;
       
-      
-      // if scrolling
-      if (this.options.enable_scrolling){
-        // calculate offsets
-        this.options._frames_offset_top = this.options.frames_offset_top;
-        if (this.$('.frames-context-above').length > 0) 
-          this.options._frames_offset_top += this.$('.frames-context-above').outerHeight();
-        this.options._frames_offset_bottom = this.options.frames_offset_bottom;
-        if (this.$('.frames-context-below').length > 0) 
-          this.options._frames_offset_bottom += this.$('.frames-context-below').outerHeight();
-                  
-        // set up frames
-        this.max_frame_height = 0;
-        this.$('.frames .frame').each(function(index){
-          that.frames[index] = {
-            $frame  : $(this),          
-            height  : $(this).outerHeight()
-          };
-          $(this).css('top',that.options._frames_offset_top);        
-          that.max_frame_height = Math.max(that.max_frame_height,$(this).outerHeight());
-        });
-        this.$('.frames-wrapper').addClass('scrolling');
-        
-        // set element heights
-        // height is height of frames section (incl scroll_distance) plus 
-        if (this.options.fill_screen && ($(window).height() > this.max_frame_height)){
-          this.scrollLength = this.frames.length * this.options.scroll_distance + ($(window).height()-this.max_frame_height);
-          var frames_height =
-                this.scrollLength
-              + this.max_frame_height;              
-        } else {        
-          this.scrollLength = this.frames.length * this.options.scroll_distance;
-          var frames_height =
-                this.scrollLength
-              + this.max_frame_height;                  
-        }        
-        
-        
-  
-        this.$('.frames').height(frames_height);
-                
-        this.$('.frames-context-above ').height(this.options._frames_offset_top);
-        this.$('.frames-context-below ').height(this.options._frames_offset_bottom);
-        this.$('.frames-context-below-inner ').css('top',this.options._frames_offset_top + this.max_frame_height);
-        
-        // set wrapper height
 
-        this.$('.frames-wrapper').height(frames_height 
-              + this.options._frames_offset_top      
-              + this.options._frames_offset_bottom); 
-                
-        // call scrolled once to setup classes        
-        this.scrolled();
-        
-      // if not scrolling  
-      } else {
-        
-        // set up frames     
-        var that = this;
-        this.max_frame_height = 0;        
-        this.$('.frames .frame').each(function(index){
-          that.frames[index] = {
-            $frame    : $(this)            
-          };
-          this.max_frame_height = Math.max(this.max_frame_height,$(this).outerHeight());
-        });   
-        
-        this.$('.frames').height(this.max_frame_height);
-        
-      }
-      // re-run this once all images have been loaded
-      var $img = this.$('.frames img');
-      this.totalImg = $img.length;
-      $img.each(function() {
-
-          $(this)
-              .load(_.bind(that.waitImgDone,that))
-              .error(_.bind(that.waitImgDone,that));
-      });       
       
-      this.showFrame(this.currentFrame);        
+      var offset_bottom = offset_top    + this.scrollLength; // the bottom trigger
+      var offset_end    = offset_bottom + el_height; 
       
-      this.$('.frames-wrapper').addClass('init');
-    },
-    waitImgDone : function() {
-        this.totalImg--;
-        if ((this.totalImg===0) && (!this.img_loaded)) {
-          this.img_loaded = true;
-          this.setupFrames();              
+      // context above
+      
+      
+      this.$('.frames-context-above ')
+        .attr('data-0',               'top:'+ offset_top +'px')// before section: set it at top of element
+        .attr('data-' + offset_top ,  'top:0px')// during set it to the top of the element
+        .attr('data-' + offset_bottom,'top:0px')// keep it until the end of section            
+        .attr('data-' + offset_end,   'top:-'+ el_height +'px');// move out of view
+      this.skroll_data_above.push('data-0');
+      this.skroll_data_above.push('data-' + offset_top);
+      this.skroll_data_above.push('data-' + offset_bottom);
+      this.skroll_data_above.push('data-' + offset_end);
+      
+      // the frames
+      var offset_top_frame = offset_top; // the top trigger for frames       
+      _.each(this.frames,function(frame, index){
+        // before section: set it at top of element             
+        if (index === 0) {
+          frame.$frame.attr('data-0','top:'+ (offset_top_frame + above_height) +'px');
+        } else {
+          frame.$frame.attr('data-0','top:'+ (offset_top_frame + above_height) +'px;display:none;');                
+        }              
+        frame.skroll_data.push('data-0');
+        // during set it to the top of the element
+        frame.$frame.attr('data-' + offset_top_frame, 'display:block;top:'+above_height+'px');           
+        frame.skroll_data.push('data-' + offset_top_frame);
+        offset_top_frame += that.options.scroll_distance;
+        // keep it until the end of section      
+        if (index+1 === that.frames.length) {              
+          frame.$frame.attr('data-' + offset_top_frame, 'display:block;top:'+above_height+'px');
+        } else {
+          frame.$frame.attr('data-' + offset_top_frame, 'display:none;top:'+above_height+'px');
         }
+        frame.skroll_data.push('data-' + offset_top_frame);
+        // then move outside of view
+        frame.$frame.attr('data-' + offset_end,'top:-'+(el_height-above_height)+'px');                           
+        frame.skroll_data.push('data-' + offset_end);
+      });
+      
+      
+      // context below
+      var offset_top_below = above_height + this.max_frame_height;
+
+      // context below
+                
+      this.$('.frames-context-below ')
+              .attr('data-0',               'top:'+ (offset_top + offset_top_below) +'px')// before section: set it at top of element  
+              .attr('data-' + offset_top,   'top:'+ offset_top_below +'px')// during set it to the top of the element    
+              .attr('data-' + offset_bottom,'top:'+ offset_top_below +'px')// keep it until the end of section   
+              .attr('data-' + offset_end,   'top:-'+(el_height-offset_top_below)+'px');       
+      this.skroll_data_below.push('data-0');
+      this.skroll_data_below.push('data-' + offset_top);
+      this.skroll_data_below.push('data-' + offset_bottom);
+      this.skroll_data_below.push('data-' + offset_end);      
+
+      this.$('.frames-wrapper').addClass('init');
+    },     
+    removeSkrollData : function(){
+//      console.log('this.$(.skrollable).length'+this.$('.skrollable').length);
+//      this.$('.skrollable').each( function() {
+//        var $skroll = $(this);
+//        console.log(this.attributes);
+//        $.each(this.attributes, function() {
+//          if (this.name.indexOf('data') === 0) {
+//            console.log(this.name + 'starts with data');
+//            $skroll.removeAttr(this.name);            
+//            $skroll.removeData(this.name);
+//          } else {
+//            console.log(this.name + 'does not starts with data');
+//          }
+//        });
+//        console.log(this.attributes);
+//      });
+      var that = this;
+      _.each(this.skroll_data_above,function(sd){
+        that.$('.frames-context-above').removeAttr(sd);
+        that.$('.frames-context-above').removeData(sd);
+      });
+      this.skroll_data_above = [];
+      
+      _.each(this.skroll_data_below,function(sd){
+        that.$('.frames-context-below').removeAttr(sd);
+        that.$('.frames-context-below').removeData(sd);
+      });
+      this.skroll_data_below = [];
+      
+      _.each(this.frames,function(frame, index){      
+        _.each(frame.skroll_data,function(sd){
+          frame.$frame.removeAttr(sd);
+          frame.$frame.removeData(sd);
+        });      
+        frame.skroll_data = [];
+      });
+      
     },
-    scrolled : function(){
-      if (this.options.enable_scrolling){
-        
-        // scroll position relative to scroll
-        var scrollTopRelative = $(document).scrollTop() - this.$el.offset().top;
-        
-        // if above
-        if (scrollTopRelative < 0) {
-            this.$('.frames-wrapper').removeClass('inside'); 
-            this.$('.frames-wrapper').addClass('above'); 
-            this.showFrame(0);                  
-            this.$('.frames-context-above-inner').css('top',0);            
-        // if below
-        } else if (scrollTopRelative > this.scrollLength) {
-            this.$('.frames-wrapper').removeClass('inside'); 
-            this.$('.frames-wrapper').addClass('below');                                  
-            this.showFrame(this.frames.length-1);      
-            this.$('.frames-context-above-inner').css('top',this.scrollLength);            
-        // if inside
-        } else {                               
-          if (!this.$('.frames-wrapper').hasClass('inside')) {            
-            this.$('.frames-wrapper').removeClass('below'); 
-            this.$('.frames-wrapper').removeClass('above'); 
-            this.$('.frames-wrapper').addClass('inside'); 
-          }
-          // show frame
-          this.showFrame(Math.floor(scrollTopRelative / this.options.scroll_distance));                  
-          this.$('.frames-context-above-inner').css('top',0);
-        }       
-      }
-    },
+
     showFrame : function(index){      
       // validate index
       index = Math.max(Math.min(index,this.frames.length-1),0);      

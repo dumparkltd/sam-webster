@@ -10,14 +10,11 @@ define([
       this.render();
     },       
     events: function(){
-       return _.extend({},FramesView.prototype.events,{
-//           'click' : 'onclickChild'
-       });
+       return _.extend({},FramesView.prototype.events,{});
     },    
     render: function(){         
       this.$el.html(template);   
       this.initTactics();
-      this.setupFrames();      
       return this;      
     },
     initTactics: function(){

@@ -2,10 +2,9 @@
 require.config({
   paths: {
     'jquery': 'libs/jquery',
-    'jquery.utils': 'libs/jquery-utils',
     'underscore': 'libs/underscore',
     'backbone': 'libs/backbone',
-    'd3': 'libs/d3.min',
+    'skrollr': 'libs/skrollr.min',    
     'templates': 'templates'
   },
   shim: {  
@@ -21,9 +20,5 @@ require([
   'utils'
 ], function(App,analytics,utils){
   //analytics.track('');
-  // The "app" dependency is passed in as "App"
-  // Again, the other dependencies passed in are not "AMD" therefore don't pass a parameter to this function
-  if (!$('html').hasClass('oldie')) {
-    App.initialize();
-  }
+  App.initialize();
 });

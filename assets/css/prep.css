@@ -10,8 +10,8 @@
 
 /* Preparation specific */
 
-#prep-view {
-  margin-top:100px;
+#prep-view .frames-above{
+  padding-top:100px;
 }
 
 

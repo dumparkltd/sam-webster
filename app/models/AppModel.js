@@ -15,6 +15,9 @@ define([
     getChapter : function() {      
       return this.getChapterByID(this.get('chapter-id'));
     },
+    getChapters : function() {      
+      return this.chapters;
+    },
     getChapterByID : function(id) {      
       return (id in this.chapters) ? this.chapters[id] : undefined;                  
     },    

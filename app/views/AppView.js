@@ -1,10 +1,13 @@
 define([
   'jquery','underscore','backbone', // helper
+  'skrollr',
 //  'collections/', //collections
-  'views/IntroView','views/TacticsView','views/TimelineView','views/PrepView','views/AdviceView','views/WinView',//subviews
+  'views/IntroView','views/TacticsView','views/TimelineView',
+  'views/PrepView','views/AdviceView','views/WinView',//subviews
   'text!templates/appTemplate.html'//templates
 ], function(
   $, _, Backbone,
+  skrollr,
   IntroView, TacticsView, TimelineView, PrepView, AdviceView, WinView,
   template
 ){
@@ -14,14 +17,16 @@ define([
       this.options = options || {};      
       
       this.scrollDuration = 200;
-      
+      this.img_loaded = false;
+      this.totalImg = 0;
+      this.skroll_data = [];
       this.render();  
-     
+          
       this.listenTo(this.model, 'change:routeUpdated', this.routeUpdated);         
       
       // bind to window
-      $(window).scroll(_.debounce(_.bind(this.scrolled, this),10));
-      $(window).resize(_.debounce(_.bind(this.resized, this),10));
+      $(window).scroll(_.debounce(_.bind(this.scrolled, this),100));
+      $(window).resize(_.debounce(_.bind(this.resized, this),1000));
       
     },
     events : {
@@ -35,30 +40,44 @@ define([
     render: function(){     
       
       this.$el.html(template);      
-      
       this.$('.fill-screen').each(function(){
         $(this).css('min-height',$(window).height());
-      });      
+      });           
       // init subviews
       this.model.addChapter(this.$('#intro-view').data('id'),new IntroView({
         el:this.$('#intro-view')
-      }));
+      }));         
       this.model.addChapter(this.$('#timeline-view').data('id'),new TimelineView({
         el:this.$('#timeline-view')
-      }));
+      }));               
       this.model.addChapter(this.$('#tactics-view').data('id'),new TacticsView({
         el:this.$('#tactics-view'),
-        auto_play:true
-      }));
+        auto_play:false
+      }));       
       this.model.addChapter(this.$('#prep-view').data('id'),new PrepView({
         el:this.$('#prep-view')
       }));
       this.model.addChapter(this.$('#advice-view').data('id'),new AdviceView({
-        el:this.$('#advice-view')
+        el:this.$('#advice-view')     
       }));
       this.model.addChapter(this.$('#win-view').data('id'),new WinView({
-        el:this.$('#win-view')
+        el:this.$('#win-view')  
       }));
+      
+      
+      this.initSkrollr();
+      this.skrollr = skrollr.init(); 
+      
+      // re-run this once all images have been loaded
+      var $img = this.$('.frames img');      
+      this.totalImg = $img.length;
+      var that = this;
+      $img.each(function() {
+          $(this)
+              .load(_.bind(that.waitImgDone,that))
+              .error(_.bind(that.waitImgDone,that));
+      });        
+      
       this.activateChapter(this.getChapterByPosition());
 
       //initPlayers: function() {
@@ -74,9 +93,50 @@ define([
           that.model.getChapterByID('prep').view.initPlayers();
           that.model.getChapterByID('tactics').view.initPlayers();          
         };
-      }          
+      }
+// 
     },
-    
+    waitImgDone : function() {
+        this.totalImg--;
+        if ((this.totalImg===0) && (!this.img_loaded)) {
+          console.log('waitimg done');
+          this.img_loaded = true;
+          this.initSkrollr(); 
+          this.skrollr.refresh();           
+        }
+    },            
+    initSkrollr: function(){     
+      console.log('initSkrollr');
+      this.$('.fill-screen').each(function(){
+        $(this).css('min-height',$(window).height());
+      });        
+      var offset_top = 0;
+      _.each(this.model.getChapters(), function(chapter){
+        offset_top = chapter.view.offsetSkroll(offset_top);
+      });    
+
+      // offset footer
+      offset_top = this.offsetSkroll(this.$('footer'),this.$('footer').outerHeight(),offset_top);      
+ 
+    },
+    offsetSkroll: function($item,offset,offset_top){
+      this.removeSkrollData($item);
+      $item.attr('data-0','top:'+ offset_top +'px');
+      this.skroll_data.push('data-0');
+      $item.attr('data-'+offset_top,'top:0px;');
+      this.skroll_data.push('data-'+offset_top);
+      offset_top += offset;  
+      $item.attr('data-'+offset_top,'top:-'+offset+'px');   
+      this.skroll_data.push('data-'+offset_top);      
+      return offset_top;
+    },     
+    removeSkrollData : function($item){
+      _.each(this.skroll_data,function(sd){
+        $item.removeAttr(sd);
+        $item.removeData(sd);
+      });
+      this.skroll_data = [];      
+    },               
     // NAV HANDLERS ///////////////////////////////                
     routeUpdated : function(){
 //      window._gaq.push(['_trackEvent', 'default', 'default', 'default']);
@@ -117,6 +177,7 @@ define([
       $(this.el).trigger('updateRouteEvent',{route:this.model.getNextChapterID()});     
     },   
     scrolled : function(){
+//      console.log('scrolled: '+$(document).scrollTop());
       this.activateChapter(this.getChapterByPosition());
     },
     activateChapter:function(chapterID){
@@ -147,7 +208,10 @@ define([
     resized : function(){
       this.$('.fill-screen').each(function(){
         $(this).css('min-height',$(window).height());
-      }); 
+      });          
+      this.initSkrollr();
+      this.skrollr.refresh();      
+      this.activateChapter(this.getChapterByPosition());           
     },
   
     
