@@ -22,7 +22,7 @@ define([
       this.scrollLength = 0;
       this.skroll_data = [];            
       
-      $(window).scroll(_.debounce(_.bind(this.scrolled, this),10));  
+      $(window).scroll(_.debounce(_.bind(this.scrolled, this),1));  
        
       // Call the original constructor
       Backbone.View.apply(this, arguments);          
@@ -141,13 +141,13 @@ define([
       e.preventDefault();
       this.goToFrame((this.currentFrame - 1) >= 0 ? (this.currentFrame - 1) : this.frames.length-1);
     }, 
-    goToFrame : function(frameIndex, duration, callback) {
+    goToFrame : function(frameIndex, duration) {
       if (typeof this.frames[frameIndex] !== 'undefined') {
         $(this.el).trigger('scrollEvent',{
           offset:   this.$el.offset().top 
                   + (this.options.scroll_distance * (frameIndex + 0.5)),
           duration: typeof duration !== 'undefined' ? duration : 0,
-          callback: callback
+          callback: setTimeout(_.bind(this.scrolled, this),200)
         });
       } 
     },            
