@@ -2,7 +2,8 @@ define([
   'jquery','underscore','backbone', // helper
   'skrollr',
 //  'collections/', //collections
-  'views/IntroView','views/TacticsView','views/TimelineView','views/PrepView','views/AdviceView','views/WinView',//subviews
+  'views/IntroView','views/TacticsView','views/TimelineView',
+  'views/PrepView','views/AdviceView','views/WinView',//subviews
   'text!templates/appTemplate.html'//templates
 ], function(
   $, _, Backbone,
@@ -18,6 +19,7 @@ define([
       this.scrollDuration = 200;
       this.img_loaded = false;
       this.totalImg = 0;
+      this.skroll_data = [];
       this.render();  
           
       this.listenTo(this.model, 'change:routeUpdated', this.routeUpdated);         
@@ -114,16 +116,27 @@ define([
       });    
 
       // offset footer
-//      offset_top = this.offsetElement(this.$('footer'),this.$('footer').outerHeight(),offset_top);      
+      offset_top = this.offsetSkroll(this.$('footer'),this.$('footer').outerHeight(),offset_top);      
  
     },
-    offsetElement: function($item,offset,offset_top){      
+    offsetSkroll: function($item,offset,offset_top){
+      this.removeSkrollData($item);
       $item.attr('data-0','top:'+ offset_top +'px');
+      this.skroll_data.push('data-0');
       $item.attr('data-'+offset_top,'top:0px;');
+      this.skroll_data.push('data-'+offset_top);
       offset_top += offset;  
-      $item.attr('data-'+offset_top,'top:-'+offset+'px');         
+      $item.attr('data-'+offset_top,'top:-'+offset+'px');   
+      this.skroll_data.push('data-'+offset_top);      
       return offset_top;
-    },
+    },     
+    removeSkrollData : function($item){
+      _.each(this.skroll_data,function(sd){
+        $item.removeAttr(sd);
+        $item.removeData(sd);
+      });
+      this.skroll_data = [];      
+    },               
     // NAV HANDLERS ///////////////////////////////                
     routeUpdated : function(){
 //      window._gaq.push(['_trackEvent', 'default', 'default', 'default']);
