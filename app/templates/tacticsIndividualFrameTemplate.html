@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-3 tactic-txt"> 
+    <div class="col-md-3 tactic-txt"> 
         <h5>
           <%= data.title[index] %>                      
         </h5>
@@ -8,16 +8,16 @@
           <%= data.narrative[index] %>                    
         </p>
     </div>
-    <div class="col-lg-6"> 
+    <div class="col-md-6"> 
       <img class="tactic-svg-img img-responsive" src="assets/img/tactics-<%= index %>.svg" alt="">
     </div>
-    <div class="col-lg-3 tactic-dashboard"> 
+    <div class="col-md-3 tactic-dashboard"> 
       <div class="row">
-        <div class="col-xs-6 col-sm-6 col-lg-12"> 
+        <div class="col-xs-6 col-sm-6 col-md-12"> 
           <h5> <%= data.speed[index] %> km/h</h5>
           <p> Average speed</p>
         </div>
-        <div class="col-xs-6 col-sm-6 col-lg-12"> 
+        <div class="col-xs-6 col-sm-6 col-md-12"> 
           <h5> <%= data.power[index] %> Watt</h5>
           <p> Average power</p>
         </div>
@@ -30,7 +30,7 @@
   </div>
   <div class="row">
 
-    <div class="col-lg-offset-1 col-lg-10 ">
+    <div class="col-md-offset-1 col-md-10 ">
         <div class="tactic-power-svg-container">
           <img class="tactic-power-svg-img img-responsive hidden-xs" src="assets/img/power-<%= index %>.svg" alt="" usemap="#tactic-power-img-map">
           <div class="tactic-power-hotspots hidden-xs">
