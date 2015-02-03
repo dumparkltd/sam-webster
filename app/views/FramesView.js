@@ -20,6 +20,7 @@ define([
       this.currentFrame = 0; 
       this.el_height = 0;
       this.scrollLength = 0;
+      this.offset_top_position = 0;
       this.skroll_data = [];            
       
       $(window).scroll(_.debounce(_.bind(this.scrolled, this),1));  
@@ -47,7 +48,7 @@ define([
         };
         that.max_frame_height = Math.max(that.max_frame_height,$(this).outerHeight());
       });
-      var offset_top_position = 0;
+      this.offset_top_position = 0;
       var above_height      = this.$('.frames-context-above').outerHeight();      
       this.el_height        = above_height + this.$('.frames-context-below').outerHeight() + this.max_frame_height;   
       if ($(window).height() > this.el_height) {
@@ -154,7 +155,8 @@ define([
       if (typeof this.frames[frameIndex] !== 'undefined') {
         $(this.el).trigger('scrollEvent',{
           offset:   this.$el.offset().top 
-                  + (this.options.scroll_distance * (frameIndex + 0.5)),
+                  + this.offset_top_position
+                  + (this.options.scroll_distance * frameIndex),
           duration: typeof duration !== 'undefined' ? duration : 0,
           callback: setTimeout(_.bind(this.scrolled, this),200)
         });
