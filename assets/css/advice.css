@@ -25,4 +25,19 @@
   color:#b55002;
 }
 
+#advice-view .btn {
+  border: solid 1px #0488d0;
+  padding: 10px 20px;
+  color: #0488d0;
+  margin-top: 20px;
+  margin-bottom: 120px;
+  font-size: 23px;
+  display: inline-block;
+  text-transform:uppercase;
+}
+
+.advice-training-txt{
+  margin-top: 28px;
+}
+
 
