@@ -44,8 +44,8 @@ define([
     },              
     offsetSkroll: function(offset_top){
       console.log('tactics offsetSkroll ' + offset_top);
-      this.framesView.setupFrames(offset_top + this.$('.frames-above').outerHeight());;
-      
+      this.framesView.setupFrames(offset_top + this.$('.frames-above').outerHeight());
+            
       this.removeSkrollData();
       var offset = this.getHeight();      
       this.$el.attr('data-0','top:'+ offset_top +'px');
@@ -55,6 +55,11 @@ define([
       offset_top += offset;  
       this.$el.attr('data-'+offset_top,'top:-'+offset+'px');   
       this.skroll_data.push('data-'+offset_top);      
+      
+      
+      this.$('.frames-below').css('top',this.framesView.getHeight() + 'px') ;      
+      
+      
       return offset_top;
     },     
     removeSkrollData : function(){
@@ -63,7 +68,7 @@ define([
         that.$el.removeAttr(sd);
         that.$el.removeData(sd);
       });
-      this.skroll_data = [];
+      this.skroll_data = [];     
       
     }             
 
