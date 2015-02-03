@@ -10,14 +10,19 @@
 
 
 
+#tactics-view h2 {
+  text-align:center;
+}
 
 .tactics-video{
   display:block;
 }
 
 
-.tactic-txt{
+.tactic-txt {
+  min-height: 90px;
 }
+
 .tactic-txt h5{
   font-size: 16px;
   text-transform: uppercase;

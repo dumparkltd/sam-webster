@@ -19,11 +19,13 @@
 #intro-view h1 {
     border-top: 1px solid;
     display: inline-block;
-    font-size: 75px;
     margin-top: 33%;
     margin-bottom: 0;
     padding-top: 0;
 }
+
+
+
 #intro-view h2 {
   font-family: 'Tungsten A', 'Tungsten B', Arial, sans-serif;
   font-size: 40px;
@@ -41,8 +43,22 @@
   margin-right: 30%;
 }
 
-.cyclingNZ-img{
+.cyclingNZ-img{ 
   display:inline-block;
   vertical-align: top;
 }
+
+
+.intro-footer{
+  position:absolute;
+  bottom:5%;
+}
+
+
+@media (min-width: 768px) {
+  .intro-footer{
+    bottom:10%;
+  }
+}
+
 

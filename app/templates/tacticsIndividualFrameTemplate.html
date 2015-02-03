@@ -12,10 +12,16 @@
       <img class="tactic-svg-img img-responsive" src="assets/img/tactics-<%= index %>.svg" alt="" width="420" height="278">
     </div>
     <div class="col-sm-3 tactic-dashboard"> 
-      <h5> <%= data.speed[index] %> km/h</h5>
-      <p> Average speed</p>
-      <h5> <%= data.power[index] %> Watt</h5>
-      <p> Average power</p>
+      <div class="row">
+        <div class="col-xs-6 col-sm-12"> 
+          <h5> <%= data.speed[index] %> km/h</h5>
+          <p> Average speed</p>
+        </div>
+        <div class="col-xs-6 col-sm-12"> 
+          <h5> <%= data.power[index] %> Watt</h5>
+          <p> Average power</p>
+        </div>
+      </div>
       <div class="tactic-lgnd">
         <div class="tactic-sam"> <span></span> Sam Webster </div>
         <div class="tactic-jason"> <span></span> Jason Kenny </div>

@@ -41,8 +41,17 @@
   position:fixed;
   top:0;
   left:0;
-  padding-right: 100px
 }
+
+@media (min-width: 768px) {
+  .frames-wrapper.init.scrolling.inside .frames-context-above-inner,
+  .frames-wrapper.init.scrolling.inside .frames-context-below-inner,
+  .frames-wrapper.init.scrolling.inside .frame{
+    padding-right: 100px
+  }
+}
+
+
 .frames-wrapper.init.scrolling.below .frames-context-below-inner,
 .frames-wrapper.init.scrolling.below .frame{
   top: initial!important;  
@@ -52,8 +61,14 @@
 
 .frames-context-above-inner,
 .frames-context-below-inner {
-    padding: 30px 0;
     z-index:999;
+}
+
+@media (min-width: 768px) {
+  .frames-context-above-inner,
+  .frames-context-below-inner {
+      padding: 30px 0;
+  }
 }
 
 .frame {
@@ -62,13 +77,19 @@
 }
 
 .frame-link{
-  font-size: 20px;
+  font-size: 14px;
   text-transform: uppercase;
   color: #041720;
   opacity: 0.4;
   font-weight: normal;
   display: inline-block;
   font-family: 'FFDINWebBold';
+}
+
+@media (min-width: 768px) {
+  .frame-link{
+    font-size: 20px;
+  }
 }
 
 .frame-link.active, .frame-link.active:hover{

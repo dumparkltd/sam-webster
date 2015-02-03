@@ -1,3 +1,13 @@
+#advice-view h3{
+  font-size:14px;
+}
+
+@media (min-width: 768px) {
+  #advice-view h3{
+    font-size:24px;
+  }
+} 
+
 
 
 .advice-nutrition-chart-label-protein{
@@ -14,3 +24,5 @@
   text-align: center;
   color:#b55002;
 }
+
+
