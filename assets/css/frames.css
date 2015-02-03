@@ -2,25 +2,13 @@
   position: fixed !important;
   width: 100%;
 }
-
-@media (min-width: 768px) {
-  .skrollable{
-    padding-right: 100px;
-  }
-}
-
 .frames-wrapper {
   position:relative;
   width:100%;
   margin: 30px 0;
 }
 
-@media (min-width: 768px) {
-  .frames-context-above-inner,
-  .frames-context-below-inner {
-      padding: 30px 0;
-  }
-}
+
 
 .frame {
   width: 100%;
@@ -37,12 +25,6 @@
   font-family: 'FFDINWebBold';
 }
 
-@media (min-width: 768px) {
-  .frame-link{
-    font-size: 20px;
-  }
-}
-
 .frame-link.active, .frame-link.active:hover{
   opacity: 1;
 }
@@ -51,11 +33,23 @@
   opacity: 0.6;
 }
 
-
 .frame-nav.list-inline li{
   border-right: solid 1px rgba(5,24,33,0.6);
 }
 
 .frame-nav.list-inline li:last-child{
   border-right: none;
+}
+
+@media (min-width: 768px) {
+  .skrollable{
+    padding-right: 100px;
+  }
+  .frames-context-above-inner,
+  .frames-context-below-inner {
+      padding: 30px 0;
+  }
+  .frame-link{
+    font-size: 20px;
+  }
 }

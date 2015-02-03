@@ -77,6 +77,8 @@ define([
       var offset_top_frame = offset_top; // the top trigger for frames       
       _.each(this.frames,function(frame, index){
         // before section: set it at top of element           
+        var offset_top_frame_new = offset_top_frame + that.options.scroll_distance;
+        
         var display_top     = (index === 0) ? 'block' : 'none';
         var display_bottom  = (index+1 === that.frames.length) ? 'block' : 'none';
         frame.$frame
@@ -84,17 +86,17 @@ define([
                 'top:'  + (offset_top_frame + above_height) +'px;display:' + display_top)
           .attr('data-' + offset_top_frame, 
                 'top:'  + above_height + 'px;display:block')
-          .attr('data-' + (offset_top_frame + that.options.scroll_distance), 
+          .attr('data-' + offset_top_frame_new, 
                 'top:'  + above_height + 'px;display:' + display_bottom)
           .attr('data-' + offset_end,
                 'top:-' + (that.el_height-above_height)+'px'); 
         //remember skroll-data
         frame.skroll_data.push('data-0');
         frame.skroll_data.push('data-' + offset_top_frame);
-        frame.skroll_data.push('data-' + offset_top_frame + that.options.scroll_distance);        
+        frame.skroll_data.push('data-' + offset_top_frame_new);        
         frame.skroll_data.push('data-' + offset_end);
         
-        offset_top_frame += that.options.scroll_distance;
+        offset_top_frame = offset_top_frame_new;
         
       });
     },     
