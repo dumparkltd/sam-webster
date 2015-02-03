@@ -11,7 +11,7 @@ define([
       this.skroll_data = [];      
       this.players = [
         {
-          player_id:'GWCQFTgl5js',
+          player_id:'7xQhuKVOZiQ',
           player_el:'tactics-player-1',
           height: '720',
           width: '1280'          
