@@ -33,6 +33,7 @@ define([
       "updateRouteEvent" : "updateRoute",    
       "scrollEvent" : "scrollEvent",    
       "click .resetApp" : "resetApp",      
+      "click .toggle-share" : "toggleShare",      
       "click .next-chapter a" : "nextChapter",      
       "click .nav a" : "goToChapter",      
       "resetAppEvent" : "resetApp"
@@ -244,6 +245,11 @@ define([
     },    
     resetApp : function(){
       $(this.el).trigger('updateRouteEvent',{route:'start'});
+    },    
+    toggleShare : function(e){
+      e.preventDefault();
+      this.$('.share-buttons').toggleClass('active');
+      this.$('.toggle-share').toggleClass('active');
     },    
     
   });

@@ -53,6 +53,7 @@ aside {
      padding:0 0 40px;    
    }
   aside .active a,
+  aside .share a.active,
   aside .share a:hover,
   aside a:hover{
     border-top:1px solid #fff;
