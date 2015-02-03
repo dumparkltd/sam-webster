@@ -37,42 +37,73 @@
 }
 
 
-.tactic-dashboard{
+.tactic-dashboard, .tactic-laps{
   position:relative;
-  height:240px;
+  height:110px;
+  text-align:center;
   }
 
-.tactic-dashboard h5{
-  font-size: 25px;
+.tactic-dashboard h5, .tactic-laps h5{
+  font-size: 18px;
   opacity: 0.7;
   margin-bottom: 0px;
   margin-top: 18px;
   font-family: 'FFDINWebBold';
 }
-.tactic-dashboard p{
+
+@media (min-width: 768px) {
+  .tactic-dashboard h5, .tactic-laps h5{
+    font-size: 25px;
+  }
+}
+
+
+.tactic-dashboard p, .tactic-laps p{
   font-size: 12px;
   opacity: 0.7;
 }
-
-
 .tactic-sam{
   color:#0488d0;
-  padding-bottom: 8px;
+  padding-left:10px;
+  display:inline;
 }
-
 .tactic-jason{
   color:#b44f00;
+  display:inline;
+  padding-left:10px;
 }
+
+
+@media (min-width: 992px) {
+  .tactic-dashboard{
+    text-align:left;
+    height:240px;
+  }
+
+  .tactic-dashboard .col-sm-12 {
+    padding-right: 0;
+  }
+  .tactic-sam{
+    display:block;
+    padding-left:0;
+    padding-bottom: 8px;
+  }
+  .tactic-jason{
+    display:block;
+    padding-left:0;
+  }
+}
+
+
+
 
 .tactic-sam span {
     display: inline-block;
     height: 8px;
     width: 8px;
     line-height: 8px;
-
     -moz-border-radius: 4px; /* or 50% */
     border-radius: 4px; /* or 50% */
-
     background-color: #0488d0;
 }
 
@@ -81,10 +112,8 @@
     height: 8px;
     width: 8px;
     line-height: 8px;
-
     -moz-border-radius: 4px; /* or 50% */
     border-radius: 4px; /* or 50% */
-
     background-color: #b44f00;
 }
 
@@ -127,6 +156,12 @@ cursor: pointer;
 }
 
 .tactic-laps-overview-head {
-margin-top: 100px;
+margin-top: 40px;
 margin-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+  .tactic-laps-overview-head {
+    margin-top: 100px;
+  }
 }
