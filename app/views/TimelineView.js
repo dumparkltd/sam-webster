@@ -13,10 +13,7 @@ define([
     },           
     render: function(){         
       this.$el.html(template);
-      this.framesView = new TimelineFramesView({
-        el:this.$('.frames-view'),
-        scroll_distance:200
-      });            
+      this.framesView = new TimelineFramesView({el:this.$('.frames-view')});            
       return this;   
     },
     goToFrame : function(frameIndex, duration, callback){

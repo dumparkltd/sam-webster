@@ -27,10 +27,7 @@ define([
     render: function(){         
       this.$el.html(template);
             
-      this.framesView = new TacticsFramesView({
-        el:this.$('.frames-view'),
-        scroll_distance:200,
-      });        
+      this.framesView = new TacticsFramesView({el:this.$('.frames-view')});        
       
       return this;
     },                  

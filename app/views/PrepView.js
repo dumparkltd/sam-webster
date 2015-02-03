@@ -17,10 +17,7 @@ define([
       this.videoView = new PrepVideoView({
         el:this.$('.video-view')
       });  
-      this.framesView = new PrepNutritionFramesView({
-        el:this.$('.frames-view'),
-        scroll_distance:200
-      });  
+      this.framesView = new PrepNutritionFramesView({ el:this.$('.frames-view')});  
       return this;
     },
     goToFrame : function(frameIndex, duration, callback){

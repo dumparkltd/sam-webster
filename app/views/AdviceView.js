@@ -16,10 +16,7 @@ define([
     render: function(){         
       this.$el.html(template);
       
-      this.framesView = new AdviceNutritionFramesView({
-        el:this.$('.frames-view'),
-        scroll_distance:200,
-      });  
+      this.framesView = new AdviceNutritionFramesView({el:this.$('.frames-view')});  
             
       return this;
     },
