@@ -47,29 +47,35 @@ define([
         };
         that.max_frame_height = Math.max(that.max_frame_height,$(this).outerHeight());
       });
-      
+      var offset_top_position = 0;
       var above_height      = this.$('.frames-context-above').outerHeight();      
-      this.el_height        = above_height + this.$('.frames-context-below').outerHeight() + this.max_frame_height;      
+      this.el_height        = above_height + this.$('.frames-context-below').outerHeight() + this.max_frame_height;   
+      if ($(window).height() > this.el_height) {
+        offset_top_position = ($(window).height()-this.el_height)/2;
+        this.el_height      = (($(window).height()-this.el_height)) + this.el_height;                
+        console.log(this.el_height);
+      }           
       this.scrollLength     = this.frames.length * this.options.scroll_distance;      
       var offset_bottom     = offset_top    + this.scrollLength; // the bottom trigger
       var offset_end        = offset_bottom + this.el_height; 
-      var offset_top_below  = above_height  + this.max_frame_height;
+      var offset_top_below  = above_height  + this.max_frame_height ;
       
+      var top_trigger = offset_top - offset_top_position;
       // context above
       this.$('.frames-context-above ')
         .attr('data-0',               'top:'+ offset_top +'px')// before section: set it at top of element
-        .attr('data-' + offset_top ,  'top:0px')// during set it to the top of the element
-        .attr('data-' + offset_bottom,'top:0px')// keep it until the end of section            
+        .attr('data-' + top_trigger,  'top:'+offset_top_position+'px')// during set it to the top of the element
+        .attr('data-' + offset_bottom,'top:'+offset_top_position+'px')// keep it until the end of section            
         .attr('data-' + offset_end,   'top:-'+ this.el_height +'px');// move out of view
       // context below
       this.$('.frames-context-below ')
         .attr('data-0',               'top:'+ (offset_top + offset_top_below) +'px')// before section: set it at top of element  
-        .attr('data-' + offset_top,   'top:'+ offset_top_below +'px')// during set it to the top of the element    
+        .attr('data-' + top_trigger,   'top:'+ offset_top_below +'px')// during set it to the top of the element    
         .attr('data-' + offset_bottom,'top:'+ offset_top_below +'px')// keep it until the end of section   
         .attr('data-' + offset_end,   'top:-'+(this.el_height-offset_top_below)+'px'); 
       //remember skroll-data
       this.skroll_data.push('data-0');
-      this.skroll_data.push('data-' + offset_top);
+      this.skroll_data.push('data-' + top_trigger);
       this.skroll_data.push('data-' + offset_bottom);
       this.skroll_data.push('data-' + offset_end);
       
@@ -84,16 +90,19 @@ define([
         frame.$frame
           .attr('data-0',
                 'top:'  + (offset_top_frame + above_height) +'px;display:' + display_top)
-          .attr('data-' + offset_top_frame, 
-                'top:'  + above_height + 'px;display:block')
-          .attr('data-' + offset_top_frame_new, 
-                'top:'  + above_height + 'px;display:' + display_bottom)
+          .attr('data-' + (offset_top_frame - offset_top_position), 
+                'top:'  + (above_height + offset_top_position) + 'px;display:block')
+          .attr('data-' + (offset_top_frame_new), 
+                'top:'  + (above_height + offset_top_position) + 'px')
+          .attr('data-' + (offset_top_frame_new - offset_top_position), 
+                'display:' + display_bottom)
           .attr('data-' + offset_end,
                 'top:-' + (that.el_height-above_height)+'px'); 
         //remember skroll-data
         frame.skroll_data.push('data-0');
-        frame.skroll_data.push('data-' + offset_top_frame);
-        frame.skroll_data.push('data-' + offset_top_frame_new);        
+        frame.skroll_data.push('data-' + (offset_top_frame - offset_top_position));
+        frame.skroll_data.push('data-' + (offset_top_frame_new));        
+        frame.skroll_data.push('data-' + (offset_top_frame_new - offset_top_position));        
         frame.skroll_data.push('data-' + offset_end);
         
         offset_top_frame = offset_top_frame_new;

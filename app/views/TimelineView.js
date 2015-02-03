@@ -28,7 +28,9 @@ define([
               + this.framesView.getHeight()
     },  
     offsetSkroll: function(offset_top){
+      console.log('timeline offsetSkroll ' + offset_top);
       
+      console.log(offset_top);
       this.framesView.setupFrames(offset_top + this.$('.frames-above').outerHeight());;
       
       this.removeSkrollData();

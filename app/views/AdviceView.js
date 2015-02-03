@@ -44,6 +44,9 @@ define([
       offset_top += offset;  
       this.$el.attr('data-'+offset_top,'top:-'+offset+'px');   
       this.skroll_data.push('data-'+offset_top);      
+      
+      this.$('.frames-below').css('top',this.framesView.getHeight() + 'px') ;      
+      
       return offset_top;
     },     
     removeSkrollData : function(){
