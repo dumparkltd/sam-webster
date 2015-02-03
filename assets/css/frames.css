@@ -16,7 +16,7 @@
 }
 
 .frame-link{
-  font-size: 14px;
+  font-size: 12px;
   text-transform: uppercase;
   color: #041720;
   opacity: 0.4;
@@ -39,6 +39,10 @@
 
 .frame-nav.list-inline li:last-child{
   border-right: none;
+}
+.frames-context-above-inner,
+.frames-context-below-inner {
+    padding: 5px 0;
 }
 
 @media (min-width: 768px) {

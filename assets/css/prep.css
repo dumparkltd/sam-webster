@@ -10,22 +10,27 @@
 
 /* Preparation specific */
 
+.prep-video {
+ text-align:center;
+ font-size: 12px;
+ padding-top: 50px;
+}
 
+.prep-video p{
+ font-size: 16px;
+}
 
 @media (min-width: 768px) {
   .prep-video {
     padding:30px;
+    font-size: 14px;
+  }
+  .prep-video p{
+   font-size: 20px;
   }
 }
 
-.prep-video {
- text-align:center;
- font-size: 14px;
-}
 
-.prep-video p{
- font-size: 20px;
-}
 
 .prep-nutrition-chart{
   font-size: 0px;
