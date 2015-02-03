@@ -4,23 +4,21 @@ define([
   var FramesView = Backbone.View.extend({
     isFramesView : true,    
     events : {
-      "click a.frame-link" : "goToFrameEvent",
-      "click  .frame-link" : "goToFrameEvent",
-      "click a.frame-next" : "goToNextFrameEvent",
-      "click a.frame-prev" : "goToPreviousFrameEvent"
+      "click .frame-link" : "goToFrameEvent",
+      "click .frame-next" : "goToNextFrameEvent",
+      "click .frame-prev" : "goToPreviousFrameEvent"
     },    
     constructor: function(options) {   
       // options
       this.default_options = {
         fill_screen: false, //         
-        scroll_distance: 300, // the distance between frame updates, if scrolling enabled
-        offset_top:0
+        scroll_distance: 300 // the distance between frame updates, if scrolling enabled
       };
       this.options = $.extend(true, this.default_options, options);               
       
       // frames
-      this.currentFrame = 0;
-              
+      this.currentFrame = 0; 
+      this.el_height = 0;
       this.scrollLength = 0;
       this.skroll_data = [];            
       
@@ -30,15 +28,12 @@ define([
       Backbone.View.apply(this, arguments);          
     },  
     getHeight : function(){
-      return this.scrollLength  
-              + this.max_frame_height 
-              + this.$('.frames-context-above').outerHeight()  
-              + this.$('.frames-context-below').outerHeight();
+      return this.scrollLength + this.el_height;
     },
     setupFrames : function(offset_top){      
       offset_top = typeof offset_top !== 'undefined' ? offset_top :this.options.offset_top;  
       
-      // setup skroll data
+      // reset skroll data
       this.removeSkrollData();
       
       // set up frames
@@ -52,33 +47,27 @@ define([
         };
         that.max_frame_height = Math.max(that.max_frame_height,$(this).outerHeight());
       });
-      // the total length of this frame
-      this.scrollLength = this.frames.length * this.options.scroll_distance; 
       
-      var above_height = this.$('.frames-context-above').outerHeight();
-      var below_height = this.$('.frames-context-below').outerHeight();
-      var el_height = above_height + below_height + this.max_frame_height;
-      
-
-      
-      var offset_bottom = offset_top    + this.scrollLength; // the bottom trigger
-      var offset_end    = offset_bottom + el_height; 
+      var above_height      = this.$('.frames-context-above').outerHeight();      
+      this.el_height        = above_height + this.$('.frames-context-below').outerHeight() + this.max_frame_height;      
+      this.scrollLength     = this.frames.length * this.options.scroll_distance;      
+      var offset_bottom     = offset_top    + this.scrollLength; // the bottom trigger
+      var offset_end        = offset_bottom + this.el_height; 
+      var offset_top_below  = above_height  + this.max_frame_height;
       
       // context above
-      
-      
       this.$('.frames-context-above ')
         .attr('data-0',               'top:'+ offset_top +'px')// before section: set it at top of element
         .attr('data-' + offset_top ,  'top:0px')// during set it to the top of the element
         .attr('data-' + offset_bottom,'top:0px')// keep it until the end of section            
-        .attr('data-' + offset_end,   'top:-'+ el_height +'px');// move out of view
+        .attr('data-' + offset_end,   'top:-'+ this.el_height +'px');// move out of view
       // context below
-      var offset_top_below = above_height + this.max_frame_height;               
       this.$('.frames-context-below ')
-              .attr('data-0',               'top:'+ (offset_top + offset_top_below) +'px')// before section: set it at top of element  
-              .attr('data-' + offset_top,   'top:'+ offset_top_below +'px')// during set it to the top of the element    
-              .attr('data-' + offset_bottom,'top:'+ offset_top_below +'px')// keep it until the end of section   
-              .attr('data-' + offset_end,   'top:-'+(el_height-offset_top_below)+'px');            
+        .attr('data-0',               'top:'+ (offset_top + offset_top_below) +'px')// before section: set it at top of element  
+        .attr('data-' + offset_top,   'top:'+ offset_top_below +'px')// during set it to the top of the element    
+        .attr('data-' + offset_bottom,'top:'+ offset_top_below +'px')// keep it until the end of section   
+        .attr('data-' + offset_end,   'top:-'+(this.el_height-offset_top_below)+'px'); 
+      //remember skroll-data
       this.skroll_data.push('data-0');
       this.skroll_data.push('data-' + offset_top);
       this.skroll_data.push('data-' + offset_bottom);
@@ -87,29 +76,27 @@ define([
       // the frames
       var offset_top_frame = offset_top; // the top trigger for frames       
       _.each(this.frames,function(frame, index){
-        // before section: set it at top of element             
-        if (index === 0) {
-          frame.$frame.attr('data-0','top:'+ (offset_top_frame + above_height) +'px');
-        } else {
-          frame.$frame.attr('data-0','top:'+ (offset_top_frame + above_height) +'px;display:none;');                
-        }              
+        // before section: set it at top of element           
+        var display_top     = (index === 0) ? 'block' : 'none';
+        var display_bottom  = (index+1 === that.frames.length) ? 'block' : 'none';
+        frame.$frame
+          .attr('data-0',
+                'top:'  + (offset_top_frame + above_height) +'px;display:' + display_top)
+          .attr('data-' + offset_top_frame, 
+                'top:'  + above_height + 'px;display:block')
+          .attr('data-' + (offset_top_frame + that.options.scroll_distance), 
+                'top:'  + above_height + 'px;display:' + display_bottom)
+          .attr('data-' + offset_end,
+                'top:-' + (that.el_height-above_height)+'px'); 
+        //remember skroll-data
         frame.skroll_data.push('data-0');
-        // during set it to the top of the element
-        frame.$frame.attr('data-' + offset_top_frame, 'display:block;top:'+above_height+'px');           
         frame.skroll_data.push('data-' + offset_top_frame);
-        offset_top_frame += that.options.scroll_distance;
-        // keep it until the end of section      
-        if (index+1 === that.frames.length) {              
-          frame.$frame.attr('data-' + offset_top_frame, 'display:block;top:'+above_height+'px');
-        } else {
-          frame.$frame.attr('data-' + offset_top_frame, 'display:none;top:'+above_height+'px');
-        }
-        frame.skroll_data.push('data-' + offset_top_frame);
-        // then move outside of view
-        frame.$frame.attr('data-' + offset_end,'top:-'+(el_height-above_height)+'px');                           
+        frame.skroll_data.push('data-' + offset_top_frame + that.options.scroll_distance);        
         frame.skroll_data.push('data-' + offset_end);
+        
+        offset_top_frame += that.options.scroll_distance;
+        
       });
-      this.$('.frames-wrapper').addClass('init');
     },     
     removeSkrollData : function(){
       var that = this;
