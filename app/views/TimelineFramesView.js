@@ -14,8 +14,7 @@ define([
        });
     },    
     render: function(){         
-      this.$el.html(_.template(template)({}));   
-      this.setupFrames();
+      this.$el.html(template);   
       return this;      
     },
 

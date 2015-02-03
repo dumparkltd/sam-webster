@@ -9,13 +9,10 @@ define([
       this.render();
     },       
     events: function(){
-       return _.extend({},FramesView.prototype.events,{
-//           'click' : 'onclickChild'
-       });
+       return _.extend({},FramesView.prototype.events,{});
     },    
     render: function(){         
-      this.$el.html(_.template(template)({}));   
-      this.setupFrames();
+      this.$el.html(template);   
       return this;      
     },    
   });
