@@ -21,8 +21,14 @@
 }
 
 #advice-view .frames-context-above-inner{
-  padding:50px 0 0;
+  padding:0 0 0;
 }
+
+@media (min-width: 768px) {
+  #advice-view .frames-context-above-inner{
+    padding:50px 0 0;
+  }
+} 
 
 
 .advice-nutrition-chart-label-protein{

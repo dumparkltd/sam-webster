@@ -55,7 +55,7 @@
 }
 .frames-context-above-inner,
 .frames-context-below-inner {
-    padding: 40px 0 10px;
+    padding: 20px 0 10px;
 }
 
 @media (min-width: 768px) {

@@ -28,7 +28,7 @@ h1 {
 h2{
   font-size: 24px;
   margin-bottom: 10px;
-  margin-top: 0;
+  margin-top: 10px;
 }
 
 h3 {
@@ -50,6 +50,7 @@ h4  {
   h2{
   font-size: 30px;
   margin-bottom: 20px;
+  margin-top: 0;
   }
   h3 {
     font-size: 20px;
