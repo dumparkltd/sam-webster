@@ -64,7 +64,7 @@ define([
       this.scrollLength     = this.frames.length * this.options.scroll_distance;      
       var offset_bottom     = offset_top    + this.scrollLength; // the bottom trigger
       var offset_end        = offset_bottom + this.el_height; 
-      var offset_top_below  = this.above_height  + this.max_frame_height ;
+      var offset_top_below  = this.above_height  + this.max_frame_height;
       
       var top_trigger = offset_top - this.offset_top_position;
       // context above

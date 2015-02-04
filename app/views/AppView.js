@@ -217,7 +217,8 @@ define([
         duration : 0
       };
       var options = $.extend(true, default_options, args);       
-      this.skrollr.setScrollTop(options.offset);            
+      this.skrollr.setScrollTop(options.offset);   
+      args.callback();
     },    
     updateRoute : function (e, args) {
       this.model.get('router').navigate(args.route,{trigger:true});
