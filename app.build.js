@@ -1,7 +1,7 @@
 ({
     appDir: "./",
     baseUrl: "app",
-    dir: "../sam-webster-dep",
+    dir: "../sam-webster-dep/sam-webster",
     paths: {
     'jquery': 'libs/jquery',
     'underscore': 'libs/underscore',
