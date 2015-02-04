@@ -155,9 +155,7 @@ define([
 
   
     scrolled : function(){
-      if (this.model.get('userScrolling')) {      
-        this.activateChapter(this.getChapterByPosition());
-      }
+      this.activateChapter(this.getChapterByPosition());
     },
     activateChapter:function(chapterID){
       this.$('.nav li').removeClass('active');
