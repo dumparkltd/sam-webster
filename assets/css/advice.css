@@ -41,6 +41,12 @@
   text-align: center;
   margin-top: 28px;
 }
+
+.advice-training-teaser-img{
+  max-width: 300px;
+  margin: 0 auto;
+}
+
 .advice-training-programme-img{
   margin:0 auto;
 }
@@ -48,6 +54,9 @@
 @media (min-width: 768px) {
   .advice-training-txt{
     text-align: left;
+  }
+  .advice-training-teaser-img{
+    max-width: 100%;
   }
   .advice-training-programme-img{
     margin:0 0;
