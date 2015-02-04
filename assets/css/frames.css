@@ -8,13 +8,16 @@
 }
 
 .frames-above {
-  padding-top: 70px;
+  padding-top: 20px;
 }
 
 @media (min-width: 768px) {
-.frames-above {
-  padding-top: 80px;
-}
+  .frames-above {
+    padding-top: 60px;
+  }
+  .low-screen .frames-above {
+    padding-top: 30px;
+  }
 }
 
 

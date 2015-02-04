@@ -52,6 +52,10 @@ aside a{
  text-transform:uppercase;
  display:block;
 } 
+aside ul.nav{
+  margin-top:70px;
+}
+
 aside li a{ 
  width:100%;
  padding:0 0 10px;    
@@ -123,6 +127,9 @@ aside .navbar-toggle {
       display:block;
       width:100px;
   }
+  aside ul.nav{
+    margin-top:0px;
+  }  
   aside li a{    
     padding:0 0 40px;    
   }  
