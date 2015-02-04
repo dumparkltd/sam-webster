@@ -218,8 +218,7 @@ define([
           // chapter is in view  
           chapterID = $(this).data('id');  
         }
-      });      
-      
+      });            
       return chapterID;
     },
     
@@ -236,6 +235,9 @@ define([
     // EVENT HANDLERS ////////////////////////////////////////////////////////////////
     goToChapter : function (e){
       this.$('aside').removeClass('open'); 
+      this.$('.share-buttons').removeClass('active');      
+      this.model.set('userScrolling',true);
+      
       if ($(e.originalEvent.target).attr('href').split('#')[1] === this.model.get('chapter-id')) {
         e.preventDefault();
         $(this.el).trigger('scrollEvent',{
@@ -250,8 +252,6 @@ define([
         duration : 0
       };
       var options = $.extend(true, default_options, args);       
-
-      console.log('scrollEvent '+options.duration); 
       
       $('html,body').animate({
         scrollTop: options.offset
