@@ -25,7 +25,7 @@ define([
       this.listenTo(this.model, 'change:routeUpdated', this.routeUpdated);         
       
       // bind to window
-      $(window).scroll(_.debounce(_.bind(this.scrolled, this),100));
+      $(window).scroll(_.debounce(_.bind(this.scrolled, this),1));
       $(window).resize(_.debounce(_.bind(this.resized, this),1000));
       
     },
