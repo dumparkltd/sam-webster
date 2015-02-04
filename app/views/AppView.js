@@ -1,7 +1,6 @@
 define([
   'jquery','underscore','backbone', // helper
   'skrollr',
-//  'collections/', //collections
   'views/IntroView','views/TacticsView','views/TimelineView',
   'views/PrepView','views/AdviceView','views/WinView',//subviews
   'text!templates/appTemplate.html'//templates
@@ -17,6 +16,9 @@ define([
       this.options = options || {};      
       
       this.scrollDuration = 200;
+      if (Modernizr.touch){
+        this.scrollDuration = 0;
+      }
       this.img_loaded = false;
       this.totalImg = 0;
       this.skroll_data = [];
@@ -218,8 +220,7 @@ define([
           // chapter is in view  
           chapterID = $(this).data('id');  
         }
-      });      
-      
+      });            
       return chapterID;
     },
     
@@ -236,6 +237,9 @@ define([
     // EVENT HANDLERS ////////////////////////////////////////////////////////////////
     goToChapter : function (e){
       this.$('aside').removeClass('open'); 
+      this.$('.share-buttons').removeClass('active');      
+      this.model.set('userScrolling',false);
+      
       if ($(e.originalEvent.target).attr('href').split('#')[1] === this.model.get('chapter-id')) {
         e.preventDefault();
         $(this.el).trigger('scrollEvent',{
@@ -250,8 +254,6 @@ define([
         duration : 0
       };
       var options = $.extend(true, default_options, args);       
-
-      console.log('scrollEvent '+options.duration); 
       
       $('html,body').animate({
         scrollTop: options.offset
