@@ -167,7 +167,7 @@ define([
         $(this.el).trigger('scrollEvent',{
           offset:   this.$el.offset().top 
                   + this.offset_top_position
-                  + (this.options.scroll_distance * frameIndex),
+                  + (this.options.scroll_distance * (frameIndex+0.5)),
           duration: typeof duration !== 'undefined' ? duration : 0,
           callback: setTimeout(_.bind(this.scrolled, this),1000)
         });
