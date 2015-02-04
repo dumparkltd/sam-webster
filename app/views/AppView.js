@@ -49,7 +49,9 @@ define([
       });   
       if ($(window).height() < 800) {
         this.$el.addClass('low-screen');
-      }
+      } else {
+        this.$el.removeClass('low-screen');
+      } 
       // init subviews
       this.model.addChapter(this.$('#intro-view').data('id'),new IntroView({
         el:this.$('#intro-view')
@@ -240,6 +242,8 @@ define([
       });          
       if ($(window).height() < 800) {
         this.$el.addClass('low-screen');
+      } else {
+        this.$el.removeClass('low-screen');
       }      
       this.initSkrollr();
       this.skrollr.refresh();      
