@@ -214,11 +214,12 @@ define([
     },
     scrollEvent : function (e, args) {
       var default_options = {
-        duration : 0
+        duration : 0,
+        callback : function(){}        
       };
       var options = $.extend(true, default_options, args);       
       this.skrollr.setScrollTop(options.offset);   
-      args.callback();
+      options.callback;
     },    
     updateRoute : function (e, args) {
       this.model.get('router').navigate(args.route,{trigger:true});
