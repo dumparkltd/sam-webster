@@ -16,6 +16,9 @@ define([
       this.options = options || {};      
       
       this.scrollDuration = 200;
+      if (Modernizr.touch){
+        this.scrollDuration = 0;
+      }
       this.img_loaded = false;
       this.totalImg = 0;
       this.skroll_data = [];
