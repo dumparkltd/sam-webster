@@ -292,6 +292,7 @@ footer a{
   .share-buttons {
     bottom: 40px;    
     right:113px;
+    left:initial;
   }  
 }
   

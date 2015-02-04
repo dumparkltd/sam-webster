@@ -1,7 +1,6 @@
 define([
   'jquery','underscore','backbone', // helper
   'skrollr',
-//  'collections/', //collections
   'views/IntroView','views/TacticsView','views/TimelineView',
   'views/PrepView','views/AdviceView','views/WinView',//subviews
   'text!templates/appTemplate.html'//templates
@@ -236,7 +235,7 @@ define([
     goToChapter : function (e){
       this.$('aside').removeClass('open'); 
       this.$('.share-buttons').removeClass('active');      
-      this.model.set('userScrolling',true);
+      this.model.set('userScrolling',false);
       
       if ($(e.originalEvent.target).attr('href').split('#')[1] === this.model.get('chapter-id')) {
         e.preventDefault();
