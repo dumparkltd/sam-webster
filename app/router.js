@@ -33,6 +33,7 @@ define([
     app.Router.on('route:catchAll', function (route) {   
       var route = route.split('/')
       app.AppModel.set('chapter-id',route[0]);  
+      app.AppModel.set('userScrolling',false);  
       if (route.length>1){
         app.AppModel.set('frame-id',route[1]);
       } else {

@@ -58,7 +58,6 @@ define([
       if ($(window).height() > this.el_height) {
         offset_top_position = ($(window).height()-this.el_height)/2;
         this.el_height      = (($(window).height()-this.el_height)) + this.el_height;                
-        console.log(this.el_height);
       }           
       this.scrollLength     = this.frames.length * this.options.scroll_distance;      
       var offset_bottom     = offset_top    + this.scrollLength; // the bottom trigger
