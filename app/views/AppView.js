@@ -60,7 +60,7 @@ define([
       }));               
       this.model.addChapter(this.$('#tactics-view').data('id'),new TacticsView({
         el:this.$('#tactics-view'),
-        auto_play:true,
+        auto_play:(Modernizr.touch) ? false : true,
         play_tolerance:$(window).height()/4
       }));       
       this.model.addChapter(this.$('#prep-view').data('id'),new PrepView({
