@@ -254,6 +254,9 @@ footer a{
   margin-top: 20px;
 }
 
+.footer-logo-div{
+  text-align: right;
+}
 
 
 .share-buttons {
@@ -266,4 +269,6 @@ footer a{
 .share-buttons.active {
     opacity:1;
 }
+
+
 

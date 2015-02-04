@@ -6,28 +6,28 @@
     min-height: 400px;
 }
 
+#win-view .container {
+  padding-bottom:100px;
+  padding-top:100px;
+}
+
 #win-view h1.title{
   border-top: 1px solid white;
-  margin-top: 50px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
+  margin-top:0px;
 }
 
 #win-view .btn {
-border: solid 1px white;
-padding: 10px 20px;
-color: white;
-margin-top: 20px;
-margin-bottom: 120px;
-font-size: 23px;
-display: inline-block;
+  border: solid 1px white;
+  padding: 12px 20px 10px;
+  color: white;
+  margin-top: 30px;
+  font-size: 23px;
+  display: inline-block;
 }
 
 
 .win-bike-imgbox{
   padding-left:0;
   padding-right:0;
-}
-
-.win-bike-subtxt{
-  font-size:14px;
 }

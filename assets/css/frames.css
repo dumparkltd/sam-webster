@@ -8,7 +8,7 @@
 }
 
 .frames-above {
-  padding-top: 50px;
+  padding-top: 100px;
 }
 
 .frames-below{
@@ -57,7 +57,7 @@
   }
   .frames-context-above-inner,
   .frames-context-below-inner {
-      padding: 30px 0;
+      padding: 50px 0;
   }
   .frame-link{
     font-size: 20px;

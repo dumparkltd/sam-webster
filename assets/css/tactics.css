@@ -14,6 +14,11 @@
   text-align:center;
 }
 
+#tactics-view .frame.skrollable {
+  padding-top: 50px;
+  padding-bottom: 50px;  
+}
+
 .tactics-video{
   display:block;
   padding-bottom: 50px;
@@ -22,10 +27,11 @@
 
 .tactic-txt {
   min-height: 90px;
+  padding-top: 20px;
 }
 
 .tactic-txt h5{
-  font-size: 16px;
+  font-size: 20px;
   text-transform: uppercase;
   font-family: 'FFDINWebBold';
   margin-bottom: 5px;
@@ -33,8 +39,8 @@
 
 
 .tactic-lgnd{
- position: absolute;
- bottom:0;
+ padding-top: 18px;
+ font-size: 14px;
 }
 
 
@@ -54,7 +60,7 @@
 
 @media (min-width: 768px) {
   .tactic-dashboard h5, .tactic-laps h5{
-    font-size: 25px;
+    font-size: 20px;
   }
 }
 
@@ -79,6 +85,7 @@
   .tactic-dashboard{
     text-align:left;
     height:240px;
+    padding-top: 15px;
   }
 
   .tactic-dashboard .col-sm-12 {
@@ -87,7 +94,6 @@
   .tactic-sam{
     display:block;
     padding-left:0;
-    padding-bottom: 8px;
   }
   .tactic-jason{
     display:block;
@@ -121,7 +127,7 @@
 
 
 .tactic-power-svg-img {
-  margin-top: 10px;
+  margin-top: 7px;
 }
 
 .tactic-power-hotspots {
@@ -156,10 +162,51 @@ cursor: pointer;
   text-align: center;
 }
 
-.tactic-laps-overview-head {
+.tactic-three-lap-container {
+  padding-top:30px;
 }
 
 @media (min-width: 768px) {
   .tactic-laps-overview-head {
   }
 }
+
+.tactic-laps-overview-lgnd{
+  padding-top: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.tactic-laps-overview-sam{
+  color:#0488d0;
+  padding-left:10px;
+  display:inline;
+}
+.tactic-laps-overview-jason{
+  color:#b44f00;
+  display:inline;
+  padding-left:8px;
+}
+
+.tactic-laps-overview-sam span {
+    display: inline-block;
+    height: 8px;
+    width: 8px;
+    line-height: 8px;
+    -moz-border-radius: 4px; /* or 50% */
+    border-radius: 4px; /* or 50% */
+    background-color: #0488d0;
+    padding-left: 0;
+}
+
+.tactic-laps-overview-jason span {
+    display: inline-block;
+    height: 8px;
+    width: 8px;
+    line-height: 8px;
+    -moz-border-radius: 4px; /* or 50% */
+    border-radius: 4px; /* or 50% */
+    background-color: #b44f00;
+    padding-left: 8px;
+}
+

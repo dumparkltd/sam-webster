@@ -4,6 +4,10 @@
 	opacity: 1; 
 }
 
+#timeline-view .frame.skrollable {
+  padding-bottom: 50px;  
+}
+
 .frame-link:hover .timeline-date{
 	color: rgba(5,24,33,0.6); 
 }

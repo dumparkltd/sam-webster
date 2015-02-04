@@ -10,6 +10,22 @@
 
 /* Preparation specific */
 
+
+#prep-view .instruction{
+  padding-top: 40px;
+}
+
+#prep-view .frames-above{
+  padding-top: 200px;
+}
+
+#prep-view .frames-context-above-inner{
+  padding:0 0 0;
+}
+#prep-view .video-view .container{
+  padding-bottom:200px;
+}
+
 .prep-video {
  text-align:center;
  font-size: 12px;
@@ -22,11 +38,12 @@
 
 @media (min-width: 768px) {
   .prep-video {
-    padding:30px;
+    padding:50px 24px 0px;
     font-size: 14px;
   }
   .prep-video p{
    font-size: 20px;
+   line-height: 26px;
   }
 }
 
@@ -34,9 +51,10 @@
 
 .prep-nutrition-chart{
   font-size: 0px;
+  padding-top: 18px;
 }
 .nutrition-chart {
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 .prep-nutrition-chart-div{
   display: inline-block;
@@ -71,4 +89,8 @@
 .prep-nutrition-chart-label-fat{
   text-align: center;
   color:#b55002;
+}
+
+.prep-nutrition-definition{
+  min-height:50px;
 }

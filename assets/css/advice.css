@@ -2,38 +2,55 @@
   font-size:14px;
 }
 
+#advice-view h3.content {
+  text-align:left;
+}
+
 @media (min-width: 768px) {
   #advice-view h3{
-    font-size:24px;
+    font-size:20px;
   }
 } 
 
+#advice-view .frames-above {
+  padding-top:0px;
+}
+
+#advice-view .instruction{
+  padding-top: 40px;
+}
+
+#advice-view .frames-context-above-inner{
+  padding:50px 0 0;
+}
 
 
 .advice-nutrition-chart-label-protein{
   text-align: center;
   color:#0589d1;
+  font-size:20px;
 }
 
 .advice-nutrition-chart-label-carbs{
   text-align: center;
   color:#f16601;
+  font-size:20px;
 }
 
 .advice-nutrition-chart-label-fat{
   text-align: center;
   color:#b55002;
+  font-size:20px;
 }
 
 #advice-view .btn {
   border: solid 1px #0488d0;
-  padding: 10px 20px;
+  padding: 12px 20px 10px;
   color: #0488d0;
-  margin-top: 20px;
-  margin-bottom: 120px;
+  margin-top: 30px;
   font-size: 23px;
   display: inline-block;
-  text-transform:uppercase;
+  text-transform: uppercase;
 }
 
 
@@ -62,5 +79,13 @@
     margin:0 0;
   }
 } 
+
+.advice-nutrition-note{
+  padding-top:40px;
+}
+
+.advice-training-programme-div{
+  padding-bottom:140px;
+}
 
 
