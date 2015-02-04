@@ -90,11 +90,14 @@ define([
       });        
       
       this.activateChapter(this.getChapterByPosition());
+      // Load Sharing
+      $('head').append('<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-54d1b9271ac1634b" async="async"></script>');          
 
-      
+      // Load YouTube API
       if (typeof YT === 'undefined') {
         $('head').append('<script src="//www.youtube.com/iframe_api" type="text/javascript"></script>');    
       }      
+      
       var that = this;
       if (typeof YT !== 'undefined') {
         that.model.getChapterByID('prep').view.initPlayers();
@@ -211,7 +214,6 @@ define([
         this.scrollDuration
       );
       this.activateChapter(chapter_id);
-      console.log(this.model.get('userScrolling'));
       setTimeout(this.model.set('userScrolling', true),1000);
     },
     scrollEvent : function (e, args) {
