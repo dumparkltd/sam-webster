@@ -258,11 +258,12 @@ footer a{
 
 .share-buttons {
     bottom: 34px;    
-    position: fixed;    
-    right:-100px;
+    position: fixed;        
+    right:113px;
+    display:none;
 }
 .share-buttons.active {
-    right:133px;
+    display:block;
     z-index:9999;
 }
 
