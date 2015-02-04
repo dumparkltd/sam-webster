@@ -53,7 +53,8 @@ define([
       }));               
       this.model.addChapter(this.$('#tactics-view').data('id'),new TacticsView({
         el:this.$('#tactics-view'),
-        auto_play:false
+        auto_play:true,
+        play_tolerance:$(window).height()/4
       }));       
       this.model.addChapter(this.$('#prep-view').data('id'),new PrepView({
         el:this.$('#prep-view')
