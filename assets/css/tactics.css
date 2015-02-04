@@ -182,15 +182,17 @@ cursor: pointer;
 
 .tactic-three-lap-container {
   padding-top:30px;
-  padding-bottom: 0px;
+  padding-bottom: 30px;
 }
 
 @media (min-width: 768px) {
   .tactic-three-lap-container {
-    padding-bottom: 220px;
+    padding-bottom: 180px;
   }
-  .tactic-laps-overview-head {
+  .low-screen .tactic-three-lap-container {
+    padding-bottom: 120px;
   }
+
 }
 
 .tactic-laps-overview-lgnd{
