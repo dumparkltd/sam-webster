@@ -31,3 +31,12 @@
   padding-left:0;
   padding-right:0;
 }
+
+.win-facebook-btn{
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .win-facebook-btn{
+    text-align: left;
+  }
+}

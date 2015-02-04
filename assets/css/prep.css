@@ -12,11 +12,17 @@
 
 
 #prep-view .instruction{
-  padding-top: 40px;
+  padding-top: 20px;
+}
+
+@media (min-width: 768px) {
+  #prep-view .instruction{
+    padding-top: 40px;
+  }
 }
 
 #prep-view .frames-above{
-  padding-top: 200px;
+  /*padding-top: 200px;*/
 }
 
 #prep-view .frames-context-above-inner{
@@ -51,11 +57,22 @@
 
 .prep-nutrition-chart{
   font-size: 0px;
-  padding-top: 18px;
+  padding-top: 14px;
 }
 .nutrition-chart {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
+
+@media (min-width: 768px) {
+  .prep-nutrition-chart{
+    font-size: 0px;
+    padding-top: 18px;
+  }
+  .nutrition-chart {
+      margin-bottom: 40px;
+  }
+}
+
 .prep-nutrition-chart-div{
   display: inline-block;
   font-size: 20px;

@@ -252,10 +252,27 @@ footer a{
   font-size: 12px;
   opacity: 0.3;
   margin-top: 20px;
+  text-align: center;
+}
+
+.footer-txt-div{
+  text-align: center;
 }
 
 .footer-logo-div{
-  text-align: right;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .footer-logo-div{
+    text-align: right;
+  }
+  .dmprk-credit {
+    text-align: left;
+  }
+  .footer-txt-div{
+    text-align: left;
+  }
 }
 
 
