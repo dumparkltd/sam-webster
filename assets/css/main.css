@@ -277,15 +277,24 @@ footer a{
 
 
 .share-buttons {
-    bottom: 34px;    
-    position: fixed;        
-    right:113px;
-    display:none;
+    bottom: 20px;    
+    right:initial;
+    left:0;
+    position: fixed;            
+    display:none;    
 }
 .share-buttons.active {
     display:block;
     z-index:9999;
 }
+@media (min-width: 768px) {
+  .share-buttons {
+    bottom: 40px;    
+    right:113px;
+  }  
+}
+  
+
 
 
 

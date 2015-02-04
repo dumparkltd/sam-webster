@@ -169,7 +169,7 @@ define([
                   + this.offset_top_position
                   + (this.options.scroll_distance * frameIndex),
           duration: typeof duration !== 'undefined' ? duration : 0,
-          callback: setTimeout(_.bind(this.scrolled, this),200)
+          callback: setTimeout(_.bind(this.scrolled, this),1000)
         });
       } 
     },            
