@@ -26,14 +26,17 @@
   margin-left:10px;
 }
 
+#intro-view h1 {
+  border-top: 1px solid;
+  display: inline-block;
+  margin-top: 40%;
+  margin-bottom: 0;
+  padding-top: 0;
+}
 
 @media (min-width: 768px) {
   #intro-view h1 {
-    border-top: 1px solid;
-    display: inline-block;
-    margin-top: 40%;
-    margin-bottom: 0;
-    padding-top: 0;
+    margin-top: 10%;
   }
 }
 
