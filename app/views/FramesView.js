@@ -25,8 +25,10 @@ define([
       this.offset_top = 0;
       this.skroll_data = [];            
       
-      $(window).scroll(_.debounce(_.bind(this.scrolled, this),1));        
-       
+      $(window).scroll(_.debounce(_.bind(this.scrolled, this),10));        
+      if (Modernizr.touch){
+        $(window).on('touchstart touchmove touchend', _.debounce(_.bind(this.scrolled, this),10));      
+      }       
       // Call the original constructor
       Backbone.View.apply(this, arguments);          
     },  

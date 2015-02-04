@@ -23,9 +23,9 @@ define([
       // bind to window
       $(window).scroll(_.debounce(_.bind(this.scrolled, this),10));
       $(window).resize(_.debounce(_.bind(this.resized, this),1000));
-       if (Modernizr.touch){
-        $(window).on('touchstart touchmove touchend', _.bind(this.scrolled, this));      
-      }
+      if (Modernizr.touch){
+        $(window).on('touchstart touchmove touchend', _.debounce(_.bind(this.scrolled, this),10));      
+      }   
       
       
     },
