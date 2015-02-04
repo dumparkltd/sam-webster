@@ -22,6 +22,7 @@
 .tactics-video{
   display:block;
   padding-bottom: 40px;
+  padding-top: 40px;
 }
 
 .tactic-txt {
@@ -38,9 +39,6 @@
   #tactics-view .frame.skrollable {
     padding-top: 50px;
     padding-bottom: 50px;  
-  }
-  .tactics-video{
-    padding-bottom: 50px;
   }
   .tactic-txt {
     min-height: 90px;
