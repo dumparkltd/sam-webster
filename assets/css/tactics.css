@@ -15,20 +15,43 @@
 }
 
 #tactics-view .frame.skrollable {
-  padding-top: 50px;
-  padding-bottom: 50px;  
+  padding-top: 40px;
+  padding-bottom: 40px;  
 }
 
 .tactics-video{
   display:block;
-  padding-bottom: 50px;
+  padding-bottom: 40px;
 }
-
 
 .tactic-txt {
-  min-height: 90px;
+  min-height: 120px;
   padding-top: 20px;
 }
+  
+.tactic-lgnd{
+ padding-top: 5px;
+ font-size: 14px;
+}  
+
+@media (min-width: 768px) {
+  #tactics-view .frame.skrollable {
+    padding-top: 50px;
+    padding-bottom: 50px;  
+  }
+  .tactics-video{
+    padding-bottom: 50px;
+  }
+  .tactic-txt {
+    min-height: 90px;
+  }
+  .tactic-lgnd{
+   padding-top: 18px;
+  }  
+}
+
+
+
 
 .tactic-txt h5{
   font-size: 20px;
@@ -38,10 +61,7 @@
 }
 
 
-.tactic-lgnd{
- padding-top: 18px;
- font-size: 14px;
-}
+
 
 
 .tactic-dashboard, .tactic-laps{
@@ -164,9 +184,13 @@ cursor: pointer;
 
 .tactic-three-lap-container {
   padding-top:30px;
+  padding-bottom: 80px;
 }
 
 @media (min-width: 768px) {
+  .tactic-three-lap-container {
+    padding-bottom: 200px;
+  }
   .tactic-laps-overview-head {
   }
 }
