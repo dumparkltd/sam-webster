@@ -71,7 +71,7 @@ define([
       }); 
       
       // re-run this once all images have been loaded
-      var $img = this.$('.frames img');      
+      var $img = this.$('img');      
       this.totalImg = $img.length;
       var that = this;
       $img.each(function() {
