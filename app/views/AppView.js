@@ -208,13 +208,14 @@ define([
       var chapter = this.model.getChapterByID(chapter_id);
 //      $('html,body').scrollTop(chapter.view.$el.attr('data-0').split('top:')[1].split('px')[0]);
 //      this.activateChapter(chapter_id);
-      $('html,body').animate({
-          scrollTop: chapter.view.$el.attr('data-0').split('top:')[1].split('px')[0]
-        }, 
-        this.scrollDuration
-      );
+//      $('html,body').animate({
+//          scrollTop: chapter.view.$el.attr('data-0').split('top:')[1].split('px')[0]
+//        }, 
+//        this.scrollDuration
+//      );
+      this.skrollr.setScrollTop(chapter.view.$el.attr('data-0').split('top:')[1].split('px')[0]);
       this.activateChapter(chapter_id);
-      setTimeout(this.model.set('userScrolling', true),1000);
+      this.model.set('userScrolling', true);
     },
     scrollEvent : function (e, args) {
       var default_options = {
