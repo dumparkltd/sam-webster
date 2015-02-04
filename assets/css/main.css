@@ -28,6 +28,7 @@ h1 {
 h2{
   font-size: 24px;
   margin-bottom: 10px;
+  margin-top: 0;
 }
 
 h3 {
@@ -37,7 +38,7 @@ h3 {
 
 h4  {
   font-size: 16px;
-  margin-top: 8px;
+  margin-top: 0;
   margin-bottom: 8px;
 }
 
@@ -55,7 +56,6 @@ h4  {
   }
   h4 {
     font-size: 18px;
-    margin-top: 10px;
     margin-bottom: 10px;
   }
 }
@@ -74,7 +74,7 @@ strong, b, .strong{
     letter-spacing:1px;
 }
 .lead {
-  font-size:18px;
+  font-size:19px;
   font-weight: normal; 
 }
 .browsehappy {
@@ -85,7 +85,13 @@ strong, b, .strong{
 }
 
 a.link-page, a.link-page:hover, a.link-page:focus {
+font-family: 'FFDINWebBold', Arial, sans-serif;
+font-weight: normal; 
 color: white;
+text-decoration: none;
+}
+
+a.link-page:hover{
 text-decoration: underline;
 }
 
@@ -170,13 +176,15 @@ p img{
     left: 50%;
     position: absolute;
     z-index: 999;
-    font-size:18px;    
+    font-size:22px; 
+    letter-spacing: 1px;    
 }
 .next-chapter-upper{
-  font-size:22px;
+  
 }
 .next-chapter-lower{
-  margin-bottom:6px;
+  margin-bottom: 9px;
+  margin-top: -6px;
 }
 .next-chapter a {
     color: #051721;

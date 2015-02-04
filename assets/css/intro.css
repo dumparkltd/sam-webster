@@ -4,11 +4,21 @@
 
 #intro-view{
   color:white;
-  background: url("../img/sam_hero.jpg") no-repeat center top; 
+  background: url("../img/sam_hero.jpg") no-repeat 20% top; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+
+@media (min-width: 1200px) {
+  #intro-view {
+    background: url("../img/sam_hero.jpg") no-repeat center top; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
 }
 
 
@@ -26,6 +36,8 @@
 
 
 
+
+
 #intro-view h2 {
   font-family: 'Tungsten A', 'Tungsten B', Arial, sans-serif;
   font-size: 40px;
@@ -40,12 +52,14 @@
   border-top: 1px solid;
   margin-top: 120px;
   padding-top: 10px;
-  margin-right: 30%;
+  line-height: 21px;
 }
 
 .cyclingNZ-img{ 
   display:inline-block;
   vertical-align: top;
+  padding-top: 5px;
+  width:86px;
 }
 
 

@@ -11,7 +11,7 @@
 .timeline-list{
   border-bottom: solid 1px #041720;
   height: 5px;
-  margin: 110px 10% 60px;
+  margin: 110px 5% 60px;
 }
 
 .timeline-list li{
@@ -183,16 +183,16 @@ border-right:none;
 @media (min-width: 768px) {
   #timeline-view .list-group-item{
     font-size: 18px;
-    padding: 15px 15px;
+    padding: 8px 15px;
   }
   #timeline-view .list-group-item .large-medal{
-    top: 15px;
+    top: 9px;
   }
   .timeline-race-type{
-    bottom: 10px;
+    bottom: 5px;
   }
   .timeline-race-type .icon-cyclist-1, .timeline-race-type .icon-cyclist-2{
-    font-size:28px;
+    font-size:25px;
   }
 }
 

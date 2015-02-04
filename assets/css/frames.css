@@ -7,6 +7,10 @@
   width:100%;
 }
 
+.frames-above {
+  padding-top: 50px;
+}
+
 .frames-below{
   position:relative;
   width:100%; 
