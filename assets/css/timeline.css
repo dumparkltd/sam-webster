@@ -10,7 +10,7 @@
 
 @media (min-width: 768px) {
   #timeline-view .frame.skrollable {
-    padding-bottom: 50px;  
+    padding-bottom: 30px;  
   }
 }
 

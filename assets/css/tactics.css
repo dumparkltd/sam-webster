@@ -15,7 +15,7 @@
 }
 
 #tactics-view .frame.skrollable {
-  padding-top: 40px;
+  padding-top: 0px;
   padding-bottom: 40px;  
 }
 
@@ -184,12 +184,12 @@ cursor: pointer;
 
 .tactic-three-lap-container {
   padding-top:30px;
-  padding-bottom: 80px;
+  padding-bottom: 0px;
 }
 
 @media (min-width: 768px) {
   .tactic-three-lap-container {
-    padding-bottom: 200px;
+    padding-bottom: 220px;
   }
   .tactic-laps-overview-head {
   }
