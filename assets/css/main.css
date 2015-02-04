@@ -260,14 +260,14 @@ footer a{
 
 
 .share-buttons {
-    bottom: 34px;
-    opacity:0;
-    position: fixed;
-    right: 113px;
-    z-index:9999;
+    bottom: 34px;    
+    position: fixed;        
+    right:113px;
+    display:none;
 }
 .share-buttons.active {
-    opacity:1;
+    display:block;
+    z-index:9999;
 }
 
 

@@ -56,22 +56,21 @@ define([
       var below_height      = (has_below) ? this.$('.frames-context-below').outerHeight() : 0;      
       this.el_height        = above_height + below_height + this.max_frame_height;   
       if ($(window).height() > this.el_height) {
-        offset_top_position = ($(window).height()-this.el_height)/2;
+        this.offset_top_position = ($(window).height()-this.el_height)/2;
         this.el_height      = (($(window).height()-this.el_height)) + this.el_height;                
-        console.log(this.el_height);
       }           
       this.scrollLength     = this.frames.length * this.options.scroll_distance;      
       var offset_bottom     = offset_top    + this.scrollLength; // the bottom trigger
       var offset_end        = offset_bottom + this.el_height; 
       var offset_top_below  = above_height  + this.max_frame_height ;
       
-      var top_trigger = offset_top - offset_top_position;
+      var top_trigger = offset_top - this.offset_top_position;
       // context above
       if (has_above) {
         this.$('.frames-context-above ')
           .attr('data-0',               'top:'+ offset_top +'px')// before section: set it at top of element
-          .attr('data-' + top_trigger,  'top:'+offset_top_position+'px')// during set it to the top of the element
-          .attr('data-' + offset_bottom,'top:'+offset_top_position+'px')// keep it until the end of section            
+          .attr('data-' + top_trigger,  'top:'+ this.offset_top_position+'px')// during set it to the top of the element
+          .attr('data-' + offset_bottom,'top:'+ this.offset_top_position+'px')// keep it until the end of section            
           .attr('data-' + offset_end,   'top:-'+ this.el_height +'px');// move out of view
       }
       if (has_below) {
@@ -99,19 +98,19 @@ define([
         frame.$frame
           .attr('data-0',
                 'top:'  + (offset_top_frame + above_height) +'px;display:' + display_top)
-          .attr('data-' + (offset_top_frame - offset_top_position), 
-                'top:'  + (above_height + offset_top_position) + 'px;display:block')
+          .attr('data-' + (offset_top_frame - that.offset_top_position), 
+                'top:'  + (above_height + that.offset_top_position) + 'px;display:block')
           .attr('data-' + (offset_top_frame_new), 
-                'top:'  + (above_height + offset_top_position) + 'px')
-          .attr('data-' + (offset_top_frame_new - offset_top_position), 
+                'top:'  + (above_height + that.offset_top_position) + 'px')
+          .attr('data-' + (offset_top_frame_new - that.offset_top_position), 
                 'display:' + display_bottom)
           .attr('data-' + offset_end,
                 'top:-' + (that.el_height-above_height)+'px'); 
         //remember skroll-data
         frame.skroll_data.push('data-0');
-        frame.skroll_data.push('data-' + (offset_top_frame - offset_top_position));
+        frame.skroll_data.push('data-' + (offset_top_frame - that.offset_top_position));
         frame.skroll_data.push('data-' + (offset_top_frame_new));        
-        frame.skroll_data.push('data-' + (offset_top_frame_new - offset_top_position));        
+        frame.skroll_data.push('data-' + (offset_top_frame_new - that.offset_top_position));        
         frame.skroll_data.push('data-' + offset_end);
         
         offset_top_frame = offset_top_frame_new;

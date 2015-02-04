@@ -25,7 +25,7 @@ define([
       this.listenTo(this.model, 'change:routeUpdated', this.routeUpdated);         
       
       // bind to window
-      $(window).scroll(_.debounce(_.bind(this.scrolled, this),1));
+      $(window).scroll(_.debounce(_.bind(this.scrolled, this),10));
       $(window).resize(_.debounce(_.bind(this.resized, this),1000));
       
     },
@@ -53,7 +53,8 @@ define([
       }));               
       this.model.addChapter(this.$('#tactics-view').data('id'),new TacticsView({
         el:this.$('#tactics-view'),
-        auto_play:false
+        auto_play:true,
+        play_tolerance:$(window).height()/4
       }));       
       this.model.addChapter(this.$('#prep-view').data('id'),new PrepView({
         el:this.$('#prep-view')
@@ -146,6 +147,7 @@ define([
     routeUpdated : function(){
 //      window._gaq.push(['_trackEvent', 'default', 'default', 'default']);
       var chapter = this.model.getChapter();
+      console.log('routeUpdated '+chapter.id); 
 
       if (typeof chapter !== 'undefined') {
         // scroll to chapter
@@ -158,18 +160,26 @@ define([
 
             chapter.view.goToFrame(that.model.get('frame-id'),
             that.scrollDuration, //duration
-            function(){            
+            function(){  
               // then inside chapter scroll to frame             
-              that.model.set('userScrolling', true);            
+              setTimeout(function(){
+                that.activateChapter(that.getChapterByPosition());
+                that.model.set('userScrolling', true);                          
+              },that.scrollDuration);            
             });                      
         } else {
           $('html,body').animate({
             scrollTop: chapter.view.$el.offset().top
           }, 
           that.scrollDuration, //duration
-          function(){            
-            // then inside chapter scroll to frame             
-            that.model.set('userScrolling', true);            
+          function(){        
+            // then inside chapter scroll to frame   
+            that.activateChapter(that.getChapterByPosition());
+            // as this callback seems to be fired early lets wait again and reset chapter
+            setTimeout(function(){
+              that.activateChapter(that.getChapterByPosition());
+              that.model.set('userScrolling', true);                          
+            },that.scrollDuration);            
           });
         }            
 
@@ -178,34 +188,37 @@ define([
       }           
     },   
     nextChapter : function(e){
-      e.preventDefault();
+      e.preventDefault();      
       $(this.el).trigger('updateRouteEvent',{route:this.model.getNextChapterID()});     
     },   
     scrolled : function(){
-      this.activateChapter(this.getChapterByPosition());
+      if (this.model.get('userScrolling')) {      
+        this.activateChapter(this.getChapterByPosition());
+      }
     },
     activateChapter:function(chapterID){
       this.$('.nav li').removeClass('active');
       this.$('.nav li#nav-'+chapterID).addClass('active');      
       if (this.model.get('userScrolling')) {        
-         // remember current chapter    
-         this.model.set('chapter-id',chapterID);
-         this.model.get('router').navigate(chapterID,{trigger:false}); 
-         this.$el.removeClass (function (index, css) {
+        // remember current chapter    
+        this.model.set('chapter-id',chapterID);
+        this.model.get('router').navigate(chapterID,{trigger:false}); 
+        this.$el.removeClass (function (index, css) {
           return (css.match (/(^|\s)chapter-\S+/g) || []).join(' ');
         });
         this.$el.addClass('chapter-'+chapterID);
       }
     },
-    getChapterByPosition : function(){           
+    getChapterByPosition : function(){ 
       var chapterID = this.model.get('chapter-id');
       this.$('section.chapter').each(function(index){
-        var scrollTolerance = $(window).height()/2;
-        if ($(document).scrollTop() >= $(this).offset().top - scrollTolerance) {
+        var scrollTolerance = $(window).height()/4;
+        if ($(document).scrollTop() >= $(this).offset().top - scrollTolerance) {          
           // chapter is in view  
-          chapterID = $(this).data('id');
+          chapterID = $(this).data('id');  
         }
       });      
+      
       return chapterID;
     },
     
@@ -224,7 +237,8 @@ define([
       if ($(e.originalEvent.target).attr('href').split('#')[1] === this.model.get('chapter-id')) {
         e.preventDefault();
         $(this.el).trigger('scrollEvent',{
-          offset: this.model.getChapter().view.$el.offset().top
+          offset: this.model.getChapter().view.$el.offset().top,
+          callback:_.bind(this.scrolled,this),
         });                
       }
     },
@@ -233,6 +247,9 @@ define([
         duration : 0
       };
       var options = $.extend(true, default_options, args);       
+
+      console.log('scrollEvent '+options.duration); 
+      
       $('html,body').animate({
         scrollTop: options.offset
       }, 

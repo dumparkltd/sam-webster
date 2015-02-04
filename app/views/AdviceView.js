@@ -29,7 +29,7 @@ define([
               + this.framesView.getHeight();
     },              
     offsetSkroll: function(offset_top){
-      console.log('advice offsetSkroll ' + offset_top);
+
       this.framesView.setupFrames(offset_top + this.$('.frames-above').outerHeight());;
       
       this.removeSkrollData();
