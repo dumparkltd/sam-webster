@@ -15,7 +15,7 @@ define([
     initialize : function(options){
       this.options = options || {};      
       
-      this.scrollDuration = 200;
+      this.scrollDuration = 0;
       if (Modernizr.touch){
         this.scrollDuration = 0;
       }
@@ -46,7 +46,10 @@ define([
       this.$el.html(template);      
       this.$('.fill-screen').each(function(){
         $(this).css('min-height',$(window).height());
-      });           
+      });   
+      if ($(window).height() < 800) {
+        this.$el.addClass('low-screen');
+      }
       // init subviews
       this.model.addChapter(this.$('#intro-view').data('id'),new IntroView({
         el:this.$('#intro-view')
@@ -171,19 +174,26 @@ define([
               },that.scrollDuration);            
             });                      
         } else {
-          $('html,body').animate({
-            scrollTop: chapter.view.$el.offset().top
-          }, 
-          that.scrollDuration, //duration
-          function(){        
-            // then inside chapter scroll to frame   
-            that.activateChapter(that.getChapterByPosition());
-            // as this callback seems to be fired early lets wait again and reset chapter
+//          $('html,body').animate({
+//            scrollTop: chapter.view.$el.offset().top
+//          }, 
+//          that.scrollDuration, //duration
+//          function(){        
+//            // then inside chapter scroll to frame   
+////            that.activateChapter(that.getChapterByPosition());
+//            // as this callback seems to be fired early lets wait again and reset chapter
+//            setTimeout(function(){
+//              that.activateChapter(that.getChapterByPosition());
+//              that.model.set('userScrolling', true);                          
+//            },that.scrollDuration);            
+//          });
+            $('html,body').scrollTop(chapter.view.$el.offset().top);
+//            that.activateChapter(that.getChapterByPosition());
+//            that.model.set('userScrolling', true);    
             setTimeout(function(){
               that.activateChapter(that.getChapterByPosition());
               that.model.set('userScrolling', true);                          
-            },that.scrollDuration);            
-          });
+            },1000);
         }            
 
       } else {
@@ -228,6 +238,9 @@ define([
       this.$('.fill-screen').each(function(){
         $(this).css('min-height',$(window).height());
       });          
+      if ($(window).height() < 800) {
+        this.$el.addClass('low-screen');
+      }      
       this.initSkrollr();
       this.skrollr.refresh();      
       this.activateChapter(this.getChapterByPosition());           
@@ -255,12 +268,14 @@ define([
       };
       var options = $.extend(true, default_options, args);       
       
-      $('html,body').animate({
-        scrollTop: options.offset
-      }, 
-      options.duration,
-      options.callback
-    );
+//      $('html,body').animate({
+//          scrollTop: options.offset
+//        }, 
+//        options.duration,
+//        options.callback
+//      );
+//      $('html,body').scrollTop(options.offset);        
+      $('html,body').scrollTop(options.offset);        
     },    
     updateRoute : function (e, args) {
       this.model.get('router').navigate(args.route,{trigger:true});
