@@ -19,6 +19,6 @@ require([
   'analytics',
   'utils'
 ], function(App,analytics,utils){
-  //analytics.track('');
+  analytics.track('UA-59355441-1');
   App.initialize();
 });

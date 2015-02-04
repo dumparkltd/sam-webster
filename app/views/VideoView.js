@@ -75,6 +75,8 @@ define([
           this.playing = false;          
         };
       }
+      window._gaq.push(['_trackEvent', 'video', 'video-'+e.target.d.id, 'state-'+e.data]);
+      
     },
     getPlayer : function(id){
       var player = false;

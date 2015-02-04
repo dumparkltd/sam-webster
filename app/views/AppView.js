@@ -169,7 +169,8 @@ define([
         return (css.match (/(^|\s)chapter-\S+/g) || []).join(' ');
       });
       this.$el.addClass('chapter-'+chapterID);
-//      }
+      window._gaq.push(['_trackEvent', 'chapter', 'chapter-'+chapterID, '']);
+      
     },
     getChapterByPosition : function(){ 
       var chapterID = this.model.get('chapter-id');
@@ -206,13 +207,7 @@ define([
       this.$('.share-buttons').removeClass('active');      
       var chapter_id = $(e.originalEvent.target).attr('href').split('#')[1];
       var chapter = this.model.getChapterByID(chapter_id);
-//      $('html,body').scrollTop(chapter.view.$el.attr('data-0').split('top:')[1].split('px')[0]);
-//      this.activateChapter(chapter_id);
-//      $('html,body').animate({
-//          scrollTop: chapter.view.$el.attr('data-0').split('top:')[1].split('px')[0]
-//        }, 
-//        this.scrollDuration
-//      );
+
       this.skrollr.setScrollTop(chapter.view.$el.attr('data-0').split('top:')[1].split('px')[0]);
       this.activateChapter(chapter_id);
       this.model.set('userScrolling', true);
@@ -222,15 +217,7 @@ define([
         duration : 0
       };
       var options = $.extend(true, default_options, args);       
-      this.skrollr.setScrollTop(options.offset);      
-//      $('html,body').animate({
-//          scrollTop: options.offset
-//        }, 
-//        options.duration,
-//        options.callback
-//      );
-//      $('html,body').scrollTop(options.offset);        
-//      $('html,body').scrollTop(options.offset);        
+      this.skrollr.setScrollTop(options.offset);            
     },    
     updateRoute : function (e, args) {
       this.model.get('router').navigate(args.route,{trigger:true});
