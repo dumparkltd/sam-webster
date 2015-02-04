@@ -169,9 +169,10 @@ define([
     },
     getChapterByPosition : function(){ 
       var chapterID = this.model.get('chapter-id');
+      var that = this;
       this.$('section.chapter').each(function(index){
         var scrollTolerance = $(window).height()/4;
-        if ($(document).scrollTop() >= $(this).attr('data-0').split('top:')[1].split('px')[0] - scrollTolerance) {          
+        if (that.skrollr.getScrollTop() >= $(this).attr('data-0').split('top:')[1].split('px')[0] - scrollTolerance) {          
           // chapter is in view  
           chapterID = $(this).data('id');  
         }
