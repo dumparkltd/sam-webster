@@ -222,13 +222,13 @@ define([
         duration : 0
       };
       var options = $.extend(true, default_options, args);       
-      
-      $('html,body').animate({
-          scrollTop: options.offset
-        }, 
-        options.duration,
-        options.callback
-      );
+      this.skrollr.setScrollTop(options.offset);      
+//      $('html,body').animate({
+//          scrollTop: options.offset
+//        }, 
+//        options.duration,
+//        options.callback
+//      );
 //      $('html,body').scrollTop(options.offset);        
 //      $('html,body').scrollTop(options.offset);        
     },    
