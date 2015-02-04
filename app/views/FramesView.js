@@ -21,6 +21,8 @@ define([
       this.el_height = 0;
       this.scrollLength = 0;
       this.offset_top_position = 0;
+      this.above_height = 0;
+      this.offset_top = 0;
       this.skroll_data = [];            
       
       $(window).scroll(_.debounce(_.bind(this.scrolled, this),1));  
@@ -33,7 +35,7 @@ define([
     },
     setupFrames : function(offset_top){      
       offset_top = typeof offset_top !== 'undefined' ? offset_top :this.options.offset_top;  
-      
+      this.offset_top = offset_top;
       var has_above = this.$('.frames-context-above').length > 0;
       var has_below = this.$('.frames-context-above').length > 0;
       
@@ -52,9 +54,9 @@ define([
         that.max_frame_height = Math.max(that.max_frame_height,$(this).outerHeight());
       });
       this.offset_top_position = 0;
-      var above_height      = (has_above) ? this.$('.frames-context-above').outerHeight() : 0;      
+      this.above_height      = (has_above) ? this.$('.frames-context-above').outerHeight() : 0;      
       var below_height      = (has_below) ? this.$('.frames-context-below').outerHeight() : 0;      
-      this.el_height        = above_height + below_height + this.max_frame_height;   
+      this.el_height        = this.above_height + below_height + this.max_frame_height;   
       if ($(window).height() > this.el_height) {
         this.offset_top_position = ($(window).height()-this.el_height)/2;
         this.el_height      = (($(window).height()-this.el_height)) + this.el_height;                
@@ -62,7 +64,7 @@ define([
       this.scrollLength     = this.frames.length * this.options.scroll_distance;      
       var offset_bottom     = offset_top    + this.scrollLength; // the bottom trigger
       var offset_end        = offset_bottom + this.el_height; 
-      var offset_top_below  = above_height  + this.max_frame_height ;
+      var offset_top_below  = this.above_height  + this.max_frame_height ;
       
       var top_trigger = offset_top - this.offset_top_position;
       // context above
@@ -97,15 +99,15 @@ define([
         var display_bottom  = (index+1 === that.frames.length) ? 'block' : 'none';
         frame.$frame
           .attr('data-0',
-                'top:'  + (offset_top_frame + above_height) +'px;display:' + display_top)
+                'top:'  + (offset_top_frame + that.above_height) +'px;display:' + display_top)
           .attr('data-' + (offset_top_frame - that.offset_top_position), 
-                'top:'  + (above_height + that.offset_top_position) + 'px;display:block')
+                'top:'  + (that.above_height + that.offset_top_position) + 'px;display:block')
           .attr('data-' + (offset_top_frame_new), 
-                'top:'  + (above_height + that.offset_top_position) + 'px')
+                'top:'  + (that.above_height + that.offset_top_position) + 'px')
           .attr('data-' + (offset_top_frame_new - that.offset_top_position), 
                 'display:' + display_bottom)
           .attr('data-' + offset_end,
-                'top:-' + (that.el_height-above_height)+'px'); 
+                'top:-' + (that.el_height - that.above_height)+'px'); 
         //remember skroll-data
         frame.skroll_data.push('data-0');
         frame.skroll_data.push('data-' + (offset_top_frame - that.offset_top_position));
@@ -165,12 +167,13 @@ define([
     goToFrame : function(frameIndex, duration) {
       if (typeof this.frames[frameIndex] !== 'undefined') {
         $(this.el).trigger('scrollEvent',{
-          offset:   this.$el.offset().top 
-                  + this.offset_top_position
-                  + (this.options.scroll_distance * (frameIndex+0.5)),
-          duration: typeof duration !== 'undefined' ? duration : 0,
-          callback: setTimeout(_.bind(this.scrolled, this),1000)
+          offset: this.offset_top 
+            + (frameIndex + 0.5)*this.options.scroll_distance 
+            - this.offset_top_position,
+          duration: typeof duration !== 'undefined' ? duration : 0
         });
+        this.$('.frame-nav .frame-link').removeClass('active');
+        this.$('.frame-nav .frame-link-'+frameIndex).addClass('active');           
       } 
     },            
     

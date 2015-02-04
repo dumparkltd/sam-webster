@@ -15,7 +15,7 @@ define([
     initialize : function(options){
       this.options = options || {};      
       
-      this.scrollDuration = 0;
+      this.scrollDuration = 300;
       if (Modernizr.touch){
         this.scrollDuration = 0;
       }
@@ -24,7 +24,7 @@ define([
       this.skroll_data = [];
       this.render();  
           
-      this.listenTo(this.model, 'change:routeUpdated', this.routeUpdated);         
+//      this.listenTo(this.model, 'change:routeUpdated', this.routeUpdated);         
       
       // bind to window
       $(window).scroll(_.debounce(_.bind(this.scrolled, this),10));
@@ -152,60 +152,8 @@ define([
       this.skroll_data = [];      
     },               
     // NAV HANDLERS ///////////////////////////////                
-    routeUpdated : function(){
-//      window._gaq.push(['_trackEvent', 'default', 'default', 'default']);
-      var chapter = this.model.getChapter();
-      console.log('routeUpdated '+chapter.id); 
 
-      if (typeof chapter !== 'undefined') {
-        // scroll to chapter
-        var that = this;
-        this.model.set('userScrolling', false);
-
-        if (typeof chapter.view.hasFramesView !== 'undefined' 
-              && chapter.view.hasFramesView 
-              && that.model.get('frame-id') !== '') {
-
-            chapter.view.goToFrame(that.model.get('frame-id'),
-            that.scrollDuration, //duration
-            function(){  
-              // then inside chapter scroll to frame             
-              setTimeout(function(){
-                that.activateChapter(that.getChapterByPosition());
-                that.model.set('userScrolling', true);                          
-              },that.scrollDuration);            
-            });                      
-        } else {
-//          $('html,body').animate({
-//            scrollTop: chapter.view.$el.offset().top
-//          }, 
-//          that.scrollDuration, //duration
-//          function(){        
-//            // then inside chapter scroll to frame   
-////            that.activateChapter(that.getChapterByPosition());
-//            // as this callback seems to be fired early lets wait again and reset chapter
-//            setTimeout(function(){
-//              that.activateChapter(that.getChapterByPosition());
-//              that.model.set('userScrolling', true);                          
-//            },that.scrollDuration);            
-//          });
-            $('html,body').scrollTop(chapter.view.$el.offset().top);
-//            that.activateChapter(that.getChapterByPosition());
-//            that.model.set('userScrolling', true);    
-            setTimeout(function(){
-              that.activateChapter(that.getChapterByPosition());
-              that.model.set('userScrolling', true);                          
-            },1000);
-        }            
-
-      } else {
-        this.resetApp();
-      }           
-    },   
-    nextChapter : function(e){
-      e.preventDefault();      
-      $(this.el).trigger('updateRouteEvent',{route:this.model.getNextChapterID()});     
-    },   
+  
     scrolled : function(){
       if (this.model.get('userScrolling')) {      
         this.activateChapter(this.getChapterByPosition());
@@ -214,21 +162,17 @@ define([
     activateChapter:function(chapterID){
       this.$('.nav li').removeClass('active');
       this.$('.nav li#nav-'+chapterID).addClass('active');      
-      if (this.model.get('userScrolling')) {        
-        // remember current chapter    
-        this.model.set('chapter-id',chapterID);
-        this.model.get('router').navigate(chapterID,{trigger:false}); 
-        this.$el.removeClass (function (index, css) {
-          return (css.match (/(^|\s)chapter-\S+/g) || []).join(' ');
-        });
-        this.$el.addClass('chapter-'+chapterID);
-      }
+      this.$el.removeClass (function (index, css) {
+        return (css.match (/(^|\s)chapter-\S+/g) || []).join(' ');
+      });
+      this.$el.addClass('chapter-'+chapterID);
+//      }
     },
     getChapterByPosition : function(){ 
       var chapterID = this.model.get('chapter-id');
       this.$('section.chapter').each(function(index){
         var scrollTolerance = $(window).height()/4;
-        if ($(document).scrollTop() >= $(this).offset().top - scrollTolerance) {          
+        if ($(document).scrollTop() >= $(this).attr('data-0').split('top:')[1].split('px')[0] - scrollTolerance) {          
           // chapter is in view  
           chapterID = $(this).data('id');  
         }
@@ -253,18 +197,22 @@ define([
     
     // EVENT HANDLERS ////////////////////////////////////////////////////////////////
     goToChapter : function (e){
+      e.preventDefault();
+      this.model.set('userScrolling', false);
       this.$('aside').removeClass('open'); 
       this.$('.share-buttons').removeClass('active');      
-      this.model.set('userScrolling',false);
-      
-      if ($(e.originalEvent.target).attr('href').split('#')[1] === this.model.get('chapter-id')) {
-        e.preventDefault();
-        $(this.el).trigger('scrollEvent',{
-          offset: this.model.getChapter().view.$el.offset().top,
-          callback:_.bind(this.scrolled,this),
-        });                
-      }
-      
+      var chapter_id = $(e.originalEvent.target).attr('href').split('#')[1];
+      var chapter = this.model.getChapterByID(chapter_id);
+//      $('html,body').scrollTop(chapter.view.$el.attr('data-0').split('top:')[1].split('px')[0]);
+//      this.activateChapter(chapter_id);
+      $('html,body').animate({
+          scrollTop: chapter.view.$el.attr('data-0').split('top:')[1].split('px')[0]
+        }, 
+        this.scrollDuration
+      );
+      this.activateChapter(chapter_id);
+      console.log(this.model.get('userScrolling'));
+      setTimeout(this.model.set('userScrolling', true),1000);
     },
     scrollEvent : function (e, args) {
       var default_options = {
@@ -272,21 +220,18 @@ define([
       };
       var options = $.extend(true, default_options, args);       
       
-//      $('html,body').animate({
-//          scrollTop: options.offset
-//        }, 
-//        options.duration,
-//        options.callback
-//      );
+      $('html,body').animate({
+          scrollTop: options.offset
+        }, 
+        options.duration,
+        options.callback
+      );
 //      $('html,body').scrollTop(options.offset);        
-      $('html,body').scrollTop(options.offset);        
+//      $('html,body').scrollTop(options.offset);        
     },    
     updateRoute : function (e, args) {
       this.model.get('router').navigate(args.route,{trigger:true});
-    },    
-    resetApp : function(){
-      $(this.el).trigger('updateRouteEvent',{route:'start'});
-    },    
+    },            
     toggleShare : function(e){
       e.preventDefault();
       this.$('.share-buttons').toggleClass('active');
