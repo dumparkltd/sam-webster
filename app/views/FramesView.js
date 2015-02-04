@@ -170,10 +170,10 @@ define([
           offset: this.offset_top 
             + (frameIndex + 0.5)*this.options.scroll_distance 
             - this.offset_top_position,
-          duration: typeof duration !== 'undefined' ? duration : 0
-        });
-        this.$('.frame-nav .frame-link').removeClass('active');
-        this.$('.frame-nav .frame-link-'+frameIndex).addClass('active');           
+          duration: typeof duration !== 'undefined' ? duration : 0,
+          callback: setTimeout(_.bind(this.scrolled, this),200)
+        });          
+        
       } 
     },            
     
