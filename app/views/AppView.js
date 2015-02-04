@@ -36,6 +36,7 @@ define([
       "click .toggle-share" : "toggleShare",      
       "click .next-chapter a" : "nextChapter",      
       "click .nav a" : "goToChapter",      
+      "click .navbar-toggle" : "navbarToggle",      
       "resetAppEvent" : "resetApp"
     },      
     render: function(){     
@@ -234,6 +235,7 @@ define([
     
     // EVENT HANDLERS ////////////////////////////////////////////////////////////////
     goToChapter : function (e){
+      this.$('aside').removeClass('open'); 
       if ($(e.originalEvent.target).attr('href').split('#')[1] === this.model.get('chapter-id')) {
         e.preventDefault();
         $(this.el).trigger('scrollEvent',{
@@ -241,6 +243,7 @@ define([
           callback:_.bind(this.scrolled,this),
         });                
       }
+      
     },
     scrollEvent : function (e, args) {
       var default_options = {
@@ -267,6 +270,11 @@ define([
       e.preventDefault();
       this.$('.share-buttons').toggleClass('active');
       this.$('.toggle-share').toggleClass('active');
+    },    
+    navbarToggle : function(e){
+      e.preventDefault();
+      this.$('aside').toggleClass('open');  
+      this.$('.share-buttons').toggleClass('active');      
     },    
     
   });
