@@ -14,21 +14,19 @@ define([
   var AppView = Backbone.View.extend({    
     initialize : function(options){
       this.options = options || {};      
-      
-      this.scrollDuration = 300;
-      if (Modernizr.touch){
-        this.scrollDuration = 0;
-      }
+           
       this.img_loaded = false;
       this.totalImg = 0;
       this.skroll_data = [];
       this.render();  
-          
-//      this.listenTo(this.model, 'change:routeUpdated', this.routeUpdated);         
-      
+                
       // bind to window
       $(window).scroll(_.debounce(_.bind(this.scrolled, this),10));
       $(window).resize(_.debounce(_.bind(this.resized, this),1000));
+       if (Modernizr.touch){
+        $(window).on('touchstart touchmove touchend', _.bind(this.scrolled, this));      
+      }
+      
       
     },
     events : {
