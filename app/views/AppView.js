@@ -36,7 +36,6 @@ define([
       "scrollEvent" : "scrollEvent",    
       "click .resetApp" : "resetApp",      
       "click .toggle-share" : "toggleShare",      
-      "click .next-chapter a" : "nextChapter",      
       "click .nav a" : "goToChapter",      
       "click .navbar-toggle" : "navbarToggle",      
       "resetAppEvent" : "resetApp"
@@ -204,8 +203,12 @@ define([
       e.preventDefault();
       this.model.set('userScrolling', false);
       this.$('aside').removeClass('open'); 
-      this.$('.share-buttons').removeClass('active');      
-      var chapter_id = $(e.originalEvent.target).attr('href').split('#')[1];
+      this.$('.share-buttons').removeClass('active');  
+      if (typeof $(e.originalEvent.target).attr('href') !== 'undefined') {
+        var chapter_id = $(e.originalEvent.target).attr('href').split('#')[1];
+      } else {
+        var chapter_id = $(e.originalEvent.target).parent().attr('href').split('#')[1];
+      }
       var chapter = this.model.getChapterByID(chapter_id);
 
       this.skrollr.setScrollTop(chapter.view.$el.attr('data-0').split('top:')[1].split('px')[0]);
