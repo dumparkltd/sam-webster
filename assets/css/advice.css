@@ -36,8 +36,22 @@
   text-transform:uppercase;
 }
 
+
 .advice-training-txt{
+  text-align: center;
   margin-top: 28px;
 }
+.advice-training-programme-img{
+  margin:0 auto;
+}
+
+@media (min-width: 768px) {
+  .advice-training-txt{
+    text-align: left;
+  }
+  .advice-training-programme-img{
+    margin:0 0;
+  }
+} 
 
 
