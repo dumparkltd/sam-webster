@@ -2,12 +2,12 @@ define([
   'jquery','underscore','backbone', // helper
   'skrollr',
   'views/IntroView','views/TacticsView','views/TimelineView',
-  'views/PrepView','views/AdviceView','views/WinView',//subviews
+  'views/PrepView','views/AdviceView',//'views/WinView',//subviews
   'text!templates/appTemplate.html'//templates
 ], function(
   $, _, Backbone,
   skrollr,
-  IntroView, TacticsView, TimelineView, PrepView, AdviceView, WinView,
+  IntroView, TacticsView, TimelineView, PrepView, AdviceView,
   template
 ){
 
@@ -67,9 +67,9 @@ define([
       this.model.addChapter(this.$('#advice-view').data('id'),new AdviceView({
         el:this.$('#advice-view')     
       }));
-      this.model.addChapter(this.$('#win-view').data('id'),new WinView({
-        el:this.$('#win-view')  
-      }));  
+//      this.model.addChapter(this.$('#win-view').data('id'),new WinView({
+//        el:this.$('#win-view')  
+//      }));  
       
       this.initSkrollr();
       this.skrollr = skrollr.init({

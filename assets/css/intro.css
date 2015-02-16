@@ -80,3 +80,6 @@
 }
 
 
+.low-screen #intro-view .lead {
+  display:none;
+}
