@@ -224,8 +224,6 @@ text!templates/adviceNutritionFramesTemplate.html
 app/views/AdviceNutritionFramesView.js
 text!templates/adviceTemplate.html
 app/views/AdviceView.js
-text!templates/winTemplate.html
-app/views/WinView.js
 text!templates/appTemplate.html
 app/views/AppView.js
 app/router.js
