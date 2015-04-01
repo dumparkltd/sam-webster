@@ -8,19 +8,19 @@ define([
     initialize : function(){
       this.players = [
         {
-          player_id:'jX4F1RB9NXQ',
+          player_id:'zmsq8YVr0hI',
           player_el:'prep-player-1'
         },       
         {
-          player_id:'A1PVxgXERfE',
+          player_id:'yobJ6-hecCk',
           player_el:'prep-player-2'
         },       
         {
-          player_id:'aIDdSFrCMko',
+          player_id:'f9sKY_rwHFI',
           player_el:'prep-player-3'
         },       
         {
-          player_id:'Z9PVZErN45g',
+          player_id:'wShIQOMSzcM',
           player_el:'prep-player-4'
         },       
       ];
